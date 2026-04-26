@@ -1,21 +1,17 @@
 /*
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
  * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  *
  */
 
@@ -66,13 +62,14 @@ public class DeviceResource {
     private UnsecureDAO unsecureDAO;
 
     /**
-     * <p>A constructor required by Swagger.</p>
+     * <p>
+     * A constructor required by Swagger.
+     * </p>
      */
     public DeviceResource() {}
 
     @Inject
-    public DeviceResource(
-            DeviceDAO deviceDAO,
+    public DeviceResource(DeviceDAO deviceDAO,
             ConfigurationDAO configurationDAO,
             PushService pushService,
             ConfigurationFileDAO configurationFileDAO,
@@ -111,13 +108,12 @@ public class DeviceResource {
             }
 
             if (!configIdToApplicationsMap.containsKey(deviceConfigurationId)) {
-                configIdToApplicationsMap.put(
-                        deviceConfigurationId,
+                configIdToApplicationsMap.put(deviceConfigurationId,
                         this.configurationDAO.getConfigurationApplications(deviceConfigurationId));
             }
             if (!configIdToFilesMap.containsKey(deviceConfigurationId)) {
-                configIdToFilesMap.put(
-                        deviceConfigurationId, this.configurationFileDAO.getConfigurationFiles(deviceConfigurationId));
+                configIdToFilesMap.put(deviceConfigurationId,
+                        this.configurationFileDAO.getConfigurationFiles(deviceConfigurationId));
             }
 
             if (!configIdToConfigurationsMap.containsKey(deviceConfigurationId)) {
@@ -125,8 +121,8 @@ public class DeviceResource {
                 Configuration configuration = new Configuration();
                 configuration.setId(deviceConfigurationId);
                 configuration.setName(device.getConfigName());
-                if (dbConfig.getMainAppId() != null
-                        && dbConfig.getMainAppId() > 0
+                configuration.setPermissive(dbConfig.getPermissive());
+                if (dbConfig.getMainAppId() != null && dbConfig.getMainAppId() > 0
                         && dbConfig.getEventReceivingComponent() != null
                         && dbConfig.getEventReceivingComponent().length() > 0) {
                     configuration.setQrCodeKey(dbConfig.getQrCodeKey());
@@ -141,8 +137,7 @@ public class DeviceResource {
             device.setConfiguration(configIdToConfigurationsMap.get(deviceConfigurationId));
         }
 
-        final List<DeviceView> deviceViews = devices.getItems().stream()
-                .filter(d -> d.getConfigurationId() != null)
+        final List<DeviceView> deviceViews = devices.getItems().stream().filter(d -> d.getConfigurationId() != null)
                 .map(DeviceView::new)
                 .collect(Collectors.toList());
         PaginatedData<DeviceView> devicesPage = new PaginatedData<>(deviceViews, devices.getTotalItemsCount());
@@ -157,7 +152,8 @@ public class DeviceResource {
     @GET
     @Path("/number/{number}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDevice(@PathParam("number") @Parameter(description = "Device number") String number) {
+    public Response getDevice(
+            @PathParam("number") @Parameter(description = "Device number") String number) {
         try {
             Device device = this.deviceDAO.getDeviceByNumber(number);
             DeviceView deviceView = new DeviceView(device);
@@ -170,7 +166,9 @@ public class DeviceResource {
 
     // =================================================================================================================
     /**
-     * <p>Gets the list of device ids/names matching the specified string filter for autocompletions.</p>
+     * <p>
+     * Gets the list of device ids/names matching the specified string filter for autocompletions.
+     * </p>
      *
      * @param filter a filter to be used for filtering the records.
      *
@@ -191,8 +189,7 @@ public class DeviceResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Create or update device",
+    @Operation(summary = "Create or update device",
             description = "Create a new device (if id is not provided) or update existing one otherwise.")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -223,7 +220,7 @@ public class DeviceResource {
                 if (device.getId() != null) {
                     if (dbDevice != null) {
                         boolean notify = (dbDevice.getConfigurationId() != null
-                                        && !dbDevice.getConfigurationId().equals(device.getConfigurationId()))
+                                && !dbDevice.getConfigurationId().equals(device.getConfigurationId()))
                                 || (dbDevice.getOldNumber() == null && device.getOldNumber() != null);
                         this.deviceDAO.updateDevice(device);
                         if (notify) {
@@ -272,7 +269,8 @@ public class DeviceResource {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response removeDevice(@PathParam("id") @Parameter(description = "Device ID") Integer id) {
+    public Response removeDevice(
+            @PathParam("id") @Parameter(description = "Device ID") Integer id) {
         final boolean canEditDevices = SecurityContext.get().hasPermission("edit_devices");
 
         if (!(canEditDevices)) {
@@ -354,13 +352,12 @@ public class DeviceResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Get device application settings",
-            description = "Get application settings set at device level")
+    @Operation(summary = "Get device application settings", description = "Get application settings set at device level")
     @GET
     @Path("/{id}/applicationSettings")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDeviceApplicationSettings(@PathParam("id") @Parameter(description = "Device ID") Integer id) {
+    public Response getDeviceApplicationSettings(
+            @PathParam("id") @Parameter(description = "Device ID") Integer id) {
         try {
             final List<ApplicationSetting> deviceApplicationSettings = this.deviceDAO.getDeviceApplicationSettings(id);
             return Response.OK(deviceApplicationSettings);
@@ -371,9 +368,7 @@ public class DeviceResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Save device application settings",
-            description = "Save application settings set at device level")
+    @Operation(summary = "Save device application settings", description = "Save application settings set at device level")
     @POST
     @Path("/{id}/applicationSettings")
     @Produces(MediaType.APPLICATION_JSON)
@@ -390,9 +385,7 @@ public class DeviceResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Notify device on update",
-            description = "Sends a notification to device on application settings update")
+    @Operation(summary = "Notify device on update", description = "Sends a notification to device on application settings update")
     @POST
     @Path("/{id}/applicationSettings/notify")
     @Produces(MediaType.APPLICATION_JSON)
@@ -412,7 +405,8 @@ public class DeviceResource {
     @Path("/{id}/description")
     @Produces(MediaType.APPLICATION_JSON)
     public Response saveDeviceDescription(
-            @PathParam("id") @Parameter(description = "Device ID") Integer deviceId, String newDeviceDescription) {
+            @PathParam("id") @Parameter(description = "Device ID") Integer deviceId,
+            String newDeviceDescription) {
         try {
             final boolean canEditDeviceDescription = SecurityContext.get().hasPermission("edit_device_desc");
 

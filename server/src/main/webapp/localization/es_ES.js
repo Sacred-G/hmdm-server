@@ -1,6 +1,6 @@
-if (! document.localization) document.localization = [];
+if (!document.localization) document.localization = [];
 
-document.localization ['es_ES'] = {
+document.localization['es_ES'] = {
     'login.username': 'Usuario o Email',
     'login.username.placeholder': 'Ingrese su usuario o email',
     'login.password': 'Contraseña:',
@@ -410,26 +410,26 @@ document.localization ['es_ES'] = {
     'form.configuration.settings.apps.permissions.ask.location': 'Otorgar todo automáticamente, solicitar al usuario el permiso de ubicación',
     'form.configuration.settings.apps.permissions.deny.location': 'Otorgar todo automáticamente, no otorgar permiso de ubicación',
     'form.configuration.settings.apps.permissions.ask.all': 'Preguntar al usuario por todos los permisos',
-    'form.configuration.settings.push.options' : 'Notificaciones Emergentes',
-    'form.configuration.settings.push.options.mqtt.worker' : 'Protocolo MQTT (ahorra bateria)',
-    'form.configuration.settings.push.options.mqtt.alarm' : 'Protocolo MQTT',
-    'form.configuration.settings.push.options.polling' : 'HTTP polling',
-    'form.configuration.settings.push.options.mqtt.worker.hint' : 'Entrega mensajes Push instantáneamente cuando el dispositivo está activo. Pero los mensajes pueden demorarse hasta algunas horas en el modo de suspensión. No utilice esta opción en dispositivos independientes. MQTT usa el puerto TCP 31000, habilítelo en su firewall.',
-    'form.configuration.settings.push.options.mqtt.alarm.hint' : 'MQTT es un protocolo liviano que consume recursos mínimos. MQTT usa el puerto TCP 31000, habilítelo en su firewall.',
-    'form.configuration.settings.push.options.polling.hint' : 'El sondeo prolongado mantiene una conexión HTTP que puede consumir más recursos del servidor. No requiere ningún puerto TCP que no sea HTTP(S).',
-    'form.configuration.settings.push.options.keepalive' : 'Mantener vivo el tiempo',
-    'form.configuration.settings.minute.1' : '1 minuto',
-    'form.configuration.settings.minutes.2' : '2 minutos',
-    'form.configuration.settings.minutes.3' : '3 minutos',
-    'form.configuration.settings.minutes.5' : '5 minutos',
-    'form.configuration.settings.minutes.10' : '10 minutos',
-    'form.configuration.settings.minutes.15' : '15 minutos',
-    'form.configuration.settings.password.mode' : 'Requerimientos de contraseña',
-    'form.configuration.settings.password.mode.any' : 'Ninguno',
-    'form.configuration.settings.password.mode.present' : 'Presente Contraseña',
-    'form.configuration.settings.password.mode.easy' : 'Facil (al menos 6 simbolos)',
-    'form.configuration.settings.password.mode.moderate' : 'Moderada (8+ simbolos, letras y digitos)',
-    'form.configuration.settings.password.mode.strong' : 'Fuerte (8+, mayusculas & minusculas, digitos, simbolos)',
+    'form.configuration.settings.push.options': 'Notificaciones Emergentes',
+    'form.configuration.settings.push.options.mqtt.worker': 'Protocolo MQTT (ahorra bateria)',
+    'form.configuration.settings.push.options.mqtt.alarm': 'Protocolo MQTT',
+    'form.configuration.settings.push.options.polling': 'HTTP polling',
+    'form.configuration.settings.push.options.mqtt.worker.hint': 'Entrega mensajes Push instantáneamente cuando el dispositivo está activo. Pero los mensajes pueden demorarse hasta algunas horas en el modo de suspensión. No utilice esta opción en dispositivos independientes. MQTT usa el puerto TCP 31000, habilítelo en su firewall.',
+    'form.configuration.settings.push.options.mqtt.alarm.hint': 'MQTT es un protocolo liviano que consume recursos mínimos. MQTT usa el puerto TCP 31000, habilítelo en su firewall.',
+    'form.configuration.settings.push.options.polling.hint': 'El sondeo prolongado mantiene una conexión HTTP que puede consumir más recursos del servidor. No requiere ningún puerto TCP que no sea HTTP(S).',
+    'form.configuration.settings.push.options.keepalive': 'Mantener vivo el tiempo',
+    'form.configuration.settings.minute.1': '1 minuto',
+    'form.configuration.settings.minutes.2': '2 minutos',
+    'form.configuration.settings.minutes.3': '3 minutos',
+    'form.configuration.settings.minutes.5': '5 minutos',
+    'form.configuration.settings.minutes.10': '10 minutos',
+    'form.configuration.settings.minutes.15': '15 minutos',
+    'form.configuration.settings.password.mode': 'Requerimientos de contraseña',
+    'form.configuration.settings.password.mode.any': 'Ninguno',
+    'form.configuration.settings.password.mode.present': 'Presente Contraseña',
+    'form.configuration.settings.password.mode.easy': 'Facil (al menos 6 simbolos)',
+    'form.configuration.settings.password.mode.moderate': 'Moderada (8+ simbolos, letras y digitos)',
+    'form.configuration.settings.password.mode.strong': 'Fuerte (8+, mayusculas & minusculas, digitos, simbolos)',
     'form.configuration.settings.show.wifi': 'Configuración de WiFi en error de conexión',
     'form.configuration.settings.use.default.launcher': 'Modo en segundo plano',
     'form.configuration.settings.use.default.launcher.hint': 'No reemplaza un iniciador del sistema, solo ejecuta servicios MDM en segundo plano. No se recomienda con el modo quiosco.',
@@ -444,6 +444,7 @@ document.localization ['es_ES'] = {
     'form.configuration.files.action.remove': 'Remover',
     'form.configuration.files.variables': 'Contenido variable',
     'form.configuration.files.variables.hint': 'Las cadenas DEVICE_NUMBER, IMEI, CUSTOM* se reemplazarán por sus valores',
+    'form.application.setting.variables.hint': 'Las cadenas %NUMBER%, %IMEI%, %PHONE%, %DESCRIPTION%, %CUSTOM1%, %CUSTOM2%, %CUSTOM3% se reemplazarán por sus valores',
 
     'form.configuration.file.name': 'Nombre archivo',
     'form.configuration.file.select': 'Seleccionar un archivo',
@@ -451,6 +452,8 @@ document.localization ['es_ES'] = {
     'form.configuration.file.description': 'Descripcion',
     'form.configuration.file.description.placeholder': 'Opcional, para su conveniencia',
     'form.configuration.file.path': 'Ruta al archivo',
+    'form.configuration.file.override.path': 'Anular la ruta',
+    'form.configuration.file.override.path.title': 'Especificar la ruta del dispositivo solo para esta configuración',
     'form.configuration.file.path.placeholder': 'Sin ruta a una unidad, p. Ej. /my-app/image.jpg',
     'form.configuration.file.url': 'URL',
     'form.configuration.file.url.placeholder': 'Si un archivo está alojado en un recurso externo',
@@ -532,7 +535,7 @@ document.localization ['es_ES'] = {
     'form.application.setting.comment': 'Comentario',
     'form.application.setting.type': 'Tipo',
     'form.application.setting.readonly': 'No cambia en el dispositivo',
-    
+
     'form.application.configurations.app': 'Aplicacion',
     'form.application.configurations.configs': 'Configuración',
 
@@ -778,7 +781,7 @@ document.localization ['es_ES'] = {
     'tab.license': 'Licencia',
     'tab.hints': 'Pistas',
     'tab.plugins': 'Plugins',
-    
+
     'tab.configeditor.common.settings': 'Opciones Comunes',
     'tab.configeditor.design.settings': 'Opciones de Diseño',
     'tab.configeditor.applications': 'Aplicaciones',
@@ -840,7 +843,7 @@ document.localization ['es_ES'] = {
     'table.heading.file.description': 'Descripcion del archivo',
     'table.heading.file.action': 'Accion',
     'table.heading.file.lastUpdate': 'Fecha de Creacion',
-    
+
     'table.heading.application.pkg': 'ID del Paquete',
     'table.heading.application.name': 'Nombre Aplicacion',
     'table.heading.application.version': 'Version',
@@ -905,17 +908,17 @@ document.localization ['es_ES'] = {
     'table.heading.common.apps.actions': 'Acciones',
 
     'notfound.devices': 'No hay dispositivos para mostrar.',
-    'notfound.files':' La lista de archivos esta vacia',
+    'notfound.files': ' La lista de archivos esta vacia',
     'notfound.configurations': 'No se encontraron configuraciónes.',
     'notfound.customers': 'No se encontraron organizaciones.',
     'notfound.common.apps': 'No hay aplicaciones para mostrar.',
     'notfound.applications': 'No se encontraron aplicaciones.',
-    'notfound.groups':' No se encontraron grupos. Prueba una consulta diferente',
-    'notfound.users':' No se encontraron usuarios. Prueba una consulta diferente',
+    'notfound.groups': ' No se encontraron grupos. Prueba una consulta diferente',
+    'notfound.users': ' No se encontraron usuarios. Prueba una consulta diferente',
     'notfound.apps.for.display': 'No hay aplicaciones para mostrar.',
     'notfound.app.versions.for.display': 'No hay versiones para mostrar.',
-    'notfound.roles':'La lista de roles está vacía.',
-    'notfound.icons':'La lista de iconos está vacía.',
+    'notfound.roles': 'La lista de roles está vacía.',
+    'notfound.icons': 'La lista de iconos está vacía.',
 
     'format.date.header': 'HH:mm dd/MM/yyyy',
 
@@ -948,9 +951,9 @@ document.localization ['es_ES'] = {
     'breadcrumb.application.versions': 'Versiones',
 
     'app.name': 'Headwind MDM',
-    'app.vendor.name':"h-mdm.com",
-    'app.vendor.link':"https://h-mdm.com",
-    'app.description': 'es la solucion MDM open-source',
+    'app.vendor.name': "h-mdm.com",
+    'app.vendor.link': "https://h-mdm.com",
+    'app.description': '',
     'app.title': '${appName} Panel Web',
 
     'box.show.my.apps.only': 'Mostrar mis aplicaciones solamente',

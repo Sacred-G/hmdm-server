@@ -121,6 +121,8 @@ public class DownloadFilesServlet extends HttpServlet {
                 return;
             }
 
+            // Cross XSS vulnerability fix: prevent opening a potentially malicious file having the MDM domain
+            resp.addHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
             try (InputStream input = new FileInputStream(file);
                     ServletOutputStream outputStream = resp.getOutputStream()) {
                 long length = file.length();
@@ -159,6 +161,8 @@ public class DownloadFilesServlet extends HttpServlet {
                 end = length;
             }
 
+            // Cross XSS vulnerability fix: prevent opening a potentially malicious file having the MDM domain
+            resp.addHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
             resp.setStatus(206);
             resp.setHeader("Content-Range", "bytes " + start + "-" + end + "/" + length);
             long contentLength = end - start;

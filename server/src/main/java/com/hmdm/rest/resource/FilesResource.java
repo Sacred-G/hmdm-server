@@ -1,21 +1,17 @@
 /*
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
  * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  *
  */
 
@@ -86,13 +82,14 @@ public class FilesResource {
     private PushService pushService;
 
     /**
-     * <p>A constructor required by Swagger.</p>
+     * <p>
+     * A constructor required by Swagger.
+     * </p>
      */
     public FilesResource() {}
 
     @Inject
-    public FilesResource(
-            @Named("files.directory") String filesDirectory,
+    public FilesResource(@Named("files.directory") String filesDirectory,
             @Named("base.url") String baseUrl,
             CustomerDAO customerDAO,
             UnsecureDAO unsecureDAO,
@@ -128,8 +125,7 @@ public class FilesResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllFiles() {
         if (!SecurityContext.get().hasPermission("files")) {
-            logger.error("Unauthorized attempt to access file list by user "
-                    + SecurityContext.get().getCurrentUserName());
+            logger.error("Unauthorized attempt to access file list by user " + SecurityContext.get().getCurrentUserName());
             return Response.PERMISSION_DENIED();
         }
         return Response.OK(this.generateFilesList((String) null));
@@ -141,8 +137,7 @@ public class FilesResource {
     @Path("/remove")
     public Response removeFile(FileView file) {
         if (!SecurityContext.get().hasPermission("edit_files")) {
-            logger.error("Unauthorized attempt to remove a file by user "
-                    + SecurityContext.get().getCurrentUserName());
+            logger.error("Unauthorized attempt to remove a file by user " + SecurityContext.get().getCurrentUserName());
             return Response.PERMISSION_DENIED();
         }
         if (!FileUtil.isSafePath(file.getFilePath())) {
@@ -164,14 +159,14 @@ public class FilesResource {
 
                     if (!file.isExternal()) {
                         java.nio.file.Path filePath;
-                        if (customer.getFilesDir() == null
-                                || customer.getFilesDir().isEmpty()) {
+                        if (customer.getFilesDir() == null || customer.getFilesDir().isEmpty()) {
                             filePath = Paths.get(this.filesDirectory, file.getFilePath());
                         } else {
                             filePath = Paths.get(this.filesDirectory, customer.getFilesDir(), file.getFilePath());
                         }
 
                         try {
+                            logger.info("File {} is removed by user {}", file.getFilePath(), SecurityContext.get().getCurrentUserName());
                             uploadedFileDAO.remove(file.getId());
                             if (filePath.toFile().exists()
                                     && uploadedFileDAO.getByPath(customer.getId(), file.getFilePath()) == null) {
@@ -183,6 +178,8 @@ public class FilesResource {
                             return Response.ERROR("error.file.deletion");
                         }
                     } else {
+                        logger.info("External file {} ({}) is removed by user {}",
+                                file.getDescription(), file.getUrl(), SecurityContext.get().getCurrentUserName());
                         uploadedFileDAO.remove(file.getId());
                         return Response.OK();
                     }
@@ -191,15 +188,12 @@ public class FilesResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Complete file upload",
-            description = "Commits the file upload to MDM server. Returns the uploaded file data")
+    @Operation(summary = "Complete file upload", description = "Commits the file upload to MDM server. Returns the uploaded file data")
     @POST
     @Path("/update")
     public Response updateFile(UploadedFile uploadedFile) {
         if (!SecurityContext.get().hasPermission("edit_files")) {
-            logger.error("Unauthorized attempt to update a file by user "
-                    + SecurityContext.get().getCurrentUserName());
+            logger.error("Unauthorized attempt to update a file by user " + SecurityContext.get().getCurrentUserName());
             return Response.PERMISSION_DENIED();
         }
         if (uploadedFile.getId() == null) {
@@ -218,8 +212,7 @@ public class FilesResource {
             uploadedFile.setFilePath("");
         }
         String tmpdir = System.getProperty("java.io.tmpdir");
-        if (!FileUtil.isSafePath(uploadedFile.getFilePath())
-                || !uploadedFile.getTmpPath().startsWith(tmpdir)) {
+        if (!FileUtil.isSafePath(uploadedFile.getFilePath()) || !uploadedFile.getTmpPath().startsWith(tmpdir)) {
             logger.error("Attempt to create a file with unsafe path: " + uploadedFile.getFilePath() + " tmp path: "
                     + uploadedFile.getTmpPath());
             return Response.PERMISSION_DENIED();
@@ -251,8 +244,7 @@ public class FilesResource {
                             List<FileView> result = new LinkedList<>();
                             handleFile(movedFile, result, null, customer);
 
-                            BasicFileAttributes attrs =
-                                    Files.readAttributes(movedFile.toPath(), BasicFileAttributes.class);
+                            BasicFileAttributes attrs = Files.readAttributes(movedFile.toPath(), BasicFileAttributes.class);
                             uploadedFile.setUploadTime(attrs.creationTime().toMillis());
                             uploadedFile.setCustomerId(customer.getId());
                             uploadedFileDAO.insert(uploadedFile);
@@ -275,8 +267,7 @@ public class FilesResource {
     }
 
     private Response createExternalFileInternal(UploadedFile uploadedFile) {
-        if (uploadedFile.getExternalUrl() == null
-                || uploadedFile.getExternalUrl().trim().equals("")) {
+        if (uploadedFile.getExternalUrl() == null || uploadedFile.getExternalUrl().trim().equals("")) {
             logger.warn("While creating external file: empty URL");
             return Response.ERROR();
         }
@@ -317,10 +308,8 @@ public class FilesResource {
                                 return Response.ERROR("error.file.save");
                             }
                             try {
-                                BasicFileAttributes attrs =
-                                        Files.readAttributes(movedFile.toPath(), BasicFileAttributes.class);
-                                uploadedFile.setUploadTime(
-                                        attrs.lastModifiedTime().toMillis());
+                                BasicFileAttributes attrs = Files.readAttributes(movedFile.toPath(), BasicFileAttributes.class);
+                                uploadedFile.setUploadTime(attrs.lastModifiedTime().toMillis());
                             } catch (IOException e) {
                                 e.printStackTrace();
                                 return Response.INTERNAL_ERROR();
@@ -331,10 +320,10 @@ public class FilesResource {
                                 logger.error("Attempt to move a file to unsafe path: " + uploadedFile.getFilePath());
                                 return Response.PERMISSION_DENIED();
                             }
-                            String srcPath = String.format(
-                                    "%s/%s/%s", filesDirectory, customer.getFilesDir(), dbFile.getFilePath());
-                            File movedFile = FileUtil.moveFile(
-                                    customer, filesDirectory, "", srcPath, uploadedFile.getFilePath());
+                            String srcPath = String.format("%s/%s/%s", filesDirectory, customer.getFilesDir(),
+                                    dbFile.getFilePath());
+                            File movedFile = FileUtil.moveFile(customer, filesDirectory, "", srcPath,
+                                    uploadedFile.getFilePath());
                             if (movedFile == null) {
                                 logger.error("Failed to move a file to path: " + uploadedFile.getFilePath());
                                 return Response.ERROR("error.file.save");
@@ -352,10 +341,10 @@ public class FilesResource {
     @GET
     @Path("/search/{value}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFilesByName(@PathParam("value") @Parameter(description = "A filter value") String value) {
+    public Response getFilesByName(
+            @PathParam("value") @Parameter(description = "A filter value") String value) {
         if (!SecurityContext.get().hasPermission("files")) {
-            logger.error("Unauthorized attempt to access file list by user "
-                    + SecurityContext.get().getCurrentUserName());
+            logger.error("Unauthorized attempt to access file list by user " + SecurityContext.get().getCurrentUserName());
             return Response.PERMISSION_DENIED();
         }
         return Response.OK(this.generateFilesList(value));
@@ -369,8 +358,7 @@ public class FilesResource {
     public Response getApplicationsForFile(
             @PathParam("url") @Parameter(description = "An URL referencing the file") String url) {
         if (!SecurityContext.get().hasPermission("files")) {
-            logger.error("Unauthorized attempt to access file list by user "
-                    + SecurityContext.get().getCurrentUserName());
+            logger.error("Unauthorized attempt to access file list by user " + SecurityContext.get().getCurrentUserName());
             return Response.PERMISSION_DENIED();
         }
         try {
@@ -406,13 +394,12 @@ public class FilesResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Get file configurations",
-            description = "Gets the list of configurations using requested file")
+    @Operation(summary = "Get file configurations", description = "Gets the list of configurations using requested file")
     @GET
     @Path("/configurations/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFileConfigurations(@PathParam("id") @Parameter(description = "File ID") Integer id) {
+    public Response getFileConfigurations(
+            @PathParam("id") @Parameter(description = "File ID") Integer id) {
         if (!SecurityContext.get().hasPermission("files")) {
             logger.error("Unauthorized attempt to get file configurations by user "
                     + SecurityContext.get().getCurrentUserName());
@@ -422,9 +409,7 @@ public class FilesResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Update file configurations",
-            description = "Updates the list of configurations using requested file")
+    @Operation(summary = "Update file configurations", description = "Updates the list of configurations using requested file")
     @POST
     @Path("/configurations")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -436,19 +421,17 @@ public class FilesResource {
             return Response.PERMISSION_DENIED();
         }
         try {
-            User user = SecurityContext.get().getCurrentUser().get();
+            User user = SecurityContext.get()
+                    .getCurrentUser().get();
             if (!user.isAllConfigAvailable()) {
                 // Remove all configurations unavailable to user
-                request.getConfigurations()
-                        .removeIf(c -> user.getConfigurations().stream()
-                                        .filter(uc -> uc.getId() == c.getConfigurationId())
-                                        .findFirst()
-                                == null);
+                request.getConfigurations().removeIf(c -> user.getConfigurations().stream()
+                        .filter(uc -> uc.getId() == c.getConfigurationId()).findFirst() == null);
             }
             // Avoid access to objects of another customer
             request.getConfigurations().removeIf(c -> {
-                // findById will raise a SecurityException if attempting to access an object of another customer
-                // So actually this code is a bit redundant, but it guards access to own objects anyway
+                // findById will raise a SecurityException if attempting to access an object of another customer So
+                // actually this code is a bit redundant, but it guards access to own objectsanyway
                 UploadedFile file = uploadedFileDAO.getById(c.getFileId());
                 Configuration configuration = configurationDAO.getConfigurationById(c.getConfigurationId());
                 return file.getCustomerId() != user.getCustomerId()
@@ -472,50 +455,43 @@ public class FilesResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Upload raw file",
-            description =
-                    "Uploads the raw file to server (without attempt to parse APK). Returns a path to uploaded file")
+    @Operation(summary = "Upload raw file",
+            description = "Uploads the raw file to server (without attempt to parse APK). Returns a path to uploaded file")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Path("/raw")
-    public Response uploadFilesRaw(
-            @FormDataParam("file") InputStream uploadedInputStream,
+    public Response uploadFilesRaw(@FormDataParam("file") InputStream uploadedInputStream,
             @Parameter(description = "A file to upload") @FormDataParam("file") FormDataContentDisposition fileDetail)
             throws Exception {
         return uploadFilesInternal(uploadedInputStream, fileDetail, false);
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Upload file or application",
+    @Operation(summary = "Upload file or application",
             description = "Uploads the file or application to server. Returns a path to uploaded file")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFiles(
-            @FormDataParam("file") InputStream uploadedInputStream,
+    public Response uploadFiles(@FormDataParam("file") InputStream uploadedInputStream,
             @Parameter(description = "A file to upload") @FormDataParam("file") FormDataContentDisposition fileDetail)
             throws Exception {
         return uploadFilesInternal(uploadedInputStream, fileDetail, true);
     }
 
     // =================================================================================================================
-    private Response uploadFilesInternal(
-            InputStream uploadedInputStream, FormDataContentDisposition fileDetail, boolean parseFile)
-            throws Exception {
+    private Response uploadFilesInternal(InputStream uploadedInputStream, FormDataContentDisposition fileDetail,
+            boolean parseFile) throws Exception {
         if (!SecurityContext.get().hasPermission("edit_files")) {
-            logger.error("Unauthorized attempt to upload a file by user "
-                    + SecurityContext.get().getCurrentUserName());
+            logger.error("Unauthorized attempt to upload a file by user " + SecurityContext.get().getCurrentUserName());
             return Response.PERMISSION_DENIED();
         }
         try {
             // For some reason, the browser sends the file name in ISO_8859_1, so we use a workaround to convert it to
             // UTF_8 and enable non-ASCII characters
             // https://stackoverflow.com/questions/50582435/jersey-filename-encoded
-            String fileName =
-                    new String(fileDetail.getFileName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+            String fileName = new String(fileDetail.getFileName().getBytes(StandardCharsets.ISO_8859_1),
+                    StandardCharsets.UTF_8);
             String adjustedFileName = FileUtil.adjustFileName(fileName);
             File uploadFile = FileUtil.createTempFile(adjustedFileName);
             FileUtil.writeToFile(uploadedInputStream, uploadFile.getAbsolutePath());
@@ -542,8 +518,8 @@ public class FilesResource {
                                 currentCustomer.getName(),
                                 totalSizeMb,
                                 currentCustomer.getSizeLimit());
-                        return Response.ERROR(
-                                "error.size.limit.exceeded", "" + totalSizeMb + " / " + currentCustomer.getSizeLimit());
+                        return Response.ERROR("error.size.limit.exceeded",
+                                "" + totalSizeMb + " / " + currentCustomer.getSizeLimit());
                     }
                 }
             }
@@ -557,22 +533,21 @@ public class FilesResource {
 
                 ApplicationVersion version;
                 if (apkFileDetails.getVersionCode() != 0) {
-                    version = this.applicationDAO.findApplicationVersionByCode(
-                            apkFileDetails.getPkg(), apkFileDetails.getVersionCode());
+                    version = this.applicationDAO.findApplicationVersionByCode(apkFileDetails.getPkg(),
+                            apkFileDetails.getVersionCode());
                     if (version != null && !version.getVersion().equals(apkFileDetails.getVersion())) {
-                        logger.warn(
-                                "Version of {} with code {} already exists, name {}",
+                        logger.warn("Version of {} with code {} already exists, name {}",
                                 apkFileDetails.getPkg(),
                                 apkFileDetails.getVersionCode(),
                                 version.getVersion());
-                        // Version with the same version code but different version name exists
-                        // This is a violation of Android versioning guidelines - disable upload
+                        // Version with the same version code but different version name exists This is a violation of
+                        // Android versioning guidelines - disable upload
                         return Response.DUPLICATE_ENTITY("form.application.version.code.exists");
                     }
                 }
 
-                version = this.applicationDAO.findApplicationVersion(
-                        apkFileDetails.getPkg(), apkFileDetails.getVersion());
+                version = this.applicationDAO.findApplicationVersion(apkFileDetails.getPkg(),
+                        apkFileDetails.getVersion());
                 if (StringUtil.isEmpty(apkFileDetails.getArch())) {
                     if (version != null) {
                         result.setExists(true);
@@ -629,15 +604,14 @@ public class FilesResource {
                     .creationDate(new Date())
                     .build();
             return jakarta.ws.rs.core.Response.ok((StreamingOutput) output -> {
-                        try {
-                            InputStream input = new FileInputStream(file);
-                            IOUtils.copy(input, output);
-                            output.flush();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    })
-                    .header("Content-Disposition", contentDisposition)
+                try {
+                    InputStream input = new FileInputStream(file);
+                    IOUtils.copy(input, output);
+                    output.flush();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).header("Content-Disposition", contentDisposition)
                     .build();
         }
     }
@@ -648,13 +622,13 @@ public class FilesResource {
                 .map(u -> {
                     Customer customer = customerDAO.findById(u.getCustomerId());
 
-                    List<UploadedFile> customerFiles =
-                            value != null ? uploadedFileDAO.getAllByValue(value) : uploadedFileDAO.getAll();
+                    List<UploadedFile> customerFiles = value != null ? uploadedFileDAO.getAllByValue(value)
+                            : uploadedFileDAO.getAll();
                     List<FileView> result = customerFiles.stream()
                             .map(f -> {
                                 FileView hFile = new FileView(f, this.baseUrl, this.filesDirectory, customer);
-                                hFile.setUsedByConfigurations(this.configurationFileDAO.getUsingConfigurations(
-                                        customer.getId(), hFile.getId()));
+                                hFile.setUsedByConfigurations(
+                                        this.configurationFileDAO.getUsingConfigurations(customer.getId(), hFile.getId()));
                                 hFile.setUsedByIcons(this.iconDAO.getUsingIcons(customer.getId(), hFile.getId()));
                                 return hFile;
                             })
@@ -688,11 +662,10 @@ public class FilesResource {
                 }
                 String url;
                 if (customerFilesBaseDir != null && !customerFilesBaseDir.isEmpty()) {
-                    path = path.substring((File.separator + customerFilesBaseDir + File.separator)
-                            .length()); // Strip off the name of directory for customer files
-                    url = String.format(
-                            "%s/files/%s/%s",
-                            this.baseUrl, customerFilesBaseDir, path.replace(File.separator, "/") + file.getName());
+                    path = path.substring((File.separator + customerFilesBaseDir + File.separator).length());
+                    // Strip off the name of directory for customer files
+                    url = String.format("%s/files/%s/%s", this.baseUrl, customerFilesBaseDir,
+                            path.replace(File.separator, "/") + file.getName());
                 } else {
                     url = String.format("%s/files%s", this.baseUrl, path.replace(File.separator, "/") + file.getName());
                 }

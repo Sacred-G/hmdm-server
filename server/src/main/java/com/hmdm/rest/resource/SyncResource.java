@@ -1,21 +1,17 @@
 /*
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
  * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  *
  */
 
@@ -70,7 +66,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>A resource used for synchronizing the data with devices.</p>
+ * <p>
+ * A resource used for synchronizing the data with devices.
+ * </p>
  */
 @Singleton
 @Path("/public/sync")
@@ -80,7 +78,9 @@ public class SyncResource {
     private static final Logger logger = LoggerFactory.getLogger(SyncResource.class);
 
     /**
-     * <p>DAO objects</p>
+     * <p>
+     * DAO objects
+     * </p>
      */
     private UnsecureDAO unsecureDAO;
 
@@ -89,12 +89,16 @@ public class SyncResource {
     private CustomerDAO customerDAO;
 
     /**
-     * <p>A service used for sending notifications on battery level update for device</p>
+     * <p>
+     * A service used for sending notifications on battery level update for device
+     * </p>
      */
     private EventService eventService;
 
     /**
-     * <p>A list of hooks to be executed against the response to device confoguration synchronization request.</p>
+     * <p>
+     * A list of hooks to be executed against the response to device confoguration synchronization request.
+     * </p>
      */
     private Set<SyncResponseHook> syncResponseHooks;
 
@@ -115,16 +119,19 @@ public class SyncResource {
     private String vendor;
 
     /**
-     * <p>A constructor required by Swagger.</p>
+     * <p>
+     * A constructor required by Swagger.
+     * </p>
      */
     public SyncResource() {}
 
     /**
-     * <p>Constructs new <code>SyncResource</code> instance. This implementation does nothing.</p>
+     * <p>
+     * Constructs new <code>SyncResource</code> instance. This implementation does nothing.
+     * </p>
      */
     @Inject
-    public SyncResource(
-            UnsecureDAO unsecureDAO,
+    public SyncResource(UnsecureDAO unsecureDAO,
             EventService eventService,
             Injector injector,
             CustomerDAO customerDAO,
@@ -165,16 +172,15 @@ public class SyncResource {
     @Path("/configuration/{deviceId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response enrollDevice(
-            DeviceCreateOptions createOptions,
+    public Response enrollDevice(DeviceCreateOptions createOptions,
             @PathParam("deviceId") @Parameter(description = "An identifier of device within MDM server") String number,
             @Context HttpServletRequest request,
             @Context HttpServletResponse response) {
         logger.debug("/public/sync/configuration/{}", number);
 
         if (secureEnrollment) {
-            if (!CryptoUtil.checkRequestSignature(
-                    request.getHeader(HEADER_ENROLLMENT_SIGNATURE), hashSecret + number)) {
+            if (!CryptoUtil.checkRequestSignature(request.getHeader(HEADER_ENROLLMENT_SIGNATURE),
+                    hashSecret + number)) {
                 logger.warn("Failed to setup device {}: signature mismatch", number);
                 return Response.PERMISSION_DENIED();
             }
@@ -207,8 +213,7 @@ public class SyncResource {
             if (dbDevice != null) {
                 // Protection against double enrollment
                 if (preventDuplicateEnrollment && dbDevice.getLastUpdate() != 0l) {
-                    logger.warn(
-                            "Device {} already enrolled. To enroll, delete device from the list and add back",
+                    logger.warn("Device {} already enrolled. To enroll, delete device from the list and add back",
                             dbDevice.getNumber());
                     return Response.DEVICE_EXISTS();
                 }
@@ -237,8 +242,8 @@ public class SyncResource {
         logger.debug("/public/sync/configuration/{}", number);
 
         if (secureEnrollment) {
-            if (!CryptoUtil.checkRequestSignature(
-                    request.getHeader(HEADER_ENROLLMENT_SIGNATURE), hashSecret + number)) {
+            if (!CryptoUtil.checkRequestSignature(request.getHeader(HEADER_ENROLLMENT_SIGNATURE),
+                    hashSecret + number)) {
                 logger.warn("Failed to setup device {}: signature mismatch", number);
                 return Response.PERMISSION_DENIED();
             }
@@ -313,8 +318,8 @@ public class SyncResource {
         }
 
         Settings settings = this.unsecureDAO.getSettings(dbDevice.getCustomerId());
-        final List<Application> applications = this.unsecureDAO.getPlainConfigurationApplications(
-                dbDevice.getCustomerId(), dbDevice.getConfigurationId());
+        final List<Application> applications = this.unsecureDAO
+                .getPlainConfigurationApplications(dbDevice.getCustomerId(), dbDevice.getConfigurationId());
 
         for (Application app : applications) {
             final String icon = app.getIcon();
@@ -336,8 +341,8 @@ public class SyncResource {
             }
         }
 
-        Configuration configuration =
-                this.unsecureDAO.getConfigurationByIdWithAppSettings(dbDevice.getConfigurationId());
+        Configuration configuration = this.unsecureDAO
+                .getConfigurationByIdWithAppSettings(dbDevice.getConfigurationId());
 
         SyncResponse data;
         if (configuration.isUseDefaultDesignSettings()) {
@@ -403,8 +408,8 @@ public class SyncResource {
             if (contentAppId != null) {
                 ApplicationVersion applicationVersion = this.unsecureDAO.findApplicationVersionById(contentAppId);
                 if (applicationVersion != null) {
-                    Application application =
-                            this.unsecureDAO.findApplicationById(applicationVersion.getApplicationId());
+                    Application application = this.unsecureDAO
+                            .findApplicationById(applicationVersion.getApplicationId());
                     data.setMainApp(application.getPkg());
                 }
             }
@@ -445,22 +450,12 @@ public class SyncResource {
         // Evaluate the application settings
         final List<ApplicationSetting> deviceAppSettings = this.unsecureDAO.getDeviceAppSettings(dbDevice.getId());
         final List<ApplicationSetting> configApplicationSettings = configuration.getApplicationSettings();
-        final List<ApplicationSetting> applicationSettings =
-                combineDeviceLogRules(configApplicationSettings, deviceAppSettings);
+        final List<ApplicationSetting> applicationSettings = combineDeviceLogRules(configApplicationSettings,
+                deviceAppSettings);
 
         final Device dbDevice1 = dbDevice;
         data.setApplicationSettings(applicationSettings.stream()
-                .map(s -> {
-                    SyncApplicationSetting syncSetting = new SyncApplicationSetting();
-                    syncSetting.setPackageId(s.getApplicationPkg());
-                    syncSetting.setName(s.getName());
-                    syncSetting.setType(s.getType().getId());
-                    syncSetting.setReadonly(s.isReadonly());
-                    syncSetting.setValue(s.getValueForDevice(dbDevice1));
-                    syncSetting.setLastUpdate(s.getLastUpdate());
-
-                    return syncSetting;
-                })
+                .map(s -> new SyncApplicationSetting(s, dbDevice1))
                 .collect(Collectors.toList()));
 
         final List<ConfigurationFile> configurationFiles = this.unsecureDAO.getConfigurationFiles(dbDevice);
@@ -486,8 +481,9 @@ public class SyncResource {
             return false;
         });
 
-        data.setFiles(
-                configurationFiles.stream().map(SyncConfigurationFile::new).collect(Collectors.toList()));
+        data.setFiles(configurationFiles.stream()
+                .map(SyncConfigurationFile::new)
+                .collect(Collectors.toList()));
 
         // Rebranding data
         if (!mobileAppName.equals("")) {
@@ -516,9 +512,8 @@ public class SyncResource {
 
         response.setHeader(HEADER_IP_ADDRESS, remoteAddrResolver.getRemoteAddr(request));
 
-        // Always add signature to enable "soft" security implementation
-        // if (secureEnrollment) {
-        // Add a signature to avoid MITM attack
+        // Always add signature to enable "soft" security implementation if (secureEnrollment) { Add a signature to
+        // avoid MITM attack
         response.setHeader(HEADER_RESPONSE_SIGNATURE, CryptoUtil.getDataSignature(hashSecret, syncResponse));
         // }
 
@@ -532,7 +527,9 @@ public class SyncResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateDeviceInfo(
-            DeviceInfo deviceInfo, @Context HttpServletRequest request, @Context HttpServletResponse response) {
+            DeviceInfo deviceInfo,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) {
         logger.debug("/public/sync/info --> {}", deviceInfo);
 
         try {
@@ -630,8 +627,7 @@ public class SyncResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response saveApplicationSettings(
-            @PathParam("deviceId") @Parameter(description = "An identifier of device within MDM server")
-                    String deviceNumber,
+            @PathParam("deviceId") @Parameter(description = "An identifier of device within MDM server") String deviceNumber,
             List<SyncApplicationSetting> applicationSettings) {
         logger.debug("/public/sync/applicationSettings/{} --> {}", deviceNumber, applicationSettings);
 
@@ -667,21 +663,25 @@ public class SyncResource {
     }
 
     /**
-     * <p>A function producing the key for referencing the specified application setting.</p>
+     * <p>
+     * A function producing the key for referencing the specified application setting.
+     * </p>
      */
-    private static final Function<ApplicationSetting, String> appSettingMapKeyGenerator =
-            (s) -> s.getApplicationId() + "," + s.getName();
+    private static final Function<ApplicationSetting, String> appSettingMapKeyGenerator = (s) -> s.getApplicationId()
+            + "," + s.getName();
 
     /**
-     * <p>Combines the specified list of application settings into a single list.</p>
+     * <p>
+     * Combines the specified list of application settings into a single list.
+     * </p>
      *
      * @param lessPreferred a list of less preferred settings.
      * @param morePreferred a list of more preferred settings.
      *
      * @return a resulting list of application settings.
      */
-    private static List<ApplicationSetting> combineDeviceLogRules(
-            List<ApplicationSetting> lessPreferred, List<ApplicationSetting> morePreferred) {
+    private static List<ApplicationSetting> combineDeviceLogRules(List<ApplicationSetting> lessPreferred,
+            List<ApplicationSetting> morePreferred) {
 
         lessPreferred = lessPreferred.stream()
                 .filter(s -> s.getValue() != null && !s.getValue().trim().isEmpty())
@@ -690,8 +690,8 @@ public class SyncResource {
                 .filter(s -> s.getValue() != null && !s.getValue().trim().isEmpty())
                 .collect(Collectors.toList());
 
-        final Map<String, ApplicationSetting> moreMapping =
-                morePreferred.stream().collect(Collectors.toMap(appSettingMapKeyGenerator, r -> r));
+        final Map<String, ApplicationSetting> moreMapping = morePreferred.stream()
+                .collect(Collectors.toMap(appSettingMapKeyGenerator, r -> r));
 
         List<ApplicationSetting> result = new ArrayList<>();
 

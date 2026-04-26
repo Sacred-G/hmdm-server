@@ -24,33 +24,39 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>common</artifactId>
+
+    <artifactId>deviceinfo</artifactId>
+
     <packaging>jar</packaging>
     <version>0.2.0</version>
-    <name>Core for MDM API</name>
+    <name>Device Detailed Info Plugin for MDM Server</name>
 
     <parent>
-        <groupId>com.hmdm</groupId>
-        <artifactId>root</artifactId>
+        <groupId>com.hmdm.plugin</groupId>
+        <artifactId>base</artifactId>
         <version>0.2.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>33.5.0-jre</version>
+            <groupId>com.hmdm.plugin</groupId>
+            <artifactId>platform</artifactId>
+            <version>0.2.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.21.0</version>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.9</version>
         </dependency>
-
-        <!-- The formatting of this line must be kept as is - a single line -->
+        <dependency>
+            <groupId>com.hmdm</groupId>
+            <artifactId>notification</artifactId>
+            <version>0.2.0</version>
+        </dependency>
 
     </dependencies>
+
 </project>

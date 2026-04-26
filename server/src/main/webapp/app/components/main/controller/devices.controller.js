@@ -493,7 +493,7 @@ angular.module('headwind-kiosk')
         $scope.getDevicePermissionIndicatorImage = function (device) {
             var info = $scope.getDeviceInfo(device);
             if (info) {
-                if (info.kioskMode === true) {
+                if (info.kioskMode === true || device.configuration.permissiveMode === true) {
                     // Do not check permissions in kiosk mode
                     return 'images/online.png';
                 }
@@ -513,7 +513,7 @@ angular.module('headwind-kiosk')
         $scope.getDevicePermissionTitle = function (device) {
             var info = $scope.getDeviceInfo(device);
             if (info) {
-                if (info.kioskMode === true) {
+                if (info.kioskMode === true || device.configuration.permissiveMode === true) {
                     // Do not check permissions in kiosk mode
                     return localization.localize('devices.permissions.all');
                 }

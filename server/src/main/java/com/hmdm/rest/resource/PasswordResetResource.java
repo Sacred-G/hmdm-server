@@ -1,21 +1,17 @@
 /*
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
  * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  *
  */
 
@@ -29,6 +25,7 @@ import com.hmdm.persistence.domain.User;
 import com.hmdm.rest.json.Response;
 import com.hmdm.security.SecurityContext;
 import com.hmdm.service.EmailService;
+import com.hmdm.util.BackgroundTaskRunnerService;
 import com.hmdm.util.PasswordUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -53,24 +50,30 @@ public class PasswordResetResource {
     private CommonDAO commonDAO;
     private UnsecureDAO unsecureDAO;
     private EmailService emailService;
+    private BackgroundTaskRunnerService taskRunner;
 
     /**
-     * <p>A constructor required by Swagger.</p>
+     * <p>
+     * A constructor required by Swagger.
+     * </p>
      */
     public PasswordResetResource() {}
 
     /**
-     * <p>Constructs new <code>PasswordResetResource</code> instance. This implementation does nothing.</p>
+     * <p>
+     * Constructs new <code>PasswordResetResource</code> instance. This implementation does nothing.
+     * </p>
      */
     @Inject
-    public PasswordResetResource(
-            CommonDAO commonDAO,
+    public PasswordResetResource(CommonDAO commonDAO,
             UnsecureDAO unsecureDAO,
             EmailService emailService,
+            BackgroundTaskRunnerService taskRunner,
             @Named("base.url") String baseUrl) {
         this.commonDAO = commonDAO;
         this.unsecureDAO = unsecureDAO;
         this.emailService = emailService;
+        this.taskRunner = taskRunner;
         this.baseUrl = baseUrl;
     }
 
@@ -79,7 +82,8 @@ public class PasswordResetResource {
     @GET
     @Path("/settings/{token}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSettings(@PathParam("token") @Parameter(description = "Password reset token") String token) {
+    public Response getSettings(
+            @PathParam("token") @Parameter(description = "Password reset token") String token) {
         try {
             User user = unsecureDAO.findByPasswordResetToken(token);
             if (user == null) {
@@ -87,8 +91,8 @@ public class PasswordResetResource {
             }
 
             SecurityContext.init(user);
-            Settings settings =
-                    Optional.ofNullable(this.commonDAO.getSettings()).orElse(new Settings());
+            Settings settings = Optional.ofNullable(this.commonDAO.getSettings())
+                    .orElse(new Settings());
             settings.setSingleCustomer(unsecureDAO.isSingleCustomer());
             if (!settings.isSingleCustomer()) {
                 this.commonDAO.loadCustomerSettings(settings);
@@ -148,21 +152,27 @@ public class PasswordResetResource {
     @Path("/recover/{username}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response recover(
-            @PathParam("username") @Parameter(description = "Login of the user who wants to recover the password")
-                    String username) {
+            @PathParam("username") @Parameter(
+                    description = "Login of the user who wants to recover the password") String username) {
         try {
             User user = unsecureDAO.findByLoginOrEmail(username);
             if (user == null) {
                 logger.warn("Can't recover password for user " + username + ": user not found");
-                return Response.ERROR("error.user.not.found");
+                //return Response.ERROR("error.user.not.found");
+                // Fix the user discovery vulnerability
+                return Response.OK();
             }
             if (!emailService.isConfigured()) {
                 logger.warn("Can't recover password for user " + username + ": email sender not configured");
-                return Response.ERROR("error.email.not.configured");
+                //return Response.ERROR("error.email.not.configured");
+                // Fix the user discovery vulnerability
+                return Response.OK();
             }
             if (user.getEmail() == null || user.getEmail().trim().equals("")) {
                 logger.warn("Can't recover password for user " + username + ": no email for user");
-                return Response.ERROR("error.email.not.found");
+                // return Response.ERROR("error.email.not.found");
+                // Fix the user discovery vulnerability
+                return Response.OK();
             }
 
             if (user.getPasswordResetToken() == null
@@ -172,16 +182,21 @@ public class PasswordResetResource {
                 unsecureDAO.setUserNewPasswordUnsecure(user);
             }
 
-            Customer customer = unsecureDAO.getCustomerByIdUnsecure(user.getCustomerId());
-            String language = customer == null ? "" : customer.getLanguage();
-            if (emailService.sendEmail(
-                    user.getEmail(),
-                    emailService.getRecoveryEmailSubj(language),
-                    emailService.getRecoveryEmailBody(language, user.getPasswordResetToken()))) {
-                return Response.OK();
-            } else {
-                return Response.INTERNAL_ERROR();
-            }
+            final String email = user.getEmail();
+            final String passwordResetToken = user.getPasswordResetToken();
+            final int customerId = user.getCustomerId();
+            this.taskRunner.submitTask(() -> {
+                try {
+                    Customer customer = this.unsecureDAO.getCustomerByIdUnsecure(customerId);
+                    String language = customer == null ? "" : customer.getLanguage();
+                    this.emailService.sendEmail(email,
+                            this.emailService.getRecoveryEmailSubj(language),
+                            this.emailService.getRecoveryEmailBody(language, passwordResetToken));
+                } catch (Exception e) {
+                    logger.error("Unexpected error when sending the password recovery email for user " + username, e);
+                }
+            });
+            return Response.OK();
 
         } catch (Exception e) {
             logger.error("Unexpected error when requesting the password recovery for user " + username, e);

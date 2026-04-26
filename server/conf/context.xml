@@ -70,6 +70,8 @@
     <!-- Display X-Forwarded-For instead of source IP -->
     <Parameter name="plugin.audit.display.forwarded.ip" value="${plugin.audit.display.forwarded.ip}"/>
 
+    <!-- Default value for updates statistics reporting (true/false) -->
+    <Parameter name="updates.send.stats.default" value="${updates.send.stats.default}"/>
     <!-- Email parameters are necessary for password recovery -->
     <Parameter name="smtp.host" value="${smtp.host}"/>
     <Parameter name="smtp.port" value="${smtp.port}"/>

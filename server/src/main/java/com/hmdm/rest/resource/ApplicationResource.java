@@ -343,6 +343,14 @@ public class ApplicationResource {
             return Response.PERMISSION_DENIED();
         }
         try {
+            Application application = applicationDAO.findById(id);
+            if (application != null) {
+                logger.info("Application '{}' ({}) is removed by user {}",
+                        application.getName(), application.getPkg(), SecurityContext.get().getCurrentUserName());
+            } else {
+                logger.info("Application #{} not found (delete is a no-op) requested by user {}",
+                        id, SecurityContext.get().getCurrentUserName());
+            }
             this.applicationDAO.removeApplicationById(id, true);
             return Response.OK();
         } catch (SecurityException e) {
@@ -370,6 +378,21 @@ public class ApplicationResource {
             return Response.PERMISSION_DENIED();
         }
         try {
+            ApplicationVersion version = applicationDAO.findApplicationVersionById(id);
+            if (version != null) {
+                Application application = applicationDAO.findById(version.getApplicationId());
+                if (application != null) {
+                    logger.info("Version {} of application '{}' ({}) is removed by user {}",
+                            version.getVersion(), application.getName(), application.getPkg(),
+                            SecurityContext.get().getCurrentUserName());
+                } else {
+                    logger.info("Version {} of unexisting application {} is removed by user {}",
+                            version.getVersion(), version.getApplicationId(), SecurityContext.get().getCurrentUserName());
+                }
+            } else {
+                logger.info("Application version #{} not found (delete is a no-op) requested by user {}",
+                        id, SecurityContext.get().getCurrentUserName());
+            }
             this.applicationDAO.removeApplicationVersionByIdWithAPKFile(id);
             return Response.OK();
         } catch (SecurityException e) {
