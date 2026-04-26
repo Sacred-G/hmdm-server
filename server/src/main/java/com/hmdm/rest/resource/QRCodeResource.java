@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.rest.resource;
@@ -107,7 +99,7 @@ public class QRCodeResource {
     // =================================================================================================================
     @Operation(summary = "Get a JSON", description = "Gets the JSON for the specified configuration.")
     @ApiResponses({
-        @ApiResponse(responseCode = "500", description = "Internal server error"),
+                    @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
     @GET
     @Path("/json/{id}")
@@ -117,8 +109,7 @@ public class QRCodeResource {
             @QueryParam("deviceId") @Parameter(description = "A device ID") String deviceID,
             @QueryParam("create") @Parameter(description = "Create on demand") String createOnDemand,
             @QueryParam("useId") @Parameter(description = "Which parameter to use as a device ID") String useId,
-            @QueryParam("group") @Parameter(description = "Groups to assign when creating a device")
-                    List<String> groups,
+            @QueryParam("group") @Parameter(description = "Groups to assign when creating a device") List<String> groups,
             @Context HttpServletRequest req) {
         logger.info("Generating JSON for configuration key: {}", id);
         try {
@@ -156,7 +147,7 @@ public class QRCodeResource {
     // =================================================================================================================
     @Operation(summary = "Get QR-code", description = "Gets the QR code image for the specified configuration.")
     @ApiResponses({
-        @ApiResponse(responseCode = "500", description = "Internal server error"),
+                    @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
     @GET
     @Path("/{id}")
@@ -167,8 +158,7 @@ public class QRCodeResource {
             @QueryParam("deviceId") @Parameter(description = "A device ID") String deviceID,
             @QueryParam("create") @Parameter(description = "Create on demand") String createOnDemand,
             @QueryParam("useId") @Parameter(description = "Which parameter to use as a device ID") String useId,
-            @QueryParam("group") @Parameter(description = "Groups to assign when creating a device")
-                    List<String> groups,
+            @QueryParam("group") @Parameter(description = "Groups to assign when creating a device") List<String> groups,
             @Context HttpServletRequest req) {
         logger.info("Generating QR-code image for configuration key: {}", id);
         try {
@@ -202,18 +192,15 @@ public class QRCodeResource {
                                 wifiSecurityType = "WPA"; // De-facto standard
                             }
                             wifiSsidEntry = "\"android.app.extra.PROVISIONING_WIFI_SSID\":"
-                                    + JSONObject.quote(
-                                            configuration.getWifiSSID().trim()) + ",\n"
-                                    + "\"android.app.extra.PROVISIONING_WIFI_SECURITY_TYPE\":\"" + wifiSecurityType
-                                    + "\",\n";
+                                    + JSONObject.quote(configuration.getWifiSSID().trim()) + ",\n"
+                                    + "\"android.app.extra.PROVISIONING_WIFI_SECURITY_TYPE\":\"" + wifiSecurityType + "\",\n";
                         }
 
                         String wifiPasswordEntry = "";
                         if (configuration.getWifiPassword() != null
                                 && !configuration.getWifiPassword().trim().isEmpty()) {
                             wifiPasswordEntry = "\"android.app.extra.PROVISIONING_WIFI_PASSWORD\":"
-                                    + JSONObject.quote(
-                                            configuration.getWifiPassword().trim()) + ",\n";
+                                    + JSONObject.quote(configuration.getWifiPassword().trim()) + ",\n";
                         }
 
                         String mobileEnrollmentEntry = "";
@@ -267,20 +254,21 @@ public class QRCodeResource {
                         logger.info("The base for QR code generation:\n{}", s);
 
                         return jakarta.ws.rs.core.Response.ok((StreamingOutput) output -> {
-                                    int imageSize = 250;
-                                    if (size != null) {
-                                        imageSize = size;
-                                    }
-                                    try {
-                                        QRCode.from(s)
-                                                .to(ImageType.PNG)
-                                                .withSize(imageSize, imageSize)
-                                                .writeTo(output);
-                                        output.flush();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                })
+                            int imageSize = 250;
+                            if (size != null) {
+                                imageSize = size;
+                            }
+                            try {
+                                QRCode.from(s)
+                                        .withCharset("UTF-8")
+                                        .to(ImageType.PNG)
+                                        .withSize(imageSize, imageSize)
+                                        .writeTo(output);
+                                output.flush();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
                                 .header("Cache-Control", "no-cache")
                                 .header("Content-Type", "image/png")
                                 .build();
@@ -364,7 +352,7 @@ public class QRCodeResource {
         String configurationEntry = "";
         String customerEntry = "";
         if (createOnDemand != null && createOnDemand.equals("1")) {
-            configurationEntry = "\"com.hmdm.CONFIG\":\"" + Integer.toString(configuration.getId()) + "\",\n";
+            configurationEntry = "\"com.hmdm.CONFIG\":\"" + configuration.getQrCodeKey() + "\",\n";
 
             if (!unsecureDAO.isSingleCustomer()) {
                 Customer customer = customerDAO.findById(configuration.getCustomerId());

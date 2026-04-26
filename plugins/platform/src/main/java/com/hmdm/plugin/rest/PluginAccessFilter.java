@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.plugin.rest;
@@ -37,13 +29,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>An interceptor for the request to resources provided by installed plugins. Verifies that respective plugin is not
- * currently disabled and rejects the request if that's the case.</p>
+ * <p>An interceptor for the request to resources provided by installed plugins. Verifies that respective plugin is not currently disabled and rejects
+ * the request if that's the case.</p>
  *
- * <p>This filter must be added to requests processing chains for plugins private resources only (e.g. those resources
- * which require the user identity established before accessing the resource. For plugins public resources (e.g. those
- * resources which are available to mobile clients running on devices) it is the responsibility of a resource to perform
- * such a check.</p>
+ * <p>This filter must be added to requests processing chains for plugins private resources only (e.g. those resources which require the user identity
+ * established before accessing the resource. For plugins public resources (e.g. those resources which are available to mobile clients running on
+ * devices) it is the responsibility of a resource to perform such a check.</p>
  *
  * @author isv
  */
@@ -75,8 +66,8 @@ public class PluginAccessFilter implements Filter {
     public void init(FilterConfig filterConfig) {}
 
     /**
-     * <p>Intercepts the incoming request. If request URI maps to some plugin then checks the current status of plugin and
-     * if it is disabled them rejects the request. Otherwise the request is processed further.</p>
+     * <p>Intercepts the incoming request. If request URI maps to some plugin then checks the current status of plugin and if it is disabled them
+     * rejects the request. Otherwise the request is processed further.</p>
      *
      * @param request an incoming request.
      * @param response an outgoing response.

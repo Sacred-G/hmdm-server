@@ -1,18 +1,14 @@
 /*
- *
  * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
- * copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
  * under the License.
- *
  */
 
 package com.hmdm.rest.resource;
@@ -66,9 +62,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>
- * A resource used for synchronizing the data with devices.
- * </p>
+ * <p>A resource used for synchronizing the data with devices.</p>
  */
 @Singleton
 @Path("/public/sync")
@@ -78,9 +72,7 @@ public class SyncResource {
     private static final Logger logger = LoggerFactory.getLogger(SyncResource.class);
 
     /**
-     * <p>
-     * DAO objects
-     * </p>
+     * <p>DAO objects</p>
      */
     private UnsecureDAO unsecureDAO;
 
@@ -89,16 +81,12 @@ public class SyncResource {
     private CustomerDAO customerDAO;
 
     /**
-     * <p>
-     * A service used for sending notifications on battery level update for device
-     * </p>
+     * <p>A service used for sending notifications on battery level update for device</p>
      */
     private EventService eventService;
 
     /**
-     * <p>
-     * A list of hooks to be executed against the response to device confoguration synchronization request.
-     * </p>
+     * <p>A list of hooks to be executed against the response to device confoguration synchronization request.</p>
      */
     private Set<SyncResponseHook> syncResponseHooks;
 
@@ -119,16 +107,12 @@ public class SyncResource {
     private String vendor;
 
     /**
-     * <p>
-     * A constructor required by Swagger.
-     * </p>
+     * <p>A constructor required by Swagger.</p>
      */
     public SyncResource() {}
 
     /**
-     * <p>
-     * Constructs new <code>SyncResource</code> instance. This implementation does nothing.
-     * </p>
+     * <p>Constructs new <code>SyncResource</code> instance. This implementation does nothing.</p>
      */
     @Inject
     public SyncResource(UnsecureDAO unsecureDAO,
@@ -663,21 +647,16 @@ public class SyncResource {
     }
 
     /**
-     * <p>
-     * A function producing the key for referencing the specified application setting.
-     * </p>
+     * <p>A function producing the key for referencing the specified application setting.</p>
      */
     private static final Function<ApplicationSetting, String> appSettingMapKeyGenerator = (s) -> s.getApplicationId()
             + "," + s.getName();
 
     /**
-     * <p>
-     * Combines the specified list of application settings into a single list.
-     * </p>
+     * <p>Combines the specified list of application settings into a single list.</p>
      *
      * @param lessPreferred a list of less preferred settings.
      * @param morePreferred a list of more preferred settings.
-     *
      * @return a resulting list of application settings.
      */
     private static List<ApplicationSetting> combineDeviceLogRules(List<ApplicationSetting> lessPreferred,

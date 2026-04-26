@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.mapper;
@@ -35,12 +27,12 @@ public interface DeviceMapper {
     void insertDeviceGroups(@Param("id") Integer deviceId, @Param("groups") List<Integer> groups);
 
     @Delete({
-        "DELETE FROM deviceGroups " + "WHERE deviceId=#{deviceId} " + "  AND groupId IN ( "
-                + "      SELECT groups.id " + "      FROM groups " + "      INNER JOIN users ON users.id = #{userId} "
-                + "      WHERE groups.customerId = #{customerId} "
-                + "      AND (users.allDevicesAvailable AND users.customerId = #{customerId} " + "           OR "
-                + "           EXISTS (SELECT 1 FROM userDeviceGroupsAccess access WHERE groups.id = access.groupId AND access.userId = users.id)"
-                + "      )" + "  )"
+                    "DELETE FROM deviceGroups " + "WHERE deviceId=#{deviceId} " + "  AND groupId IN ( "
+                            + "      SELECT groups.id " + "      FROM groups " + "      INNER JOIN users ON users.id = #{userId} "
+                            + "      WHERE groups.customerId = #{customerId} "
+                            + "      AND (users.allDevicesAvailable AND users.customerId = #{customerId} " + "           OR "
+                            + "           EXISTS (SELECT 1 FROM userDeviceGroupsAccess access WHERE groups.id = access.groupId AND access.userId = users.id)"
+                            + "      )" + "  )"
     })
     void removeDeviceGroupsByDeviceId(
             @Param("userId") int userId, @Param("customerId") int customerId, @Param("deviceId") Integer deviceId);
@@ -62,8 +54,8 @@ public interface DeviceMapper {
             @Param("configurationId") int configurationId, @Param("customerId") int customerId);
 
     @Select({
-        "SELECT * FROM devices " + "LEFT JOIN deviceGroups ON deviceGroups.deviceId = devices.id "
-                + "WHERE deviceGroups.groupId = #{groupId} AND devices.customerId = #{customerId}"
+                    "SELECT * FROM devices " + "LEFT JOIN deviceGroups ON deviceGroups.deviceId = devices.id "
+                            + "WHERE deviceGroups.groupId = #{groupId} AND devices.customerId = #{customerId}"
     })
     List<Device> getAllGroupDevices(@Param("groupId") int groupId, @Param("customerId") int customerId);
 
@@ -79,7 +71,7 @@ public interface DeviceMapper {
     Long countTotalDevices();
 
     @Select({
-        "SELECT COUNT(*) " + "FROM devices " + "WHERE devices.lastUpdate >= extract(epoch from now()) * 1000 - 3600000"
+                    "SELECT COUNT(*) " + "FROM devices " + "WHERE devices.lastUpdate >= extract(epoch from now()) * 1000 - 3600000"
     })
     Long countOnlineDevices();
 
@@ -90,10 +82,10 @@ public interface DeviceMapper {
     List<SummaryConfigItem> countDevicesByConfig(DeviceSummaryRequest filter);
 
     @Update({
-        "UPDATE devices SET " + "  info = #{info}, " + "  infojson = #{info}::json, "
-                + "  lastUpdate = CAST(EXTRACT(EPOCH FROM NOW()) * 1000 AS BIGINT), "
-                + "  enrollTime = COALESCE(enrollTime, CAST(EXTRACT(EPOCH FROM NOW()) * 1000 AS BIGINT)), "
-                + "  imeiUpdateTs = #{imeiUpdateTs}, " + "  publicIp = #{publicIp} " + "WHERE id = #{deviceId}"
+                    "UPDATE devices SET " + "  info = #{info}, " + "  infojson = #{info}::json, "
+                            + "  lastUpdate = CAST(EXTRACT(EPOCH FROM NOW()) * 1000 AS BIGINT), "
+                            + "  enrollTime = COALESCE(enrollTime, CAST(EXTRACT(EPOCH FROM NOW()) * 1000 AS BIGINT)), "
+                            + "  imeiUpdateTs = #{imeiUpdateTs}, " + "  publicIp = #{publicIp} " + "WHERE id = #{deviceId}"
     })
     void updateDeviceInfo(
             @Param("deviceId") Integer deviceId,
@@ -102,8 +94,8 @@ public interface DeviceMapper {
             @Param("publicIp") String publicIp);
 
     @Update({
-        "UPDATE devices SET " + "  custom1 = #{custom1}, " + "  custom2 = #{custom2}, " + "  custom3 = #{custom3} "
-                + "WHERE id = #{deviceId}"
+                    "UPDATE devices SET " + "  custom1 = #{custom1}, " + "  custom2 = #{custom2}, " + "  custom3 = #{custom3} "
+                            + "WHERE id = #{deviceId}"
     })
     void updateDeviceCustomProperties(
             @Param("deviceId") Integer deviceId,
@@ -131,8 +123,8 @@ public interface DeviceMapper {
     void updateDeviceDescription(@Param("deviceId") Integer deviceId, @Param("description") String newDeviceDesc);
 
     @Update({
-        "UPDATE devices SET fastSearch = RIGHT(number, #{fastSearchChars}) WHERE fastSearch IS NULL "
-                + " OR LENGTH(fastSearch) != #{fastSearchChars}"
+                    "UPDATE devices SET fastSearch = RIGHT(number, #{fastSearchChars}) WHERE fastSearch IS NULL "
+                            + " OR LENGTH(fastSearch) != #{fastSearchChars}"
     })
     void updateFastSearch(@Param("fastSearchChars") Integer fastSearchChars);
 
@@ -179,11 +171,10 @@ public interface DeviceMapper {
             + "    WHERE id = #{deviceId}" + ") deviceApps")
     List<DeviceApplication> getDeviceInstalledApplications(@Param("deviceId") int deviceId);
 
-    @Update(
-            "INSERT INTO deviceStatuses (deviceId, configFilesStatus, applicationsStatus) "
-                    + "VALUES (#{deviceId}, #{filesStatus}, #{appsStatus})"
-                    + "ON CONFLICT ON CONSTRAINT deviceStatuses_pr_key DO "
-                    + "UPDATE SET configFilesStatus = EXCLUDED.configFilesStatus, applicationsStatus = EXCLUDED.applicationsStatus")
+    @Update("INSERT INTO deviceStatuses (deviceId, configFilesStatus, applicationsStatus) "
+            + "VALUES (#{deviceId}, #{filesStatus}, #{appsStatus})"
+            + "ON CONFLICT ON CONSTRAINT deviceStatuses_pr_key DO "
+            + "UPDATE SET configFilesStatus = EXCLUDED.configFilesStatus, applicationsStatus = EXCLUDED.applicationsStatus")
     int updateDeviceStatuses(
             @Param("deviceId") Integer deviceId,
             @Param("filesStatus") DeviceConfigFilesStatus deviceConfigFilesStatus,

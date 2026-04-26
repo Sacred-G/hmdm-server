@@ -953,7 +953,7 @@ document.localization['ru_RU'] = {
     'app.name': 'Headwind MDM',
     'app.vendor.name': "h-mdm.com",
     'app.vendor.link': "https://h-mdm.com",
-    'app.description': '',
+    'app.description': '- система управления мобильными устройствами с открытым кодом',
     'app.title': '${appName} - панель управления',
 
     'box.show.my.apps.only': 'Показать только мои приложения',

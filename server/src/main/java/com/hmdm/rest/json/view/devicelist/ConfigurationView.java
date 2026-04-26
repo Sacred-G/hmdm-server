@@ -1,18 +1,14 @@
 /*
- *
  * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
- * copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
  * under the License.
- *
  */
 
 package com.hmdm.rest.json.view.devicelist;
@@ -29,9 +25,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * <p>
- * A wrapper around the {@link Configuration} object providing the view suitable for the <code>Device List</code> view of server application.
- * </p>
+ * <p>A wrapper around the {@link Configuration} object providing the view suitable for the <code>Device List</code> view of server application.</p>
  *
  * @author isv
  */
@@ -45,25 +39,19 @@ public class ConfigurationView implements Serializable {
     private static final long serialVersionUID = 3343804830704098674L;
 
     /**
-     * <p>
-     * A wrapped configuration object.
-     * </p>
+     * <p>A wrapped configuration object.</p>
      */
     private final Configuration configuration;
 
     /**
-     * <p>
-     * A list of wrappers around the applications set for configuration.
-     * </p>
+     * <p>A list of wrappers around the applications set for configuration.</p>
      */
     private final List<ApplicationView> applications;
 
     private final List<ConfigurationFileView> files;
 
     /**
-     * <p>
-     * Constructs new <code>ConfigurationView</code> instance. This implementation does nothing.
-     * </p>
+     * <p>Constructs new <code>ConfigurationView</code> instance. This implementation does nothing.</p>
      */
     ConfigurationView(Configuration configuration) {
         this.configuration = configuration;

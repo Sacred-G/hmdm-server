@@ -953,7 +953,7 @@ document.localization['ar_AE'] = {
     "app.name": 'Headwind MDM',
     'app.vendor.name': "h-mdm.com",
     'app.vendor.link': "https://h-mdm.com",
-    "app.description": '',
+    "app.description": 'هو نظام إدارة الأجهزة المحمولة مفتوح المصدر',
     "app.title": '${appName} لوحة ويب',
 
     "box.show.my.apps.only": 'عرض تطبيقاتي فقط',

@@ -22,8 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * MQTT notification task module using ActiveMQ Artemis. Provides embedded MQTT broker functionality for push
- * notifications.
+ * MQTT notification task module using ActiveMQ Artemis. Provides embedded MQTT broker functionality for push notifications.
  */
 public class NotificationMqttTaskModule {
 

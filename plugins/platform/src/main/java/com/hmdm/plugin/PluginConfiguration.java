@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.plugin;
@@ -27,9 +19,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * <p>An interface for plugin configuration. Each plugin is required to provide the implementation of this interface named
- * as <code>PluginConfigurationImpl</code> and located in the plugin's root package. The objects of this type must
- * provide a public no-argument constructor.</p>
+ * <p>An interface for plugin configuration. Each plugin is required to provide the implementation of this interface named as
+ * <code>PluginConfigurationImpl</code> and located in the plugin's root package. The objects of this type must provide a public no-argument
+ * constructor.</p>
  *
  * @author isv
  */
@@ -38,8 +30,8 @@ public interface PluginConfiguration {
     /**
      * <p>Gets the unique identifier for this plugin.</p>
      *
-     * <p>This is a sort of logical name for the plugin which is used widely by <code>Plugin Platform</code> and plays a
-     * major role in plugins development and management.</p>
+     * <p>This is a sort of logical name for the plugin which is used widely by <code>Plugin Platform</code> and plays a major role in plugins
+     * development and management.</p>
      *
      * @return a plugin identifier.
      */

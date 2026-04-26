@@ -20,8 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * In version 5.36.1, a new way to work with files has been implemented This task migrates old style configuration files
- * to new way
+ * In version 5.36.1, a new way to work with files has been implemented This task migrates old style configuration files to new way
  */
 public class FileMigrateTask implements Runnable {
 
@@ -191,13 +190,11 @@ public class FileMigrateTask implements Runnable {
         // Sequential execution is important here
         for (UploadedFile file : orphans) {
             if (file.isExternal()
-                            && uploadedFileMapper.countExternalDuplicates(
-                                            file.getId(), customer.getId(), file.getExternalUrl())
-                                    > 0
+                    && uploadedFileMapper.countExternalDuplicates(
+                            file.getId(), customer.getId(), file.getExternalUrl()) > 0
                     || !file.isExternal()
                             && uploadedFileMapper.countUploadedDuplicates(
-                                            file.getId(), customer.getId(), file.getFilePath())
-                                    > 0) {
+                                    file.getId(), customer.getId(), file.getFilePath()) > 0) {
                 logger.info("Orphaned uploaded file has duplicates, deleted, id=" + file.getId());
                 uploadedFileMapper.delete(file.getId());
             }

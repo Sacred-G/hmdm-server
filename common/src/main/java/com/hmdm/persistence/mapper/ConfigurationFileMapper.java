@@ -1,18 +1,14 @@
 /*
- *
  * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
- * copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
  * under the License.
- *
  */
 
 package com.hmdm.persistence.mapper;
@@ -23,9 +19,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.*;
 
 /**
- * <p>
- * An ORM mapper for the {@link com.hmdm.persistence.domain.ConfigurationFile} objects.
- * </p>
+ * <p>An ORM mapper for the {@link com.hmdm.persistence.domain.ConfigurationFile} objects.</p>
  */
 public interface ConfigurationFileMapper {
 
@@ -46,8 +40,7 @@ public interface ConfigurationFileMapper {
             + "WHERE configurationId = #{configurationId} ORDER BY id")
     List<ConfigurationFile> getConfigurationFiles(@Param("configurationId") int configurationId);
 
-    @Select(
-            "SELECT * FROM configurationFiles WHERE configurationId = #{configurationId} AND devicepath = #{path} LIMIT 1")
+    @Select("SELECT * FROM configurationFiles WHERE configurationId = #{configurationId} AND devicepath = #{path} LIMIT 1")
     @Deprecated
     ConfigurationFile getConfigurationFileByPath(
             @Param("configurationId") int configurationId,

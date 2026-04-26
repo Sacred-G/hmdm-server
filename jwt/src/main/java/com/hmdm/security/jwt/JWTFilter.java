@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.security.jwt;
@@ -37,8 +29,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * <p>Filters incoming requests and sets up a security context for the request processing if a header corresponding to a
- * valid user is found.</p>
+ * <p>Filters incoming requests and sets up a security context for the request processing if a header corresponding to a valid user is found.</p>
  *
  * @author isv
  */
@@ -51,8 +42,7 @@ public class JWTFilter implements Filter {
     private static final String AUTHORIZATION_HEADER = "Authorization";
 
     /**
-     * <p>An authentication token provider used for validating and parsing the authentication tokens provided by incoming
-     * request.</p>
+     * <p>An authentication token provider used for validating and parsing the authentication tokens provided by incoming request.</p>
      */
     private final TokenProvider tokenProvider;
 
@@ -82,8 +72,8 @@ public class JWTFilter implements Filter {
     public void destroy() {}
 
     /**
-     * <p>Intercepts the specified request. If a valid authentication token is provided by the specified request then
-     * set-ups current security context with authenticated principal based on the provided token.</p>
+     * <p>Intercepts the specified request. If a valid authentication token is provided by the specified request then set-ups current security context
+     * with authenticated principal based on the provided token.</p>
      *
      * @param servletRequest an incoming request.
      * @param servletResponse an outgoing response.
@@ -120,8 +110,7 @@ public class JWTFilter implements Filter {
     }
 
     /**
-     * <p>Gets the authentication token if any is provided by the specified request. Analyzes <code>Authorization</code>
-     * request header.</p>
+     * <p>Gets the authentication token if any is provided by the specified request. Analyzes <code>Authorization</code> request header.</p>
      *
      * @param request an incoming request.
      * @return an authentication token provided by the specified request or <code>null</code> if there is no such token provided.

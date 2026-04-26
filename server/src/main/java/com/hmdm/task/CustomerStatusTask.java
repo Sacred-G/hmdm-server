@@ -47,16 +47,14 @@ public class CustomerStatusTask implements Runnable {
                 long daysAfterRegistration = (now - customer.getRegistrationTime()) / 86400000l;
                 // If not signed, we change status based on days after registration
                 // We compare days in reverse order - this is important.
-                if (daysAfterRegistration
-                        > INTERVAL_PAUSE_1
-                                + INTERVAL_PAUSE_2
-                                + INTERVAL_ABANDON_1
-                                + INTERVAL_ABANDON_2
-                                + INTERVAL_DENIAL) {
+                if (daysAfterRegistration > INTERVAL_PAUSE_1
+                        + INTERVAL_PAUSE_2
+                        + INTERVAL_ABANDON_1
+                        + INTERVAL_ABANDON_2
+                        + INTERVAL_DENIAL) {
                     customer.setCustomerStatus(Customer.CUSTOMER_DENIAL);
                     updatedCustomersMap.put(customer.getName(), customer);
-                } else if (daysAfterRegistration
-                        > INTERVAL_PAUSE_1 + INTERVAL_PAUSE_2 + INTERVAL_ABANDON_1 + INTERVAL_ABANDON_2) {
+                } else if (daysAfterRegistration > INTERVAL_PAUSE_1 + INTERVAL_PAUSE_2 + INTERVAL_ABANDON_1 + INTERVAL_ABANDON_2) {
                     if (customer.getAbandonState() < 2) {
                         customer.setCustomerStatus(Customer.CUSTOMER_ABANDON);
                         customer.setAbandonState(2);
@@ -93,16 +91,14 @@ public class CustomerStatusTask implements Runnable {
 
                 // If not signed, we change status based on days after registration
                 // Reverse order for comparison
-                if (daysAfterSignIn
-                        > INTERVAL_PAUSE_1
-                                + INTERVAL_PAUSE_2
-                                + INTERVAL_ABANDON_1
-                                + INTERVAL_ABANDON_2
-                                + INTERVAL_DENIAL) {
+                if (daysAfterSignIn > INTERVAL_PAUSE_1
+                        + INTERVAL_PAUSE_2
+                        + INTERVAL_ABANDON_1
+                        + INTERVAL_ABANDON_2
+                        + INTERVAL_DENIAL) {
                     customer.setCustomerStatus(Customer.CUSTOMER_DENIAL);
                     updatedCustomersMap.put(customer.getName(), customer);
-                } else if (daysAfterSignIn
-                        > INTERVAL_PAUSE_1 + INTERVAL_PAUSE_2 + INTERVAL_ABANDON_1 + INTERVAL_ABANDON_2) {
+                } else if (daysAfterSignIn > INTERVAL_PAUSE_1 + INTERVAL_PAUSE_2 + INTERVAL_ABANDON_1 + INTERVAL_ABANDON_2) {
                     if (customer.getAbandonState() < 2) {
                         customer.setCustomerStatus(Customer.CUSTOMER_ABANDON);
                         customer.setAbandonState(2);

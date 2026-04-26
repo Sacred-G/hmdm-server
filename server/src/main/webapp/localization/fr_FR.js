@@ -953,7 +953,7 @@ document.localization['fr_FR'] = {
     'app.name': 'Headwind MDM',
     'app.vendor.name': "h-mdm.com",
     'app.vendor.link': "https://h-mdm.com",
-    'app.description': '',
+    'app.description': 'est le système de gestion des appareils mobiles open source',
     'app.title': 'Serveur ${appName}',
 
     'box.show.my.apps.only': 'Afficher uniquement mes applications',

@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.plugins.deviceinfo.service;
@@ -70,8 +62,7 @@ public class DeviceInfoExportService {
     }
 
     /**
-     * <p>Exports the device dynamic info records matching the specified parameters into CSV file which is written to
-     * specified stream.</p>
+     * <p>Exports the device dynamic info records matching the specified parameters into CSV file which is written to specified stream.</p>
      *
      * @param request the parameters for export process.
      * @param output a stream to write the generated content to.
@@ -83,7 +74,7 @@ public class DeviceInfoExportService {
         SecurityContext.get().getCurrentUser().ifPresent(user -> {
             logger.debug("Starting device dynamic info export for request: {} ...", request);
             try (Cursor<DeviceDynamicInfoRecord> records = this.mapper.searchDynamicDataForExport(request);
-                    CSVWriter writer = new CSVWriter(new OutputStreamWriter(output)); ) {
+                    CSVWriter writer = new CSVWriter(new OutputStreamWriter(output));) {
                 if (records != null) {
                     String locale = request.getLocale() == null ? Locale.ENGLISH.getLanguage() : request.getLocale();
                     if (locale.contains("_")) {
@@ -135,79 +126,66 @@ public class DeviceInfoExportService {
         });
     }
 
-    private static final Function<
-                    Function<DeviceDynamicInfoRecord, Integer>,
-                    BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>>
-            integerValueExtractorFactory = valueSupplier -> (record, resourceBundle) -> {
-        final Integer value = valueSupplier.apply(record);
-        if (value != null) {
-            return value.toString();
-        } else {
-            return null;
-        }
-    };
+    private static final Function<Function<DeviceDynamicInfoRecord, Integer>, BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>> integerValueExtractorFactory =
+            valueSupplier -> (record, resourceBundle) -> {
+                final Integer value = valueSupplier.apply(record);
+                if (value != null) {
+                    return value.toString();
+                } else {
+                    return null;
+                }
+            };
 
-    private static final Function<
-                    Function<DeviceDynamicInfoRecord, String>,
-                    BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>>
-            stringValueExtractorFactory = valueSupplier -> (record, resourceBundle) -> valueSupplier.apply(record);
+    private static final Function<Function<DeviceDynamicInfoRecord, String>, BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>> stringValueExtractorFactory =
+            valueSupplier -> (record, resourceBundle) -> valueSupplier.apply(record);
 
-    private static final BiFunction<
-                    String,
-                    Function<DeviceDynamicInfoRecord, String>,
-                    BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>>
-            enumeratedValueExtractorFactory = (fieldName, valueSupplier) -> (record, resourceBundle) -> {
-        final String value = valueSupplier.apply(record);
-        if (value != null) {
-            try {
-                return resourceBundle.getString("plugin.deviceinfo.state." + fieldName + "." + value);
-            } catch (Exception e) {
-                return value;
-            }
-        } else {
-            return null;
-        }
-    };
+    private static final BiFunction<String, Function<DeviceDynamicInfoRecord, String>, BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>> enumeratedValueExtractorFactory =
+            (fieldName, valueSupplier) -> (record, resourceBundle) -> {
+                final String value = valueSupplier.apply(record);
+                if (value != null) {
+                    try {
+                        return resourceBundle.getString("plugin.deviceinfo.state." + fieldName + "." + value);
+                    } catch (Exception e) {
+                        return value;
+                    }
+                } else {
+                    return null;
+                }
+            };
 
-    private static final Function<
-                    Function<DeviceDynamicInfoRecord, Long>,
-                    BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>>
-            longValueExtractorFactory = valueSupplier -> (record, resourceBundle) -> {
-        final Long value = valueSupplier.apply(record);
-        if (value != null) {
-            return value.toString();
-        } else {
-            return null;
-        }
-    };
+    private static final Function<Function<DeviceDynamicInfoRecord, Long>, BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>> longValueExtractorFactory =
+            valueSupplier -> (record, resourceBundle) -> {
+                final Long value = valueSupplier.apply(record);
+                if (value != null) {
+                    return value.toString();
+                } else {
+                    return null;
+                }
+            };
 
-    private static final Function<
-                    Function<DeviceDynamicInfoRecord, Double>,
-                    BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>>
-            doubleValueExtractorFactory = valueSupplier -> (record, resourceBundle) -> {
-        final Double value = valueSupplier.apply(record);
-        if (value != null) {
-            return value.toString();
-        } else {
-            return null;
-        }
-    };
+    private static final Function<Function<DeviceDynamicInfoRecord, Double>, BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>> doubleValueExtractorFactory =
+            valueSupplier -> (record, resourceBundle) -> {
+                final Double value = valueSupplier.apply(record);
+                if (value != null) {
+                    return value.toString();
+                } else {
+                    return null;
+                }
+            };
 
-    private static final Function<
-                    Function<DeviceDynamicInfoRecord, Boolean>,
-                    BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>>
-            booleanValueExtractorFactory = valueSupplier -> (record, resourceBundle) -> {
-        final Boolean value = valueSupplier.apply(record);
-        if (value != null) {
-            try {
-                return resourceBundle.getString("plugin.deviceinfo.boolean." + value);
-            } catch (Exception e) {
-                return value.toString();
-            }
-        } else {
-            return null;
-        }
-    };
+    private static final Function<Function<DeviceDynamicInfoRecord, Boolean>, BiFunction<DeviceDynamicInfoRecord, ResourceBundle, String>> booleanValueExtractorFactory =
+            valueSupplier -> (record, resourceBundle) -> {
+                final Boolean value = valueSupplier.apply(record);
+                if (value != null) {
+                    try {
+                        return resourceBundle.getString("plugin.deviceinfo.boolean." + value);
+                    } catch (Exception e) {
+                        return value.toString();
+                    }
+                } else {
+                    return null;
+                }
+            };
 
     /**
      * <p>A mapping from record field name to value extractor for the field.</p>

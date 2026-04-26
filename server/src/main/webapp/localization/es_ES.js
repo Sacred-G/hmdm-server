@@ -953,7 +953,7 @@ document.localization['es_ES'] = {
     'app.name': 'Headwind MDM',
     'app.vendor.name': "h-mdm.com",
     'app.vendor.link': "https://h-mdm.com",
-    'app.description': '',
+    'app.description': 'es la solucion MDM open-source',
     'app.title': '${appName} Panel Web',
 
     'box.show.my.apps.only': 'Mostrar mis aplicaciones solamente',

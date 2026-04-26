@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.domain;
@@ -154,8 +146,7 @@ public class Configuration implements CustomerData, Serializable {
     private Boolean autostartForeground;
 
     @Schema(
-            description =
-                    "Time zone settings: null for using default settings, auto for automatic time zone, or Olson time zone string")
+            description = "Time zone settings: null for using default settings, auto for automatic time zone, or Olson time zone string")
     private String timeZone;
 
     @Schema(description = "Allowed classes, separated by comma")
@@ -259,8 +250,7 @@ public class Configuration implements CustomerData, Serializable {
     private String desktopHeaderTemplate;
 
     @Schema(
-            description =
-                    "If checked, the data of the device status bar (time, battery, etc) are displayed by Headwind MDM")
+            description = "If checked, the data of the device status bar (time, battery, etc) are displayed by Headwind MDM")
     private boolean displayStatus;
 
     // An unique key used for retrieving the QR code for configuration

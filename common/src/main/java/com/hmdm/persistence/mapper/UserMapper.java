@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.mapper;
@@ -50,12 +42,12 @@ public interface UserMapper {
     List<User> findAllWithOldPassword();
 
     @Insert({
-        "INSERT INTO users (login, email, name, password, customerId, userRoleId, "
-                + "allDevicesAvailable, allConfigAvailable, passwordReset, authToken, "
-                + "passwordResetToken, authData, twoFactorSecret, twoFactorAccepted) "
-                + "VALUES (#{login}, #{email}, #{name}, #{password}, #{customerId}, #{userRole.id}, "
-                + "#{allDevicesAvailable}, #{allConfigAvailable}, #{passwordReset}, #{authToken}, "
-                + "#{passwordResetToken}, #{authData}, #{twoFactorSecret}, #{twoFactorAccepted})"
+                    "INSERT INTO users (login, email, name, password, customerId, userRoleId, "
+                            + "allDevicesAvailable, allConfigAvailable, passwordReset, authToken, "
+                            + "passwordResetToken, authData, twoFactorSecret, twoFactorAccepted) "
+                            + "VALUES (#{login}, #{email}, #{name}, #{password}, #{customerId}, #{userRole.id}, "
+                            + "#{allDevicesAvailable}, #{allConfigAvailable}, #{passwordReset}, #{authToken}, "
+                            + "#{passwordResetToken}, #{authData}, #{twoFactorSecret}, #{twoFactorAccepted})"
     })
     @SelectKey(
             statement = "SELECT currval('users_id_seq')",
@@ -66,23 +58,23 @@ public interface UserMapper {
     void insert(User user);
 
     @Update({
-        "UPDATE users " + "SET name = #{name}, login=#{login}, email=#{email}, userRoleId=#{userRole.id}, "
-                + "allDevicesAvailable=#{allDevicesAvailable}, allConfigAvailable=#{allConfigAvailable}, "
-                + "passwordReset=#{passwordReset}, authData=#{authData}, twoFactorSecret=#{twoFactorSecret}, "
-                + "twoFactorAccepted=#{twoFactorAccepted} " + "WHERE id=#{id}"
+                    "UPDATE users " + "SET name = #{name}, login=#{login}, email=#{email}, userRoleId=#{userRole.id}, "
+                            + "allDevicesAvailable=#{allDevicesAvailable}, allConfigAvailable=#{allConfigAvailable}, "
+                            + "passwordReset=#{passwordReset}, authData=#{authData}, twoFactorSecret=#{twoFactorSecret}, "
+                            + "twoFactorAccepted=#{twoFactorAccepted} " + "WHERE id=#{id}"
     })
     void updateUserMainDetails(User user);
 
     @Update({
-        "UPDATE users SET password=#{password}, passwordReset=#{passwordReset}, "
-                + "authToken=#{authToken}, passwordResetToken=#{passwordResetToken}, "
-                + "twoFactorSecret=#{twoFactorSecret}, twoFactorAccepted=#{twoFactorAccepted} " + "WHERE id=#{id}"
+                    "UPDATE users SET password=#{password}, passwordReset=#{passwordReset}, "
+                            + "authToken=#{authToken}, passwordResetToken=#{passwordResetToken}, "
+                            + "twoFactorSecret=#{twoFactorSecret}, twoFactorAccepted=#{twoFactorAccepted} " + "WHERE id=#{id}"
     })
     void updatePassword(User user);
 
     @Update({
-        "UPDATE users SET password=#{newPassword}, passwordReset=#{passwordReset}, "
-                + "authToken=#{authToken}, passwordResetToken=#{passwordResetToken} WHERE id=#{id}"
+                    "UPDATE users SET password=#{newPassword}, passwordReset=#{passwordReset}, "
+                            + "authToken=#{authToken}, passwordResetToken=#{passwordResetToken} WHERE id=#{id}"
     })
     void setNewPassword(User user);
 
@@ -102,16 +94,16 @@ public interface UserMapper {
     UserRole findUserRoleByName(@Param("name") String name);
 
     @Delete({
-        "DELETE FROM userDeviceGroupsAccess " + "WHERE userId=#{id} "
-                + "AND groupId IN (SELECT groups.id FROM groups WHERE groups.customerId=#{customerId})"
+                    "DELETE FROM userDeviceGroupsAccess " + "WHERE userId=#{id} "
+                            + "AND groupId IN (SELECT groups.id FROM groups WHERE groups.customerId=#{customerId})"
     })
     void removeDeviceGroupsAccessByUserId(@Param("customerId") int customerId, @Param("id") Integer userId);
 
     void insertUserDeviceGroupsAccess(@Param("id") Integer userId, @Param("groups") List<Integer> groups);
 
     @Delete({
-        "DELETE FROM userConfigurationAccess " + "WHERE userId=#{id} "
-                + "AND configurationId IN (SELECT configurations.id FROM configurations WHERE configurations.customerId=#{customerId})"
+                    "DELETE FROM userConfigurationAccess " + "WHERE userId=#{id} "
+                            + "AND configurationId IN (SELECT configurations.id FROM configurations WHERE configurations.customerId=#{customerId})"
     })
     void removeConfigurationAccessByUserId(@Param("customerId") int customerId, @Param("id") Integer userId);
 

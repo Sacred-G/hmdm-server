@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence;
@@ -78,8 +70,7 @@ public class DeviceDAO extends AbstractDAO<Device> {
 
         /*
          * User user = SecurityContext.get() .getCurrentUser().get(); if (user == null) { return 0; } Long count =
-         * this.mapper.countAllDevicesForCustomer(user.getCustomerId()); if (count == null) { return 0; } return
-         * count.intValue();
+         * this.mapper.countAllDevicesForCustomer(user.getCustomerId()); if (count == null) { return 0; } return count.intValue();
          */
     }
 
@@ -199,8 +190,8 @@ public class DeviceDAO extends AbstractDAO<Device> {
     }
 
     /**
-     * <p>Updates the device data in persistent data store. The reference to related customer account and last update time
-     * of the device are not affected by this method.</p>
+     * <p>Updates the device data in persistent data store. The reference to related customer account and last update time of the device are not
+     * affected by this method.</p>
      *
      * @param device a device to be updated.
      *
@@ -239,7 +230,6 @@ public class DeviceDAO extends AbstractDAO<Device> {
      * <p>Gets the applications installed on specified device.</p>
      *
      * @param deviceId an ID of a device.
-     *
      * @return a list of applications reported as installed on specified device.
      */
     @Transactional
@@ -257,7 +247,6 @@ public class DeviceDAO extends AbstractDAO<Device> {
      *
      * @param filter a filter to be used for filtering the records.
      * @param resultsCount a maximum number of items to be included to list.
-     *
      * @return a response with list of devices matching the specified filter.
      */
     public List<DeviceLookupItem> findDevices(String filter, int resultsCount) {
@@ -282,7 +271,6 @@ public class DeviceDAO extends AbstractDAO<Device> {
      *
      * @param deviceId an ID of a device to update description for.
      * @param newDeviceDescription a new device description.
-     *
      * @throws SecurityException if current user is not authorized to update the specified device description.
      */
     @Transactional
@@ -384,8 +372,7 @@ public class DeviceDAO extends AbstractDAO<Device> {
                         configIds = new LinkedList<>();
                         for (SummaryConfigItem summaryConfigItem : topConfigs) {
                             configIds.add(summaryConfigItem.getId());
-                        }
-                        ;
+                        } ;
                     }
 
                     DeviceSummaryRequest filter = new DeviceSummaryRequest(

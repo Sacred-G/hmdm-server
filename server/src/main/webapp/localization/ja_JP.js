@@ -953,7 +953,7 @@ document.localization['ja_JP'] = {
     'app.name': 'Headwind MDM',
     'app.vendor.name': "h-mdm.com",
     'app.vendor.link': "https://h-mdm.com",
-    'app.description': '',
+    'app.description': 'オープンソースのデバイス管理システム',
     'app.title': '${appName} Web パネル',
 
     'box.show.my.apps.only': '自分のアプリケーションのみを表示',

@@ -1,23 +1,16 @@
 /*
- *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
- *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- */
+*/
 
 // Localization completed
 angular.module('headwind-kiosk')
@@ -47,7 +40,7 @@ angular.module('headwind-kiosk')
         });
 
         var clear = function () {
-            hints  = [];
+            hints = [];
             hintKeys = {};
             nonAddedHints = {};
         };
@@ -82,14 +75,14 @@ angular.module('headwind-kiosk')
         var initialized = false;
         var nonAddedHints = {};
 
-        var init =  function () {
+        var init = function () {
             clear();
             shownHints = {};
             initialized = false;
 
             httpHintService.list({}, function (response) {
                 if (response.status === 'OK') {
-                    response.data.forEach(addShownHint) ;
+                    response.data.forEach(addShownHint);
                 } else {
                     console.error("Failed to get list of shown hints", localization.localizeServerResponse(response));
                 }
@@ -168,7 +161,7 @@ angular.module('headwind-kiosk')
                         break;
                     }
                 }
-                
+
                 if (!initialized || nonAddedHintsExist) {
                     $timeout(onStateChangeSuccessFunc, 300);
                 } else {
@@ -192,10 +185,10 @@ angular.module('headwind-kiosk')
     })
     .factory('httpHintService', function ($resource) {
         return $resource('rest/private/users', {}, {
-            list: {url: 'rest/private/hints/history', method: 'GET'},
-            enable: {url: 'rest/private/hints/enable', method: 'POST'},
-            disable: {url: 'rest/private/hints/disable', method: 'POST'},
-            add: {url: 'rest/private/hints/history', method: 'POST'},
+            list: { url: 'rest/private/hints/history', method: 'GET' },
+            enable: { url: 'rest/private/hints/enable', method: 'POST' },
+            disable: { url: 'rest/private/hints/disable', method: 'POST' },
+            add: { url: 'rest/private/hints/history', method: 'POST' },
         });
     })
     .directive('hintKey', function (hintService) {

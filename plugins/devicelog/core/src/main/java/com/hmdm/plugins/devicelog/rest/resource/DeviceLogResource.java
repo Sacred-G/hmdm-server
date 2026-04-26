@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.plugins.devicelog.rest.resource;
@@ -160,49 +152,43 @@ public class DeviceLogResource {
         AtomicBoolean stop = new AtomicBoolean(false);
 
         return jakarta.ws.rs.core.Response.ok((StreamingOutput) output -> {
-                    try {
-                        List<DeviceLogRecord> records = this.deviceLogDAO.findAll(filter);
-                        while (!stop.get() && !records.isEmpty()) {
-                            records.forEach(log -> {
-                                StringBuilder b = new StringBuilder();
-                                b.append(log.getDeviceNumber());
-                                b.append(",");
-                                b.append(dateFormat.format(new Date(log.getCreateTime())));
-                                b.append(",");
-                                b.append(log.getApplicationPkg());
-                                b.append(",");
-                                b.append(log.getSeverity());
-                                b.append(",");
-                                b.append(log.getMessage());
-                                b.append('\n');
+            try {
+                List<DeviceLogRecord> records = this.deviceLogDAO.findAll(filter);
+                while (!stop.get() && !records.isEmpty()) {
+                    for (DeviceLogRecord log : records) {
+                        try {
+                            StringBuilder b = new StringBuilder();
+                            b.append(log.getDeviceNumber());
+                            b.append(",");
+                            b.append(dateFormat.format(new Date(log.getCreateTime())));
+                            b.append(",");
+                            b.append(log.getApplicationPkg());
+                            b.append(",");
+                            b.append(log.getSeverity());
+                            b.append(",");
+                            b.append(log.getMessage());
+                            b.append('\n');
 
-                                try {
-                                    output.write(b.toString().getBytes());
-                                } catch (IOException e) {
-                                    logger.error(
-                                            "Failed to write log record {} to output stream. Stopping to export further log records.",
-                                            log,
-                                            e);
-                                    stop.set(true);
-                                }
-                            });
-
+                            output.write(b.toString().getBytes());
                             output.flush();
-
-                            if (!stop.get()) {
-                                filter.setPageNum(filter.getPageNum() + 1);
-                                records = this.deviceLogDAO.findAll(filter);
-                            }
+                        } catch (IOException e) {
+                            logger.error("Failed to write log record {} to output stream. Stopping to export further log records.", log, e);
+                            stop.set(true);
+                            break;
                         }
-
-                        output.flush();
-                    } catch (Exception e) {
-                        logger.error(
-                                "Failed to export the device log records due to unexpected error. Filter: {}",
-                                filter,
-                                e);
                     }
-                })
+
+                    if (!stop.get()) {
+                        filter.setPageNum(filter.getPageNum() + 1);
+                        records = this.deviceLogDAO.findAll(filter);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("Failed to export device log records", e);
+            }
+        })
                 .header("Cache-Control", "no-cache")
                 .header("Content-Type", "text/plain")
                 .header("Content-Disposition", contentDisposition)
