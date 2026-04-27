@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence;
@@ -109,7 +101,8 @@ public class ApplicationDAO extends AbstractLinkedDAO<Application, ApplicationCo
      *
      * @param application an application record to be created.
      *
-     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or master customer account.
+     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or
+     *         master customer account.
      */
     @Transactional
     public int insertApplication(Application application) {
@@ -160,7 +153,7 @@ public class ApplicationDAO extends AbstractLinkedDAO<Application, ApplicationCo
     }
 
     /**
-     * <p>Creates new application record in DB.</p>
+     * <p>Creates new web application record in DB.</p>
      *
      * @param application an application record to be created.
      */
@@ -283,7 +276,8 @@ public class ApplicationDAO extends AbstractLinkedDAO<Application, ApplicationCo
      *
      * @param application an application record to be updated.
      *
-     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or master customer account.
+     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or
+     *         master customer account.
      */
     @Transactional
     public void updateApplication(Application application) {
@@ -295,7 +289,8 @@ public class ApplicationDAO extends AbstractLinkedDAO<Application, ApplicationCo
      *
      * @param application an application record to be updated.
      *
-     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or master customer account.
+     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or
+     *         master customer account.
      */
     @Transactional
     public void updateWebApplication(Application application) {
@@ -316,7 +311,8 @@ public class ApplicationDAO extends AbstractLinkedDAO<Application, ApplicationCo
      *
      * @param applicationVersion an application version record to be updated.
      *
-     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or master customer account.
+     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or
+     *         master customer account.
      */
     @Transactional
     public void updateApplicationVersion(ApplicationVersion applicationVersion) {
@@ -860,8 +856,7 @@ public class ApplicationDAO extends AbstractLinkedDAO<Application, ApplicationCo
     }
 
     /**
-     * <p>Removes the application version referenced by the specified ID and deletes the associated APK-file from local
-     * file system.</p>
+     * <p>Removes the application version referenced by the specified ID and deletes the associated APK-file from local file system.</p>
      *
      * @param id an ID of an application to delete.
      *
@@ -892,9 +887,9 @@ public class ApplicationDAO extends AbstractLinkedDAO<Application, ApplicationCo
      *
      * @param applicationVersion an application version record to be created.
      *
-     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or master customer account.
-     * @throws CommonAppAccessException
-     *             if target application is common and current user is not a super-admin.
+     * @throws DuplicateApplicationException if another application record with same package ID and version already exists either for current or
+     *         master customer account.
+     * @throws CommonAppAccessException if target application is common and current user is not a super-admin.
      */
     @Transactional
     public int insertApplicationVersion(ApplicationVersion applicationVersion) {
@@ -1036,9 +1031,8 @@ public class ApplicationDAO extends AbstractLinkedDAO<Application, ApplicationCo
     }
 
     /**
-     * <p>Updates the configurations which have the AUTO-UPDATE flag set to true to refer to newly added application
-     * version.</p>
-     * <p>This method is deprecated because it uses autoUpdate parameter in configurations which is always false.</p>
+     * <p>Updates the configurations which have the AUTO-UPDATE flag set to true to refer to newly added application version.This method is deprecated
+     * because it uses autoUpdate parameter in configurations which is always false.</p>
      *
      * @param newApplicationVersion a new application version to update the configuration references to.
      */

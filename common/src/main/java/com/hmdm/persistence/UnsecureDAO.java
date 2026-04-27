@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence;
@@ -43,8 +35,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>A DAO which does not perform any security checks when accessing/updating data. It is intended for processing requests
- * from anonymous clients (for example, devices).</p>
+ * <p>A DAO which does not perform any security checks when accessing/updating data. It is intended for processing requests from anonymous clients
+ * (for example, devices).</p>
  *
  * @author isv
  */
@@ -190,8 +182,7 @@ public class UnsecureDAO {
         this.deviceMapper.clearOldNumber(id);
     }
 
-    // This method should be called in a single-tenant mode only
-    // and the device customer ID should be set
+    // This method should be called in a single-tenant mode only and the device customer ID should be set
     @Transactional
     public void insertDevice(Device device) {
         this.deviceMapper.insertDevice(device);
@@ -242,7 +233,6 @@ public class UnsecureDAO {
      *
      * @param customerId an ID of a customer record.
      * @param appPackages a collection of application package IDs to build mapping for.
-     *
      * @return a mapping from application package ID to application ID.
      */
     public Map<String, Integer> buildPackageIdMapping(Integer customerId, Collection<String> appPackages) {
@@ -364,9 +354,7 @@ public class UnsecureDAO {
         this.applicationMapper.saveApkFileHash(appVersionId, hashValue);
     }
 
-    /**
-     * To use in impersonated background services only
-     */
+    /** To use in impersonated background services only */
     public List<Device> getAllGroupDevices(int groupId, int customerId) {
         return this.deviceMapper.getAllGroupDevices(groupId, customerId);
     }
@@ -383,7 +371,6 @@ public class UnsecureDAO {
      * <p>Gets the device referenced by the specified ID.</p>
      *
      * @param id an ID of a device.
-     *
      * @return a device referenced by the specified ID or <code>null</code> if there is no such device found.
      */
     public Device getDeviceById(Integer id) {
@@ -394,22 +381,17 @@ public class UnsecureDAO {
      * <p>Gets the list of configuration files to be used on device.</p>
      *
      * @param device a device to get the configuration files for.
-     *
      * @return a list of configuration files to be used on device.
      */
     public List<ConfigurationFile> getConfigurationFiles(Device device) {
         return this.configurationFileMapper.getConfigurationFiles(device.getConfigurationId());
     }
 
-    // /**
-    // * <p>Gets the settings for the customer account mapped to specified device.</p>
-    // *
+    // /** * <p>Gets the settings for the customer account mapped to specified device.</p>
     // * @param deviceId a device number identifying the device.
     // * @return the settings for related customer account.
-    // */
-    // public Settings getSettingsByDeviceId(String deviceId) {
-    // return this.settingsMapper.getSettingsByDeviceId(deviceId);
-    // }
+    // public Settings getSettingsByDeviceId(String deviceId) { return
+    // this.settingsMapper.getSettingsByDeviceId(deviceId); }
 
     /**
      * <p>Tests if the current installation is single-customer</p>
@@ -540,8 +522,8 @@ public class UnsecureDAO {
                 return;
             }
         }
-        // The customer username is unique, so it could always be used as a prefix
-        // So we shouldn't be here, but set the prefix anyway
+        // The customer username is unique, so it could always be used as a prefix So we shouldn't be here, but set the
+        // prefix anyway
         customer.setPrefix(customer.getName().toLowerCase());
     }
 
@@ -613,22 +595,15 @@ public class UnsecureDAO {
 
         // If the configuration is specified, we want to create a new device, so don't check the legacy setting
         if (createOptions.getConfiguration() != null) {
-            int configId = 0;
-            try {
-                configId = Integer.parseInt(createOptions.getConfiguration());
-            } catch (NumberFormatException e) {
-                logger.warn("Configuration id must be integer: '" + createOptions.getConfiguration()
-                        + "', device not created");
-                return null;
-            }
-            Configuration configuration = configurationMapper.getConfigurationById(configId);
+            Configuration configuration =
+                    configurationMapper.getConfigurationByQRCodeKey(createOptions.getConfiguration());
             if (configuration == null) {
-                logger.warn("Failed to get a configuration by id " + createOptions.getConfiguration()
+                logger.warn("Failed to get a configuration by key " + createOptions.getConfiguration()
                         + ", device not created");
                 return null;
             } else if (configuration.getCustomerId() != customerId) {
-                logger.warn("Configuration id " + createOptions.getConfiguration() + " doesn't belong to customer "
-                        + customerId + ", device not created");
+                logger.warn("Configuration with key " + createOptions.getConfiguration()
+                        + " doesn't belong to customer " + customerId + ", device not created");
                 return null;
             } else {
                 newDevice.setConfigurationId(configuration.getId());

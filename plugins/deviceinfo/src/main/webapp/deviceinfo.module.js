@@ -1,23 +1,16 @@
 /*
- *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
- *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- */
+*/
 
 // Localization completed
 angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngTagsInput', 'ncy-angular-breadcrumb'])
@@ -134,7 +127,7 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
         try {
             $stateProvider.state('plugin-deviceinfo', {
                 url: "/" + 'plugin-deviceinfo/{deviceNumber}',
-                params:  {
+                params: {
                     deviceNumber: {
                         value: null,
                         squash: true
@@ -190,10 +183,10 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
     })
     .factory('pluginDeviceInfoService', function ($resource) {
         return $resource('', {}, {
-            getSettings: {url: 'rest/plugins/deviceinfo/deviceinfo-plugin-settings/private', method: 'GET'},
-            saveSettings: {url: 'rest/plugins/deviceinfo/deviceinfo-plugin-settings/private', method: 'PUT'},
-            getDeviceInfo: {url: 'rest/plugins/deviceinfo/deviceinfo/private/:deviceNumber', method: 'GET'},
-            searchDynamicData: {url: 'rest/plugins/deviceinfo/deviceinfo/private/search/dynamic', method: 'POST'},
+            getSettings: { url: 'rest/plugins/deviceinfo/deviceinfo-plugin-settings/private', method: 'GET' },
+            saveSettings: { url: 'rest/plugins/deviceinfo/deviceinfo-plugin-settings/private', method: 'PUT' },
+            getDeviceInfo: { url: 'rest/plugins/deviceinfo/deviceinfo/private/:deviceNumber', method: 'GET' },
+            searchDynamicData: { url: 'rest/plugins/deviceinfo/deviceinfo/private/search/dynamic', method: 'POST' },
         });
     })
     .factory('pluginDeviceInfoExportService', function ($resource) {
@@ -224,7 +217,7 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
 
         var intervalOptionValues = [15, 30, 60, 120, 360, 720, 1440];
         $scope.intervalOptions = intervalOptionValues.map(function (value, index) {
-            return {value: value, label: localization.localize('plugin.deviceinfo.intervalMins.option.' + (index + 1))};
+            return { value: value, label: localization.localize('plugin.deviceinfo.intervalMins.option.' + (index + 1)) };
         });
 
         pluginDeviceInfoService.getSettings(function (response) {
@@ -249,10 +242,10 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
         }
     })
     .controller('PluginDeviceInfoController', function ($scope, $rootScope, $location, $http, $state, $stateParams,
-                                                        $interval,
-                                                        pluginDeviceInfoService, localization, splitDynamicInfoRecord,
-                                                        DEVICE_PARAMS, WIFI_PARAMS, GPS_PARAMS,
-                                                        MOBILE1_PARAMS, MOBILE2_PARAMS) {
+        $interval,
+        pluginDeviceInfoService, localization, splitDynamicInfoRecord,
+        DEVICE_PARAMS, WIFI_PARAMS, GPS_PARAMS,
+        MOBILE1_PARAMS, MOBILE2_PARAMS) {
         $scope.successMessage = undefined;
         $scope.errorMessage = undefined;
 
@@ -277,7 +270,7 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
         $scope.dynamicDataMobile2FieldsOrder = [].concat(MOBILE2_PARAMS);
 
         var loadData = function () {
-            pluginDeviceInfoService.getDeviceInfo({"deviceNumber": deviceLookupFormatter($scope.formData.deviceNumber)}, function (response) {
+            pluginDeviceInfoService.getDeviceInfo({ "deviceNumber": deviceLookupFormatter($scope.formData.deviceNumber) }, function (response) {
                 if (response.status === 'OK') {
                     $scope.deviceInfo = response.data;
                     $scope.latestDynamicData = response.data.latestDynamicData;
@@ -310,11 +303,11 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
             }
         };
 
-        var getDeviceInfo = function( device ) {
-            if ( device.info ) {
+        var getDeviceInfo = function (device) {
+            if (device.info) {
                 try {
-                    return JSON.parse( device.info );
-                } catch ( e ) {}
+                    return JSON.parse(device.info);
+                } catch (e) { }
             }
 
             return undefined;
@@ -356,7 +349,7 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
         };
 
         $scope.viewDynamicData = function () {
-            $state.transitionTo('plugin-deviceinfo-dynamic', {deviceNumber: $scope.deviceInfo.deviceNumber});
+            $state.transitionTo('plugin-deviceinfo-dynamic', { deviceNumber: $scope.deviceInfo.deviceNumber });
         };
 
         $scope.formatMultiLine = function (text) {
@@ -380,12 +373,12 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
             $interval.cancel(updateInterval);
         });
     })
-    .controller('PluginDeviceDynamicInfoController', function ( $scope, $stateParams, $window, $interval,
-                                                                pluginDeviceInfoService,
-                                                                localization, parseDynamicInfoRecord, spinnerService,
-                                                                alertService, pluginDeviceInfoExportService,
-                                                                DEVICE_PARAMS, WIFI_PARAMS, GPS_PARAMS,
-                                                                MOBILE1_PARAMS, MOBILE2_PARAMS) {
+    .controller('PluginDeviceDynamicInfoController', function ($scope, $stateParams, $window, $interval,
+        pluginDeviceInfoService,
+        localization, parseDynamicInfoRecord, spinnerService,
+        alertService, pluginDeviceInfoExportService,
+        DEVICE_PARAMS, WIFI_PARAMS, GPS_PARAMS,
+        MOBILE1_PARAMS, MOBILE2_PARAMS) {
         var clearMessages = function () {
             $scope.successMessage = undefined;
             $scope.errorMessage = undefined;
@@ -604,11 +597,11 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
             saveFormData();
         };
 
-        $scope.openDateCalendar = function( $event, isStartDate ) {
+        $scope.openDateCalendar = function ($event, isStartDate) {
             $event.preventDefault();
             $event.stopPropagation();
 
-            if ( isStartDate ) {
+            if (isStartDate) {
                 $scope.openDatePickers.dateFrom = true;
             } else {
                 $scope.openDatePickers.dateTo = true;
@@ -693,6 +686,6 @@ angular.module('plugin-deviceinfo', ['ngResource', 'ui.bootstrap', 'ui.router', 
         });
         localization.loadPluginResourceBundles("deviceinfo");
     })
-;
+    ;
 
 

@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.notification.persistence;
@@ -48,8 +40,7 @@ public class NotificationDAO {
     }
 
     /**
-     * <p>Gets the list of messages to be delivered to specified device. The returned messages are immediately marked as
-     * delivered.</p>
+     * <p>Gets the list of messages to be delivered to specified device. The returned messages are immediately marked as delivered.</p>
      *
      * @param deviceNumber a device number identifying the device.
      *
@@ -67,8 +58,7 @@ public class NotificationDAO {
     }
 
     /**
-     * <p>Gets the list of messages to be delivered to specified device. The returned messages are immediately marked as
-     * delivered.</p>
+     * <p>Gets the list of messages to be delivered to specified device. The returned messages are immediately marked as delivered.</p>
      *
      * @param deviceId a device id in the database.
      *
@@ -104,8 +94,7 @@ public class NotificationDAO {
      *
      * @param messageId an ID of a message to get status for.
      *
-     * @return a status of message delivery. 0 - not sent, 1 - sent to device; or <code>null</code> if specified message
-     *         is not found.
+     * @return a status of message delivery. 0 - not sent, 1 - sent to device; or <code>null</code> if specified message is not found.
      */
     public Integer getStatus(int messageId) {
         return this.notificationMapper.getDeliveryStatus(messageId);

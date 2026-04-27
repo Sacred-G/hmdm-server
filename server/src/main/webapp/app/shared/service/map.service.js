@@ -1,23 +1,16 @@
 /*
- *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
- *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- */
+*/
 
 // Localization completed
 angular.module('headwind-kiosk')
@@ -73,7 +66,7 @@ angular.module('headwind-kiosk')
                 });
 
                 // map = L.map(mapId, {center: [0, 0], zoom: 4, maxBounds: bounds});
-                map = L.map(mapId, {center: [0, 0], zoom: 2});
+                map = L.map(mapId, { center: [0, 0], zoom: 2 });
                 osm.addTo(map);
 
             };
@@ -186,9 +179,9 @@ angular.module('headwind-kiosk')
              * @returns {object} a marker created.
              */
             var addMarker = function (identifier, lat, lon, markerIconOptions, title, popupTemplate,
-                                      popupOpenHandler, popupCloseHandler, clickHandler) {
+                popupOpenHandler, popupCloseHandler, clickHandler) {
                 const markerIcon = getMarkerIcon(markerIconOptions);
-                const marker = L.marker([lat, lon], {icon: markerIcon, "title": title || ""});
+                const marker = L.marker([lat, lon], { icon: markerIcon, "title": title || "" });
 
                 // If need to show a label near marker
                 // marker.bindTooltip("" + new Date(), {permanent: true});
@@ -208,7 +201,7 @@ angular.module('headwind-kiosk')
                     marker.on('popupclose', popupCloseHandler);
                 }
 
-                marker.hmdmProperties = {identifier: identifier};
+                marker.hmdmProperties = { identifier: identifier };
 
                 marker.addTo(map);
 
@@ -267,7 +260,7 @@ angular.module('headwind-kiosk')
             var addPolyline = function (identifier, points, options) {
                 const polyline = L.polyline(points, options);
 
-                polyline.hmdmProperties = {identifier: identifier};
+                polyline.hmdmProperties = { identifier: identifier };
 
                 polyline.addTo(map);
 
@@ -312,16 +305,16 @@ angular.module('headwind-kiosk')
              * @param identifier a marker identifier.
              * @param {Function} markerHandler a callback function to be provided with selected marker.
              */
-            const selectMarker = function(identifier, markerHandler) {
+            const selectMarker = function (identifier, markerHandler) {
                 const marker = markers[identifier];
                 markerHandler(marker);
             };
 
-            const fitBounds = function( points ) {
-                map.fitBounds( points, { padding: [ 30, 30 ] } );
+            const fitBounds = function (points) {
+                map.fitBounds(points, { padding: [30, 30] });
             };
 
-            const fitBoundsToMarkers = function() {
+            const fitBoundsToMarkers = function () {
                 const points = [];
                 angular.forEach(markers, function (marker) {
                     points.push(marker.getLatLng());
@@ -366,5 +359,5 @@ angular.module('headwind-kiosk')
             }
         }
     })
-;
+    ;
 

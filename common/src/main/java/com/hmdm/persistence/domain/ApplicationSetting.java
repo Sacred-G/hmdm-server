@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.domain;
@@ -54,15 +46,17 @@ public class ApplicationSetting implements Serializable {
     @Schema(description = "A timestamp of the last update of the setting")
     private long lastUpdate;
 
-    @Schema(
-            description = "A flag indicating if setting can not be modified on device",
+    @Schema(description = "A flag indicating if setting can not be modified on device",
             requiredMode = Schema.RequiredMode.REQUIRED)
     private boolean readonly;
 
-    @Schema(
-            description = "An ID of the external object (device, configuration) which settings belong to",
+    @Schema(description = "An ID of the external object (device, configuration) which settings belong to",
             requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer extRefId;
+
+    @Schema(description = "A flag indicating if the setting has the variable content",
+            requiredMode = Schema.RequiredMode.REQUIRED)
+    private boolean variable;
 
     @Schema(hidden = true)
     private String applicationPkg;
@@ -112,6 +106,9 @@ public class ApplicationSetting implements Serializable {
     }
 
     public String getValueForDevice(Device device) {
+        if (!variable) {
+            return value;
+        }
         return value.replaceAll("%NUMBER%", device.getNumber() != null ? device.getNumber() : "")
                 .replaceAll("%IMEI%", device.getImei() != null ? device.getImei() : "")
                 .replaceAll("%PHONE%", device.getPhone() != null ? device.getPhone() : "")
@@ -143,6 +140,14 @@ public class ApplicationSetting implements Serializable {
 
     public void setExtRefId(Integer extRefId) {
         this.extRefId = extRefId;
+    }
+
+    public boolean isVariable() {
+        return variable;
+    }
+
+    public void setVariable(boolean variable) {
+        this.variable = variable;
     }
 
     public String getApplicationPkg() {
@@ -189,7 +194,7 @@ public class ApplicationSetting implements Serializable {
     public String toString() {
         return "ApplicationSetting{" + "id=" + id + ", applicationId=" + applicationId + ", name='" + name + '\''
                 + ", value='" + value + '\'' + ", comment='" + comment + '\'' + ", readonly=" + readonly + ", extRefId="
-                + extRefId + ", type=" + type + ", applicationPkg='" + applicationPkg + '\'' + ", extRefName='"
+                + extRefId + ", type=" + type + ", variable=" + variable + ", applicationPkg='" + applicationPkg + '\'' + ", extRefName='"
                 + extRefName + '\'' + ", lastUpdate='" + lastUpdate + '\'' + '}';
     }
 }

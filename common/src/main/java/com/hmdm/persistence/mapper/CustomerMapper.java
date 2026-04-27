@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.mapper;
@@ -44,9 +36,9 @@ public interface CustomerMapper {
     List<Customer> findAll();
 
     @Select({
-        SELECT_BASE + "WHERE " + " customerStatus='customer.new' OR " + " customerStatus='customer.active' OR "
-                + " customerStatus='customer.inactive' OR " + " customerStatus='customer.pause' OR "
-                + " customerStatus='customer.abandon' "
+                    SELECT_BASE + "WHERE " + " customerStatus='customer.new' OR " + " customerStatus='customer.active' OR "
+                            + " customerStatus='customer.inactive' OR " + " customerStatus='customer.pause' OR "
+                            + " customerStatus='customer.abandon' "
     })
     List<Customer> findFollowedUp();
 
@@ -54,13 +46,13 @@ public interface CustomerMapper {
     List<Customer> findAllExceptMaster();
 
     @Insert({
-        "INSERT INTO customers (name, email, description, filesDir, master, prefix, registrationTime, "
-                + "accountType, expiryTime, deviceLimit, customerStatus, firstName, lastName, language, "
-                + "inactiveState, pauseState, abandonState, sizeLimit, signupStatus, signupToken) "
-                + "VALUES (#{name}, #{email}, #{description}, #{filesDir}, FALSE, #{prefix}, #{registrationTime}, "
-                + "#{accountType}, #{expiryTime}, #{deviceLimit}, #{customerStatus}, #{firstName}, #{lastName}, #{language}, "
-                + ""
-                + "#{inactiveState}, #{pauseState}, #{abandonState}, #{sizeLimit}, #{signupStatus}, #{signupToken})"
+                    "INSERT INTO customers (name, email, description, filesDir, master, prefix, registrationTime, "
+                            + "accountType, expiryTime, deviceLimit, customerStatus, firstName, lastName, language, "
+                            + "inactiveState, pauseState, abandonState, sizeLimit, signupStatus, signupToken) "
+                            + "VALUES (#{name}, #{email}, #{description}, #{filesDir}, FALSE, #{prefix}, #{registrationTime}, "
+                            + "#{accountType}, #{expiryTime}, #{deviceLimit}, #{customerStatus}, #{firstName}, #{lastName}, #{language}, "
+                            + ""
+                            + "#{inactiveState}, #{pauseState}, #{abandonState}, #{sizeLimit}, #{signupStatus}, #{signupToken})"
     })
     @SelectKey(
             statement = "SELECT currval('customers_id_seq')",
@@ -71,12 +63,12 @@ public interface CustomerMapper {
     void insert(Customer customer);
 
     @Update({
-        "UPDATE customers SET name=#{name}, email=#{email}, description=#{description}, "
-                + "accountType=#{accountType}, expiryTime=#{expiryTime}, deviceLimit=#{deviceLimit}, "
-                + "customerStatus=#{customerStatus}, firstName=#{firstName}, lastName=#{lastName}, language=#{language}, "
-                + "inactiveState=#{inactiveState}, pauseState=#{pauseState}, abandonState=#{abandonState}, "
-                + "sizeLimit=#{sizeLimit}, signupStatus=#{signupStatus}, signupToken=#{signupToken} "
-                + "WHERE id=#{id} AND master = FALSE"
+                    "UPDATE customers SET name=#{name}, email=#{email}, description=#{description}, "
+                            + "accountType=#{accountType}, expiryTime=#{expiryTime}, deviceLimit=#{deviceLimit}, "
+                            + "customerStatus=#{customerStatus}, firstName=#{firstName}, lastName=#{lastName}, language=#{language}, "
+                            + "inactiveState=#{inactiveState}, pauseState=#{pauseState}, abandonState=#{abandonState}, "
+                            + "sizeLimit=#{sizeLimit}, signupStatus=#{signupStatus}, signupToken=#{signupToken} "
+                            + "WHERE id=#{id} AND master = FALSE"
     })
     void update(Customer customer);
 
@@ -84,8 +76,8 @@ public interface CustomerMapper {
     void delete(@Param("id") Integer id);
 
     @Select({
-        SELECT_BASE + "WHERE master = FALSE " + "AND (LOWER(name) LIKE #{filter} OR LOWER(description) LIKE #{filter}) "
-                + "ORDER BY name"
+                    SELECT_BASE + "WHERE master = FALSE " + "AND (LOWER(name) LIKE #{filter} OR LOWER(description) LIKE #{filter}) "
+                            + "ORDER BY name"
     })
     List<Customer> findAllByValue(@Param("filter") String value);
 

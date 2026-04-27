@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
+  ~ Headwind MDM: Open Source Android MDM Software https://h-mdm.com
   ~
-  ~ Headwind MDM: Open Source Android MDM Software
-  ~ https://h-mdm.com
-  ~
-  ~ Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+  ~ Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
-  ~
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -44,7 +39,7 @@
     <properties>
         <java.version>21</java.version>
         <maven.compiler.release>21</maven.compiler.release>
-        
+
         <!-- Jakarta EE dependencies -->
         <jakarta.servlet.version>6.0.0</jakarta.servlet.version>
         <jakarta.ws.rs.version>3.1.0</jakarta.ws.rs.version>
@@ -69,6 +64,8 @@
         <poi.version>5.4.0</poi.version>
         <lombok.version>1.18.36</lombok.version>
         <slf4j.version>2.0.16</slf4j.version>
+        <logback.version>1.5.18</logback.version>
+        <log4j2.version>2.24.3</log4j2.version>
         <junit.version>5.10.2</junit.version>
 
         <!-- Build timestamps -->
@@ -141,29 +138,29 @@
             <version>${jaxb.runtime.version}</version>
             <scope>runtime</scope>
         </dependency>
-        
+
         <!-- Jakarta Activation (replaces javax.activation) -->
         <dependency>
             <groupId>jakarta.activation</groupId>
             <artifactId>jakarta.activation-api</artifactId>
             <version>${jakarta.activation.version}</version>
         </dependency>
-        
+
         <!-- Jakarta Validation (replaces javax.validation) -->
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.1.0</version>
+            <version>4.0.0-M1</version>
         </dependency>
-        
+
         <!-- Jakarta Inject API (replaces javax.inject) -->
         <!-- Guice 7.0 supports jakarta.inject natively -->
         <dependency>
             <groupId>jakarta.inject</groupId>
             <artifactId>jakarta.inject-api</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.1.MR</version>
         </dependency>
-        
+
         <!-- Jakarta REST API (replaces javax.ws.rs) -->
         <dependency>
             <groupId>jakarta.ws.rs</groupId>
@@ -176,7 +173,7 @@
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2-jakarta</artifactId>
-            <version>2.2.20</version>
+            <version>2.2.48</version>
         </dependency>
 
         <!-- Jackson 2.17 for Java 21 -->
@@ -225,8 +222,8 @@
 
             <exclusions>
                 <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>javax.xml.bind</groupId>
@@ -278,9 +275,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-reload4j</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+            <version>${log4j2.version}</version>
         </dependency>
 
         <!-- XLSX poi -->
@@ -300,14 +303,14 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20240303</version>
+            <version>20251224</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.11.0</version>
+            <version>5.23.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -315,7 +318,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.25.3</version>
+            <version>4.0.0-M1</version>
             <scope>test</scope>
         </dependency>
 
@@ -368,11 +371,18 @@
                     <version>2.44.3</version>
                     <configuration>
                         <java>
-                            <palantirJavaFormat>
-                                <version>2.50.0</version>
-                                <style>PALANTIR</style>
-                                <formatJavadoc>false</formatJavadoc>
-                            </palantirJavaFormat>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>target/**/*.java</exclude>
+                            </excludes>
+                            <removeUnusedImports />
+                            <eclipse>
+                                <file>${maven.multiModuleProjectDirectory}/.vscode/eclipse-formatter.xml</file>
+                            </eclipse>
+                            <trimTrailingWhitespace />
+                            <endWithNewline />
                         </java>
                     </configuration>
                 </plugin>

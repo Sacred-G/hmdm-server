@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.domain;
@@ -55,8 +47,7 @@ public class UploadedFile implements Serializable, CustomerData {
     private String description;
 
     @Schema(
-            description =
-                    "A timestamp of file uploading (in milliseconds since epoch time), should be equal to the timestamp in the file system")
+            description = "A timestamp of file uploading (in milliseconds since epoch time), should be equal to the timestamp in the file system")
     private long uploadTime;
 
     /**
@@ -75,8 +66,8 @@ public class UploadedFile implements Serializable, CustomerData {
     private String devicePath;
 
     /**
-     * <p>A flag indicating whether the file is using the external URL instead of being uploaded. Notice: "external" is not
-     * a reserved keyword in PostgreSQL but reserved in other SQL dialects</p>
+     * <p>A flag indicating whether the file is using the external URL instead of being uploaded. Notice: "external" is not a reserved keyword in
+     * PostgreSQL but reserved in other SQL dialects.</p>
      */
     @Schema(description = "A flag indicating whether the file is using the external URL instead of being uploaded.")
     private boolean external;
@@ -88,7 +79,7 @@ public class UploadedFile implements Serializable, CustomerData {
     private String externalUrl;
 
     /**
-     * <p>A flag indicating whether the file content must be updated by device-specific values.
+     * <p>A flag indicating whether the file content must be updated by device-specific values.</p>
      */
     @Schema(description = "A flag indicating whether the file content must be updated by device-specific values")
     private boolean replaceVariables;

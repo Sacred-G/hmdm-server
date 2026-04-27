@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.domain;
@@ -51,139 +43,101 @@ public class DeviceSearchRequest implements Serializable {
     private int userId;
 
     /**
-     * <p>
-     * A number of records per single page of data to be retrieved.
-     * </p>
+     * <p>A number of records per single page of data to be retrieved.</p>
      */
     @Schema(description = "A number of records per single page of data to be retrieved")
     private int pageSize = 50;
 
     /**
-     * <p>
-     * A number of page of data to be retrieved.
-     * </p>
+     * <p>A number of page of data to be retrieved.</p>
      */
     @Schema(description = "A number of page of data to be retrieved (1-based)")
     private int pageNum = 1;
 
     /**
-     * <p>
-     * A column to sort results by.
-     * </p>
+     * <p>A column to sort results by.</p>
      */
     @Schema(description = "A column to sort devices list by")
     private DeviceListSortBy sortBy;
 
     /**
-     * <p>
-     * A direction to sort results by.
-     * </p>
+     * <p>A direction to sort results by.</p>
      */
     @Schema(description = "A direction to sort devices list by")
     private String sortDir = "ASC";
 
     /**
-     * <p>
-     * A timestamp for <code>FROM</code> boundary for filtering the data records by
-     * last online dates.
-     * </p>
+     * <p>A timestamp for <code>FROM</code> boundary for filtering the data records by last online dates.</p>
      */
     @Schema(description = "A timestamp for FROM boundary for filtering the data records by last online dates")
     private Date dateFrom;
 
     /**
-     * <p>
-     * A timestamp for <code>TO</code> boundary for filtering the data records by
-     * last online dates.
-     * </p>
+     * <p>A timestamp for <code>TO</code> boundary for filtering the data records by last online dates.</p>
      */
     @Schema(description = "A timestamp for TO boundary for filtering the data records by last online dates")
     private Date dateTo;
 
     /**
-     * <p>
-     * Age in milliseconds for selection of devices being online earlier
-     * </p>
+     * <p>Age in milliseconds for selection of devices being online earlier</p>
      */
     private Long onlineEarlierMillis;
 
     /**
-     * <p>
-     * Age in milliseconds for selection of devices being online later
-     * </p>
+     * <p>Age in milliseconds for selection of devices being online later</p>
      */
     private Long onlineLaterMillis;
 
     /**
-     * <p>
-     * A timestamp for <code>FROM</code> boundary for filtering the data records by
-     * enrollment dates.
-     * </p>
+     * <p>A timestamp for <code>FROM</code> boundary for filtering the data records by enrollment dates.</p>
      */
     @Schema(description = "A timestamp for FROM boundary for filtering the data records by enrollment dates")
     private Date enrollmentDateFrom;
 
     /**
-     * <p>
-     * A timestamp for <code>TO</code> boundary for filtering the data records by
-     * enrollment dates.
-     * </p>
+     * <p>A timestamp for <code>TO</code> boundary for filtering the data records by enrollment dates.</p>
      */
     @Schema(description = "A timestamp for TO boundary for filtering the data records by enrollment dates")
     private Date enrollmentDateTo;
 
     /**
-     * <p>
-     * A condition for filtering the data records by mdm mode.
-     * </p>
+     * <p>A condition for filtering the data records by mdm mode.</p>
      */
     @Schema(description = "A condition for filtering the data records by mdm mode")
     private Boolean mdmMode;
 
     /**
-     * <p>
-     * A condition for filtering the data records by kiosk mode.
-     * </p>
+     * <p>A condition for filtering the data records by kiosk mode.</p>
      */
     @Schema(description = "A condition for filtering the data records by kiosk mode")
     private Boolean kioskMode;
 
     /**
-     * <p>
-     * A filter for Android version.
-     * </p>
+     * <p>A filter for Android version.</p>
      */
     @Schema(description = "A filter for Android version")
     private String androidVersion;
 
     /**
-     * <p>
-     * A filter for launcher version.
-     * </p>
+     * <p>A filter for launcher version.</p>
      */
     @Schema(description = "A filter for launcher version")
     private String launcherVersion;
 
     /**
-     * <p>
-     * A filter for launcher version.
-     * </p>
+     * <p>A filter for launcher version.</p>
      */
     @Schema(description = "A filter for application installation status")
     private DeviceApplicationsStatus installationStatus;
 
     /**
-     * <p>
-     * A filter for recent IMEI change.
-     * </p>
+     * <p>A filter for recent IMEI change.</p>
      */
     @Schema(description = "A filter for recent IMEI change")
     private boolean imeiChanged;
 
     /**
-     * <p>
-     * A flag of fast searching by device number.
-     * </p>
+     * <p>A flag of fast searching by device number.</p>
      */
     @Schema(description = "Flag of fast searching by device number")
     private boolean fastSearch;

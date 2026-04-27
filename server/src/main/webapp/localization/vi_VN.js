@@ -1,6 +1,6 @@
-if (! document.localization) document.localization = [];
+if (!document.localization) document.localization = [];
 
-document.localization ['vi_VN'] = {
+document.localization['vi_VN'] = {
     'login.username': 'Tên đăng nhập hoặc email',
     'login.username.placeholder': 'Nhập tên đăng nhập hoặc email',
     'login.password': 'Mật khẩu:',
@@ -446,6 +446,7 @@ document.localization ['vi_VN'] = {
     'form.configuration.files.action.remove': 'Xóa',
     'form.configuration.files.variables': 'Nội dung biến',
     'form.configuration.files.variables.hint': 'Chuỗi DEVICE_NUMBER, IMEI, CUSTOM* sẽ được thay bằng giá trị tương ứng',
+    'form.application.setting.variables.hint': 'Chuỗi %NUMBER%, %IMEI%, %PHONE%, %DESCRIPTION%, %CUSTOM1%, %CUSTOM2%, %CUSTOM3% sẽ được thay bằng giá trị tương ứng',
 
     'form.password.title': 'Đổi mật khẩu',
     'form.password.label.user': 'Người dùng',
@@ -460,7 +461,7 @@ document.localization ['vi_VN'] = {
     'form.application.pkg': 'ID gói',
     'form.application.from.file': 'Lấy từ tệp',
     'form.application.pkg.title': 'ID gói duy nhất',
-    
+
     'form.application.version': 'Phiên bản',
     'form.application.version.title': 'Số nguyên dương, số lớn hơn là phiên bản mới hơn',
     'form.application.system': 'Hệ thống',
@@ -470,11 +471,11 @@ document.localization ['vi_VN'] = {
     'form.application.url': 'URL',
     'form.application.url.title': 'Nếu loại là Web',
     'form.application.file': 'Tệp',
-    
+
     'form.application.use.kiosk': 'Chạy trong chế độ kiosk',
     'form.application.use.kiosk.title': 'Chạy trong WebView toàn màn hình',
     'form.application.iconText': 'Nhãn',
-    
+
     'form.application.icon': 'Biểu tượng',
     'form.application.icon.default': 'Mặc định',
     'form.application.icon.add': 'Thêm biểu tượng',
@@ -487,33 +488,33 @@ document.localization ['vi_VN'] = {
     'form.customer.prefix.placeholder': 'Nhập tiền tố số thiết bị',
     'form.customer.device.configuration': 'Cấu hình thiết bị',
     'form.customer.expiry.time': 'Ngày hết hạn',
-    
+
     'form.customer.device.limit': 'Giới hạn số thiết bị',
-    
+
     'form.customer.status': 'Trạng thái',
-    
+
     'form.customer.type': 'Loại',
-    
+
     'form.device.number': 'Số thiết bị',
-    
+
     'form.device.desc': 'Mô tả',
-    
+
     'form.device.imei': 'IMEI',
     'form.device.phone.number': 'Số điện thoại',
 
     'form.file.name': 'Tên',
-    
+
     'form.file.path': 'Đường dẫn trên thiết bị',
     'form.file.path.placeholder': 'Ví dụ: /sdcard/app',
-    
+
     'form.file.file': 'Tệp',
-    
+
     'form.group.name': 'Tên',
     'form.group.name.placeholder': 'Nhập tên nhóm',
-    
+
     'form.role.name': 'Tên',
     'form.role.name.placeholder': 'Nhập tên vai trò',
-    
+
     'form.user.name': 'Tên',
     'form.user.name.placeholder': 'Nhập tên người dùng',
     'form.user.login': 'Tên đăng nhập',
@@ -524,15 +525,17 @@ document.localization ['vi_VN'] = {
     'form.user.password.new.placeholder': 'Nhập mật khẩu mới',
     'form.user.password.confirm': 'Xác nhận mật khẩu',
     'form.user.password.confirm.placeholder': 'Nhập lại mật khẩu mới',
-    'form.user.role': 'Vai trò',        
-    
-    'search.placeholder': 'Nhập từ khóa để tìm kiếm...',    
+    'form.user.role': 'Vai trò',
+
+    'search.placeholder': 'Nhập từ khóa để tìm kiếm...',
 
     'form.configuration.file.name': 'Tên tệp',
     'form.configuration.file.select': 'Chọn tệp',
     'form.configuration.file.create': '(tạo một tệp mới)',
     'form.configuration.file.description': 'Mô tả tệp',
     'form.configuration.file.description.placeholder': 'Tùy chọn, để thuận tiện cho bạn',
+    'form.configuration.file.override.path': 'Ghi đè đường dẫn',
+    'form.configuration.file.override.path.title': 'Chỉ định đường dẫn thiết bị chỉ cho cấu hình này',
     'form.configuration.file.path': 'Đường dẫn trên thiết bị',
     'form.configuration.file.path.placeholder': 'Không bao gồm đường dẫn tới ổ đĩa, ví dụ: /my-app/image.jpg',
     'form.configuration.file.url': 'URL',
@@ -595,7 +598,7 @@ document.localization ['vi_VN'] = {
     'form.application.setting.comment': 'Ghi chú',
     'form.application.setting.type': 'Loại',
     'form.application.setting.readonly': 'Không thay đổi trên thiết bị',
-    
+
     'form.application.configurations.app': 'Ứng dụng',
     'form.application.configurations.configs': 'Cấu hình',
 
@@ -812,7 +815,7 @@ document.localization ['vi_VN'] = {
     'tab.license': 'Giấy phép',
     'tab.hints': 'Gợi ý',
     'tab.plugins': 'Plugin',
-    
+
     'tab.configeditor.common.settings': 'Cài đặt chung',
     'tab.configeditor.design.settings': 'Cài đặt thiết kế',
     'tab.configeditor.applications': 'Ứng dụng',
@@ -874,7 +877,7 @@ document.localization ['vi_VN'] = {
     'table.heading.file.description': 'Mô tả tệp',
     'table.heading.file.action': 'Hành động',
     'table.heading.file.lastUpdate': 'Ngày tạo',
-    
+
     'table.heading.application.pkg': 'ID gói',
     'table.heading.application.name': 'Tên ứng dụng',
     'table.heading.application.version': 'Phiên bản',
@@ -939,17 +942,17 @@ document.localization ['vi_VN'] = {
     'table.heading.common.apps.actions': 'Hành động',
 
     'notfound.devices': 'Không có thiết bị để hiển thị.',
-    'notfound.files':'Danh sách tệp rỗng.',
+    'notfound.files': 'Danh sách tệp rỗng.',
     'notfound.configurations': 'Không tìm thấy cấu hình.',
     'notfound.customers': 'Không tìm thấy tổ chức.',
     'notfound.common.apps': 'Không có ứng dụng để hiển thị.',
     'notfound.applications': 'Không tìm thấy ứng dụng',
-    'notfound.groups':'Không tìm thấy nhóm. Thử truy vấn khác.',
-    'notfound.users':'Không tìm thấy người dùng. Thử truy vấn khác.',
+    'notfound.groups': 'Không tìm thấy nhóm. Thử truy vấn khác.',
+    'notfound.users': 'Không tìm thấy người dùng. Thử truy vấn khác.',
     'notfound.apps.for.display': 'Không có ứng dụng để hiển thị.',
     'notfound.app.versions.for.display': 'Không có phiên bản để hiển thị.',
-    'notfound.roles':'Danh sách vai trò rỗng.',
-    'notfound.icons':'Danh sách biểu tượng rỗng.',
+    'notfound.roles': 'Danh sách vai trò rỗng.',
+    'notfound.icons': 'Danh sách biểu tượng rỗng.',
 
     'format.date.header': 'HH:mm dd/MM/yyyy',
 

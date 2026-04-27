@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.rest.resource;
@@ -83,18 +75,22 @@ public class UserResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Get user details",
-            description = "Returns the details for the user account referenced by the specified ID.")
+    @Operation(summary = "Get user details", description = "Returns the details for the user account referenced by the specified ID.")
     @GET
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    // This method doesn't seem to be used by the front-end
     public Response getUserDetails(@PathParam("id") @Parameter(description = "User ID") int id) {
-        User userDetails = userDAO.getUserDetails(id);
-        userDetails.setPassword(null);
-
-        return Response.OK(userDetails);
+        return SecurityContext.get().getCurrentUser().map(u -> {
+            if (u.getId() != id && !SecurityContext.get().hasPermission("settings")) {
+                logger.error("Unauthorized attempt to access user details by user " + u.getLogin());
+                return Response.PERMISSION_DENIED();
+            }
+            User userDetails = userDAO.getUserDetails(id);
+            userDetails.setPassword(null);
+            return Response.OK(userDetails);
+        }).orElse(Response.PERMISSION_DENIED());
     }
 
     // =================================================================================================================
@@ -109,7 +105,6 @@ public class UserResource {
                 .map(u -> {
                     User userDetails = userDAO.getUserDetails(u.getId());
                     userDetails.setPassword(null);
-
                     return Response.OK(userDetails);
                 })
                 .orElse(Response.OK(null));
@@ -156,8 +151,7 @@ public class UserResource {
                 .getCurrentUser()
                 .map(u -> {
                     if (!u.getId().equals(user.getId())) {
-                        logger.warn(
-                                "Failed to update password: u.getId()=" + u.getId() + ", user.getId()=" + user.getId());
+                        logger.warn("Failed to update password: u.getId()=" + u.getId() + ", user.getId()=" + user.getId());
                         return Response.PERMISSION_DENIED();
                     }
 
@@ -168,8 +162,7 @@ public class UserResource {
     }
 
     // =================================================================================================================
-    @Operation(
-            summary = "Create or update user",
+    @Operation(summary = "Create or update user",
             description = "Creates a new user account (if id is not provided) or update existing one otherwise.")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -191,8 +184,8 @@ public class UserResource {
                                 return Response.ERROR("error.duplicate.email");
                             }
                         }
-                        Settings settings =
-                                Optional.ofNullable(settingsDAO.getSettings()).orElse(new Settings());
+                        Settings settings = Optional.ofNullable(settingsDAO.getSettings())
+                                .orElse(new Settings());
                         if (user.getId() == null) {
                             User dbUser = unsecureDAO.findByLogin(user.getLogin());
                             if (dbUser != null) {
@@ -204,8 +197,8 @@ public class UserResource {
                                 logger.warn("Failed to create user {}: empty password", user.getLogin());
                                 return Response.ERROR("error.password.empty");
                             }
-                            user.setCustomerId(
-                                    SecurityContext.get().getCurrentUser().get().getCustomerId());
+                            user.setCustomerId(SecurityContext.get()
+                                    .getCurrentUser().get().getCustomerId());
                             updatePasswordWithReset(user, user.getNewPassword(), settings.isPasswordReset());
                             this.userDAO.insert(user);
                         } else {
@@ -216,8 +209,7 @@ public class UserResource {
                             }
                             this.userDAO.updateUserMainDetails(user);
                             // Update password only if it's specified
-                            if (user.getNewPassword() != null
-                                    && !user.getNewPassword().isEmpty()) {
+                            if (user.getNewPassword() != null && !user.getNewPassword().isEmpty()) {
                                 updatePasswordWithReset(user, user.getNewPassword(), settings.isPasswordReset());
                                 this.userDAO.updatePassword(user);
                             }
@@ -361,8 +353,9 @@ public class UserResource {
     @Path("/impersonate/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(
-            @PathParam("id") Integer id, @Context HttpServletRequest req, @Context HttpServletResponse res)
-            throws IOException {
+            @PathParam("id") Integer id,
+            @Context HttpServletRequest req,
+            @Context HttpServletResponse res) throws IOException {
 
         return SecurityContext.get()
                 .getCurrentUser()
@@ -379,8 +372,7 @@ public class UserResource {
                     }
                     if (u.getCustomerId() != user.getCustomerId()
                             && !u.getUserRole().isSuperAdmin()) {
-                        logger.warn(
-                                "Failed to impersonate as user {}: belongs to another customer {}",
+                        logger.warn("Failed to impersonate as user {}: belongs to another customer {}",
                                 id,
                                 u.getCustomerId());
                         return Response.PERMISSION_DENIED();

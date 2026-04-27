@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence;
@@ -30,8 +22,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * <p>A base class for DAO implementations managing the domain objects linked to some other types of domain objects.
- * Provides the convenience methods for operating in security context.</p>
+ * <p>A base class for DAO implementations managing the domain objects linked to some other types of domain objects. Provides the convenience methods
+ * for operating in security context.</p>
  *
  * @param <T> - a type of the main domain object maintained by the DAO implementation.
  * @param <L> - a type of the domain objects linked to main maintained by the DAO implementation.
@@ -46,8 +38,7 @@ public abstract class AbstractLinkedDAO<T extends CustomerData, L extends Custom
     protected AbstractLinkedDAO() {}
 
     /**
-     * <p>Gets the list of records linked to specified record. Uses specified list retrieval logic for getting the linked
-     * records data.</p>
+     * <p>Gets the list of records linked to specified record. Uses specified list retrieval logic for getting the linked records data.</p>
      *
      * @param recordId an ID of a record to get the linked records for.
      * @param findByIdLogic a logic to be used for finding the required record by ID.
@@ -77,8 +68,8 @@ public abstract class AbstractLinkedDAO<T extends CustomerData, L extends Custom
     }
 
     /**
-     * <p>Updates the data records linked to specified record. If requested record is found then uses specified linked data
-     * update logic for updating the linked records data within current security context.</p>
+     * <p>Updates the data records linked to specified record. If requested record is found then uses specified linked data update logic for updating
+     * the linked records data within current security context.</p>
      *
      * @param recordId an ID of a record to update the linked records for.
      * @param findByIdLogic a logic to be used for finding the required record by ID.

@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.plugins.deviceinfo.rest;
@@ -63,8 +55,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>A resource to be used for managing the <code>Device Info</code> plugin data for customer account associated with
- * current user.</p>
+ * <p>A resource to be used for managing the <code>Device Info</code> plugin data for customer account associated with current user.</p>
  *
  * @author isv
  */
@@ -295,13 +286,13 @@ public class DeviceInfoResource {
                     .creationDate(new Date())
                     .build();
             return jakarta.ws.rs.core.Response.ok((StreamingOutput) output -> {
-                        try {
-                            this.deviceInfoExportService.exportDeviceDynamicInfo(request, output);
-                            output.flush();
-                        } catch (Exception e) {
-                            logger.error("Unexpected error when exporting the device dynamic info to CSV format", e);
-                        }
-                    })
+                try {
+                    this.deviceInfoExportService.exportDeviceDynamicInfo(request, output);
+                    output.flush();
+                } catch (Exception e) {
+                    logger.error("Unexpected error when exporting the device dynamic info to CSV format", e);
+                }
+            })
                     .header("Content-Disposition", contentDisposition)
                     .build();
         } catch (Exception e) {

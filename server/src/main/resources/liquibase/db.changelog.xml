@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
+  ~ Headwind MDM: Open Source Android MDM Software https://h-mdm.com
   ~
-  ~ Headwind MDM: Open Source Android MDM Software
-  ~ https://h-mdm.com
-  ~
-  ~ Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+  ~ Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
-  ~
   -->
 
 <databaseChangeLog
@@ -340,7 +335,7 @@
               filesDir TEXT NOT NULL,
               master BOOLEAN NOT NULL DEFAULT false
             );
-            
+
             ALTER TABLE customers ADD CONSTRAINT customer_name_key UNIQUE (name);
             ALTER TABLE customers ADD CONSTRAINT customer_filesdir_key UNIQUE (filesDir);
         </sql>
@@ -505,7 +500,7 @@
             DROP TABLE permissions;
         </rollback>
     </changeSet>
-                                                                                            
+
     <changeSet id="01.02.19-14:25" author="isv" context="common">
         <comment>Initial set of roles and permissions</comment>
         <sql>
@@ -979,7 +974,7 @@
 
             -- 15. Set he name of the application based on the name of the most recent version
             UPDATE applications SET name = (SELECT name FROM applicationVersionsTemp WHERE applicationVersionsTemp.id = applications.latestVersion);
-            
+
         </sql>
         <rollback>
         </rollback>
@@ -2594,6 +2589,20 @@
         </sql>
         <rollback>
             ALTER TABLE configurations DROP COLUMN adminExtras;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="10.04.26-10:34" author="seva" context="common">
+        <comment>Column,new: applicationSettings#variable</comment>
+        <sql>
+            ALTER TABLE deviceApplicationSettings ADD COLUMN variable BOOLEAN NOT NULL DEFAULT false;
+            UPDATE deviceApplicationSettings SET variable = true;
+            ALTER TABLE configurationApplicationSettings ADD COLUMN variable BOOLEAN NOT NULL DEFAULT false;
+            UPDATE configurationApplicationSettings SET variable = true;
+        </sql>
+        <rollback>
+            ALTER TABLE deviceApplicationSettings DROP COLUMN variable;
+            ALTER TABLE configurationApplicationSettings DROP COLUMN variable;
         </rollback>
     </changeSet>
 

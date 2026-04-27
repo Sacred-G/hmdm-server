@@ -1,23 +1,16 @@
 /*
- *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
- *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- */
+*/
 
 // Localization completed
 angular.module('plugin-audit', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngTagsInput', 'ncy-angular-breadcrumb'])
@@ -42,12 +35,12 @@ angular.module('plugin-audit', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngTa
     })
     .factory('pluginAuditService', function ($resource) {
         return $resource('', {}, {
-            lookupUsers: {url: 'rest/private/users/all', method: 'GET'},
-            getLogs: {url: 'rest/plugins/audit/private/log/search', method: 'POST'},
+            lookupUsers: { url: 'rest/private/users/all', method: 'GET' },
+            getLogs: { url: 'rest/plugins/audit/private/log/search', method: 'POST' },
         });
     })
     .controller('PluginAuditTabController', function ($scope, $rootScope, $window, $location, $interval, $http, $modal,
-                                                      pluginAuditService, confirmModal, authService, localization) {
+        pluginAuditService, confirmModal, authService, localization) {
 
         $scope.hasPermission = authService.hasPermission;
 
@@ -84,9 +77,9 @@ angular.module('plugin-audit', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngTa
             "plugin.audit.action.device.reset",
             "plugin.audit.action.device.lock"
         ];
-        $scope.filters = [{item: '', localized: localization.localize('plugin.audit.all.items')}];
-        filters.forEach(function(item, index) {
-            $scope.filters.push({item: item, localized: localization.localize(item)});
+        $scope.filters = [{ item: '', localized: localization.localize('plugin.audit.all.items') }];
+        filters.forEach(function (item, index) {
+            $scope.filters.push({ item: item, localized: localization.localize(item) });
         });
 
         $scope.paging = {
@@ -99,7 +92,7 @@ angular.module('plugin-audit', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngTa
             dateTo: null,
         };
 
-        $scope.$watch('paging.pageNum', function() {
+        $scope.$watch('paging.pageNum', function () {
             $window.scrollTo(0, 0);
         });
 
@@ -114,11 +107,11 @@ angular.module('plugin-audit', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngTa
         $scope.errorMessage = undefined;
         $scope.successMessage = undefined;
 
-        $scope.openDateCalendar = function( $event, isStartDate ) {
+        $scope.openDateCalendar = function ($event, isStartDate) {
             $event.preventDefault();
             $event.stopPropagation();
 
-            if ( isStartDate ) {
+            if (isStartDate) {
                 $scope.openDatePickers.dateFrom = true;
             } else {
                 $scope.openDatePickers.dateTo = true;
@@ -155,8 +148,8 @@ angular.module('plugin-audit', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngTa
             loadData();
         });
 
-        $scope.getUsers = function(val) {
-            return pluginAuditService.lookupUsers({filter: val}).$promise.then(function(response){
+        $scope.getUsers = function (val) {
+            return pluginAuditService.lookupUsers({ filter: val }).$promise.then(function (response) {
                 if (response.status === 'OK') {
                     return response.data.map(function (user) {
                         return user.name;
@@ -215,7 +208,7 @@ angular.module('plugin-audit', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngTa
             $scope.closeModal = function () {
                 $modalInstance.dismiss();
             };
-    })
+        })
     .run(function ($rootScope, $location, localization) {
         localization.loadPluginResourceBundles("audit");
     });

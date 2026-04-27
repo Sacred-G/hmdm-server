@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.plugins.push.rest;
@@ -52,8 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>A resource to be used for managing the <code>Push</code> plugin data for customer account associated with current
- * user.</p>
+ * <p>A resource to be used for managing the <code>Push</code> plugin data for customer account associated with current user.</p>
  *
  * @author isv
  */
@@ -320,8 +311,7 @@ public class PushResource {
     // =================================================================================================================
     @Operation(
             summary = "Create or update a scheduled task",
-            description =
-                    "Creates a new scheduled task record (if id is not provided) or updates existing one otherwise")
+            description = "Creates a new scheduled task record (if id is not provided) or updates existing one otherwise")
     @PUT
     @Path("/private/task")
     @Consumes(MediaType.APPLICATION_JSON)

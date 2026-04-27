@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence;
@@ -47,11 +39,10 @@ public abstract class AbstractDAO<T extends CustomerData> {
     protected AbstractDAO() {}
 
     /**
-     * <p>Gets the list of records corresponding to customer account set for current user. Uses specified list retrieval
-     * logic for getting the records data.</p>
+     * <p>Gets the list of records corresponding to customer account set for current user. Uses specified list retrieval logic for getting the records
+     * data.</p>
      *
      * @param listRetrievalLogic a logic to be used for records data retrieval.
-     *
      * @return a list of records.
      */
     protected List<T> getList(Function<Integer, List<T>> listRetrievalLogic) {
@@ -62,11 +53,10 @@ public abstract class AbstractDAO<T extends CustomerData> {
     }
 
     /**
-     * <p>Gets the list of records corresponding to customer account set for current user. Uses specified list retrieval
-     * logic for getting the records data.</p>
+     * <p>Gets the list of records corresponding to customer account set for current user. Uses specified list retrieval logic for getting the records
+     * data.</p>
      *
      * @param listRetrievalLogic a logic to be used for records data retrieval.
-     *
      * @return a list of records.
      */
     protected List<T> getListWithCurrentUser(Function<User, List<T>> listRetrievalLogic) {
@@ -74,11 +64,9 @@ public abstract class AbstractDAO<T extends CustomerData> {
     }
 
     /**
-     * <p>Gets the single record corresponding to current user account. Uses specified data retrieval logic for getting the
-     * record data.</p>
+     * <p>Gets the single record corresponding to current user account. Uses specified data retrieval logic for getting the record data.</p>
      *
      * @param retrievalLogic a logic to be used for record data retrieval.
-     *
      * @return a list of records.
      */
     protected T getSingleRecordWithCurrentUser(Function<User, T> retrievalLogic) {
@@ -86,8 +74,8 @@ public abstract class AbstractDAO<T extends CustomerData> {
     }
 
     /**
-     * <p>Gets the list of records corresponding to customer account set for current user. Uses specified list retrieval
-     * logic for getting the records data.</p>
+     * <p>Gets the list of records corresponding to customer account set for current user. Uses specified list retrieval logic for getting the records
+     * data.</p>
      *
      * @param listRetrievalLogic a logic to be used for records data retrieval.
      *
@@ -125,7 +113,6 @@ public abstract class AbstractDAO<T extends CustomerData> {
      * <p>Gets the single record using the provided search logic and matching the customer associated with current user.</p>
      *
      * @param searchLogic a logic to be used for searching the record.
-     *
      * @return a record returned by search logic.
      */
     protected T getSingleRecord(Function<Integer, T> searchLogic) {
@@ -136,8 +123,8 @@ public abstract class AbstractDAO<T extends CustomerData> {
     }
 
     /**
-     * <p>Inserts the specified record. Links the specified record to customer account record set for current user and uses
-     * specified record insertion logic for saving the record into persistent store.</p>
+     * <p>Inserts the specified record. Links the specified record to customer account record set for current user and uses specified record insertion
+     * logic for saving the record into persistent store.</p>
      *
      * @param record a record to be inserted.
      * @param recordInsertionLogic a logic to be used for inserting the specified record.
@@ -150,9 +137,8 @@ public abstract class AbstractDAO<T extends CustomerData> {
     }
 
     /**
-     * <p>Updates the specified record. Verifies that current user is granted access to specified record. If so then uses
-     * the specified logic for updating or deleting the specified record in persistent store. Otherwise a security
-     * exception is thrown.</p>
+     * <p>Updates the specified record. Verifies that current user is granted access to specified record. If so then uses the specified logic for
+     * updating or deleting the specified record in persistent store. Otherwise a security exception is thrown.</p>
      *
      * @param record a record to be updated.
      * @param recordUpdateLogic a logic to be used for updating the record.
@@ -171,8 +157,8 @@ public abstract class AbstractDAO<T extends CustomerData> {
     }
 
     /**
-     * <p>Updates the specified record referenced by the ID. Verifies that specified record exists. If so then updates the
-     * record within current security context.</p>
+     * <p>Updates the specified record referenced by the ID. Verifies that specified record exists. If so then updates the record within current
+     * security context.</p>
      *
      * @param id an ID of a record to be updated.
      * @param findByIdLogic a logic to be used for finding the required record by ID.

@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.rest.resource;
@@ -343,6 +335,14 @@ public class ApplicationResource {
             return Response.PERMISSION_DENIED();
         }
         try {
+            Application application = applicationDAO.findById(id);
+            if (application != null) {
+                logger.info("Application '{}' ({}) is removed by user {}",
+                        application.getName(), application.getPkg(), SecurityContext.get().getCurrentUserName());
+            } else {
+                logger.info("Application #{} not found (delete is a no-op) requested by user {}",
+                        id, SecurityContext.get().getCurrentUserName());
+            }
             this.applicationDAO.removeApplicationById(id, true);
             return Response.OK();
         } catch (SecurityException e) {
@@ -370,6 +370,21 @@ public class ApplicationResource {
             return Response.PERMISSION_DENIED();
         }
         try {
+            ApplicationVersion version = applicationDAO.findApplicationVersionById(id);
+            if (version != null) {
+                Application application = applicationDAO.findById(version.getApplicationId());
+                if (application != null) {
+                    logger.info("Version {} of application '{}' ({}) is removed by user {}",
+                            version.getVersion(), application.getName(), application.getPkg(),
+                            SecurityContext.get().getCurrentUserName());
+                } else {
+                    logger.info("Version {} of unexisting application {} is removed by user {}",
+                            version.getVersion(), version.getApplicationId(), SecurityContext.get().getCurrentUserName());
+                }
+            } else {
+                logger.info("Application version #{} not found (delete is a no-op) requested by user {}",
+                        id, SecurityContext.get().getCurrentUserName());
+            }
             this.applicationDAO.removeApplicationVersionByIdWithAPKFile(id);
             return Response.OK();
         } catch (SecurityException e) {
@@ -444,9 +459,8 @@ public class ApplicationResource {
                 // Remove all configurations unavailable to user
                 request.getConfigurations()
                         .removeIf(c -> user.getConfigurations().stream()
-                                        .filter(uc -> uc.getId() == c.getConfigurationId())
-                                        .findFirst()
-                                == null);
+                                .filter(uc -> uc.getId() == c.getConfigurationId())
+                                .findFirst() == null);
             }
             // Avoid access to objects of another customer
             request.getConfigurations().removeIf(c -> {
@@ -494,9 +508,8 @@ public class ApplicationResource {
                 // Remove all configurations unavailable to user
                 request.getConfigurations()
                         .removeIf(c -> user.getConfigurations().stream()
-                                        .filter(uc -> uc.getId() == c.getConfigurationId())
-                                        .findFirst()
-                                == null);
+                                .filter(uc -> uc.getId() == c.getConfigurationId())
+                                .findFirst() == null);
             }
             logger.info("Application version configurations updated by user "
                     + SecurityContext.get().getCurrentUserName());

@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.rest.resource;
@@ -96,8 +88,7 @@ public class AuthResource {
     }
 
     /**
-     * <p>Authenticates the user based on provided credentials and responds with the user account details in case of
-     * successful authentication.</p>
+     * <p>Authenticates the user based on provided credentials and responds with the user account details in case of successful authentication.</p>
      *
      * @param credentials the credentials to be used for authenticating the user to application.
      * @param req an incoming request.
@@ -108,18 +99,16 @@ public class AuthResource {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(UserCredentials credentials, @Context HttpServletRequest req) throws InterruptedException {
+    public Response login(UserCredentials credentials, @Context HttpServletRequest req) {
         if (credentials.getLogin() == null || credentials.getPassword() == null) {
             return Response.ERROR();
         }
 
         User user = authEngine.findUser(credentials.getLogin());
         if (user == null) {
-            Thread.sleep(1000);
             return Response.ERROR();
         }
         if (user.getLastLoginFail() > System.currentTimeMillis() - 1000) {
-            // No delay to avoid server overload while there's a brute force attack
             return Response.ERROR();
         }
 
@@ -133,7 +122,6 @@ public class AuthResource {
 
         // Web app sends MD5 hash, we need to re-hash it to compare with the DB value
         if (!authEngine.authenticate(user, password)) {
-            Thread.sleep(1000);
             return Response.ERROR();
         }
 

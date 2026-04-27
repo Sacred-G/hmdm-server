@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.mapper;
@@ -31,30 +23,30 @@ import org.apache.ibatis.annotations.*;
 
 public interface ConfigurationMapper {
     @Select({
-        "SELECT configurations.* " + "FROM configurations " + "INNER JOIN users ON users.id = #{userId} "
-                + "LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
-                + "WHERE configurations.customerId=#{customerId} "
-                + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) " + "ORDER BY configurations.name"
+                    "SELECT configurations.* " + "FROM configurations " + "INNER JOIN users ON users.id = #{userId} "
+                            + "LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
+                            + "WHERE configurations.customerId=#{customerId} "
+                            + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) " + "ORDER BY configurations.name"
     })
     List<Configuration> getAllConfigurations(@Param("customerId") int customerId, @Param("userId") int userId);
 
     @Select({
-        "SELECT configurations.* " + "FROM configurations " + "INNER JOIN users ON users.id = #{userId} "
-                + "LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
-                + "WHERE configurations.customerId=#{customerId} "
-                + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) "
-                + "AND (configurations.name ILIKE #{value} OR configurations.description ILIKE #{value}) "
-                + "ORDER BY configurations.name"
+                    "SELECT configurations.* " + "FROM configurations " + "INNER JOIN users ON users.id = #{userId} "
+                            + "LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
+                            + "WHERE configurations.customerId=#{customerId} "
+                            + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) "
+                            + "AND (configurations.name ILIKE #{value} OR configurations.description ILIKE #{value}) "
+                            + "ORDER BY configurations.name"
     })
     List<Configuration> getAllConfigurationsByValue(
             @Param("customerId") int customerId, @Param("value") String value, @Param("userId") int userId);
 
     @Select({
-        "SELECT configurations.* " + "FROM configurations " + "INNER JOIN users ON users.id = #{userId} "
-                + "LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
-                + "WHERE configurations.customerId=#{customerId} "
-                + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) "
-                + "AND configurations.id=#{configurationId} " + "LIMIT 1 "
+                    "SELECT configurations.* " + "FROM configurations " + "INNER JOIN users ON users.id = #{userId} "
+                            + "LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
+                            + "WHERE configurations.customerId=#{customerId} "
+                            + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) "
+                            + "AND configurations.id=#{configurationId} " + "LIMIT 1 "
     })
     Configuration checkConfigurationAccess(
             @Param("customerId") int customerId,
@@ -70,38 +62,38 @@ public interface ConfigurationMapper {
     void insertConfiguration(Configuration configuration);
 
     @Update({
-        "UPDATE configurations SET " + "name=#{name}, " + "description=#{description}, "
-                + "password=#{password}, " + "backgroundColor=#{backgroundColor}, " + "textColor=#{textColor}, "
-                + "backgroundImageUrl=#{backgroundImageUrl}, " + "iconSize=#{iconSize}, "
-                + "desktopHeader=#{desktopHeader}, " + "desktopHeaderTemplate=#{desktopHeaderTemplate}, "
-                + "displayStatus=#{displayStatus}, " + "requestUpdates=#{requestUpdates}, "
-                + "disableLocation=#{disableLocation}, " + "appPermissions=#{appPermissions}, "
-                + "pushOptions=#{pushOptions}, " + "keepaliveTime=#{keepaliveTime}, "
-                + "autoBrightness=#{autoBrightness}, "
-                + "brightness=#{brightness}, " + "manageTimeout=#{manageTimeout}, " + "timeout=#{timeout}, "
-                + "lockVolume=#{lockVolume}, " + "manageVolume=#{manageVolume}, " + "volume=#{volume}, "
-                + "passwordMode=#{passwordMode}, " + "orientation=#{orientation}, "
-                + "runDefaultLauncher=#{runDefaultLauncher}, " + "disableScreenshots=#{disableScreenshots}, "
-                + "autostartForeground=#{autostartForeground}, "
-                + "useDefaultDesignSettings=#{useDefaultDesignSettings}, "
-                + "timeZone=#{timeZone}, " + "allowedClasses=#{allowedClasses}, " + "newServerUrl=#{newServerUrl}, "
-                + "lockSafeSettings=#{lockSafeSettings}, " + "permissive=#{permissive}, " + "kioskExit=#{kioskExit}, "
-                + "showWifi=#{showWifi}, " + "gps=#{gps}, " + "bluetooth=#{bluetooth}, " + "wifi=#{wifi}, "
-                + "mobileData=#{mobileData}, " + "usbStorage=#{usbStorage}, " + "mainAppId=#{mainAppId}, "
-                + "contentAppId=#{contentAppId}, " + "eventReceivingComponent=#{eventReceivingComponent}, "
-                + "kioskMode=#{kioskMode}, " + "wifiSSID=#{wifiSSID}, " + "wifiPassword=#{wifiPassword}, "
-                + "wifiSecurityType=#{wifiSecurityType}, " + "encryptDevice=#{encryptDevice}, "
-                + "qrParameters=#{qrParameters}, " + "adminExtras=#{adminExtras}, "
-                + "mobileEnrollment=#{mobileEnrollment}, " + "kioskHome=#{kioskHome}, "
-                + "kioskRecents=#{kioskRecents}, "
-                + "kioskNotifications=#{kioskNotifications}, " + "kioskSystemInfo=#{kioskSystemInfo}, "
-                + "kioskKeyguard=#{kioskKeyguard}, " + "kioskLockButtons=#{kioskLockButtons}, "
-                + "kioskScreenOn=#{kioskScreenOn}, " + "launcherUrl=#{launcherUrl}, " + "restrictions=#{restrictions}, "
-                + "autoUpdate=#{autoUpdate}, " + "blockStatusBar=#{blockStatusBar}, "
-                + "systemUpdateType=#{systemUpdateType}, " + "systemUpdateFrom=#{systemUpdateFrom}, "
-                + "systemUpdateTo=#{systemUpdateTo}, " + "scheduleAppUpdate=#{scheduleAppUpdate}, "
-                + "appUpdateFrom=#{appUpdateFrom}, " + "appUpdateTo=#{appUpdateTo}, "
-                + "downloadUpdates=#{downloadUpdates}, " + "defaultFilePath=#{defaultFilePath} " + "WHERE id=#{id}"
+                    "UPDATE configurations SET " + "name=#{name}, " + "description=#{description}, "
+                            + "password=#{password}, " + "backgroundColor=#{backgroundColor}, " + "textColor=#{textColor}, "
+                            + "backgroundImageUrl=#{backgroundImageUrl}, " + "iconSize=#{iconSize}, "
+                            + "desktopHeader=#{desktopHeader}, " + "desktopHeaderTemplate=#{desktopHeaderTemplate}, "
+                            + "displayStatus=#{displayStatus}, " + "requestUpdates=#{requestUpdates}, "
+                            + "disableLocation=#{disableLocation}, " + "appPermissions=#{appPermissions}, "
+                            + "pushOptions=#{pushOptions}, " + "keepaliveTime=#{keepaliveTime}, "
+                            + "autoBrightness=#{autoBrightness}, "
+                            + "brightness=#{brightness}, " + "manageTimeout=#{manageTimeout}, " + "timeout=#{timeout}, "
+                            + "lockVolume=#{lockVolume}, " + "manageVolume=#{manageVolume}, " + "volume=#{volume}, "
+                            + "passwordMode=#{passwordMode}, " + "orientation=#{orientation}, "
+                            + "runDefaultLauncher=#{runDefaultLauncher}, " + "disableScreenshots=#{disableScreenshots}, "
+                            + "autostartForeground=#{autostartForeground}, "
+                            + "useDefaultDesignSettings=#{useDefaultDesignSettings}, "
+                            + "timeZone=#{timeZone}, " + "allowedClasses=#{allowedClasses}, " + "newServerUrl=#{newServerUrl}, "
+                            + "lockSafeSettings=#{lockSafeSettings}, " + "permissive=#{permissive}, " + "kioskExit=#{kioskExit}, "
+                            + "showWifi=#{showWifi}, " + "gps=#{gps}, " + "bluetooth=#{bluetooth}, " + "wifi=#{wifi}, "
+                            + "mobileData=#{mobileData}, " + "usbStorage=#{usbStorage}, " + "mainAppId=#{mainAppId}, "
+                            + "contentAppId=#{contentAppId}, " + "eventReceivingComponent=#{eventReceivingComponent}, "
+                            + "kioskMode=#{kioskMode}, " + "wifiSSID=#{wifiSSID}, " + "wifiPassword=#{wifiPassword}, "
+                            + "wifiSecurityType=#{wifiSecurityType}, " + "encryptDevice=#{encryptDevice}, "
+                            + "qrParameters=#{qrParameters}, " + "adminExtras=#{adminExtras}, "
+                            + "mobileEnrollment=#{mobileEnrollment}, " + "kioskHome=#{kioskHome}, "
+                            + "kioskRecents=#{kioskRecents}, "
+                            + "kioskNotifications=#{kioskNotifications}, " + "kioskSystemInfo=#{kioskSystemInfo}, "
+                            + "kioskKeyguard=#{kioskKeyguard}, " + "kioskLockButtons=#{kioskLockButtons}, "
+                            + "kioskScreenOn=#{kioskScreenOn}, " + "launcherUrl=#{launcherUrl}, " + "restrictions=#{restrictions}, "
+                            + "autoUpdate=#{autoUpdate}, " + "blockStatusBar=#{blockStatusBar}, "
+                            + "systemUpdateType=#{systemUpdateType}, " + "systemUpdateFrom=#{systemUpdateFrom}, "
+                            + "systemUpdateTo=#{systemUpdateTo}, " + "scheduleAppUpdate=#{scheduleAppUpdate}, "
+                            + "appUpdateFrom=#{appUpdateFrom}, " + "appUpdateTo=#{appUpdateTo}, "
+                            + "downloadUpdates=#{downloadUpdates}, " + "defaultFilePath=#{defaultFilePath} " + "WHERE id=#{id}"
     })
     void updateConfiguration(Configuration configuration);
 
@@ -131,7 +123,6 @@ public interface ConfigurationMapper {
      *
      * @param customerId an ID of a customer account set for current user.
      * @param id an ID of a configuration.
-     *
      * @return a list of all existing applications with set parameters of usage by specified configuration.
      */
     List<Application> getConfigurationApplications(
@@ -142,24 +133,20 @@ public interface ConfigurationMapper {
      *
      * @param customerId an ID of a customer account set for current user.
      * @param id an ID of a configuration.
-     *
      * @return a list of all existing applications with set parameters of usage by specified configuration.
      */
     List<Application> getPlainConfigurationApplications(
             @Param("customerId") Integer customerId, @Param("caTableName") String caTableName, @Param("id") Integer id);
 
-    @Insert(
-            "CREATE TEMP TABLE ${tableName} ON COMMIT DROP AS SELECT * FROM configurationApplications WHERE configurationId=${configurationId};")
+    @Insert("CREATE TEMP TABLE ${tableName} ON COMMIT DROP AS SELECT * FROM configurationApplications WHERE configurationId=${configurationId};")
     void createTempConfigAppTable(
             @Param("tableName") String tableName, @Param("configurationId") Integer configurationId);
 
     /**
-     * <p>Gets the list of applications used by specified configuration. This method is optimized because it is used to
-     * recalculated the device statuses when a new info is coming, so is expected to be called regularly. Some fields of
-     * the Application objects will be null.</p>
+     * <p>Gets the list of applications used by specified configuration. This method is optimized because it is used to recalculated the device
+     * statuses when a new info is coming, so is expected to be called regularly. Some fields of the Application objects will be null.</p>
      *
      * @param id an ID of a configuration.
-     *
      * @return a list of all existing applications with set parameters of usage by specified configuration.
      */
     List<Application> getPlainConfigurationAppsOptimized(@Param("id") Integer id);

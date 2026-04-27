@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.persistence.mapper;
@@ -81,41 +73,40 @@ public interface ApplicationMapper {
             + "LEFT JOIN (SELECT applicationVersions.id AS id, COUNT(*) AS usageCount "
             + "           FROM applicationVersions "
             + "           INNER JOIN configurationApplications c ON applicationVersions.id = c.applicationVersionId"
-            + "           GROUP BY 1) usageData ON usageData.id=applicationVersions.id ";
-    ;
+            + "           GROUP BY 1) usageData ON usageData.id=applicationVersions.id ";;
 
     @Select({
-        SELECT_BASE + "WHERE customerId = #{customerId} " + "OR customers.master = TRUE "
-                + "   AND NOT EXISTS"
-                + "    (" + "     SELECT 1 " + "     FROM applications apps2 "
-                + "     INNER JOIN applicationVersions ver2 ON ver2.applicationId=apps2.id"
-                + "     WHERE apps2.customerid = #{customerId} " + "     AND apps2.pkg=applications.pkg "
-                + "     AND ver2.version=applicationVersions.version" + "    )" + "ORDER BY name"
+                    SELECT_BASE + "WHERE customerId = #{customerId} " + "OR customers.master = TRUE "
+                            + "   AND NOT EXISTS"
+                            + "    (" + "     SELECT 1 " + "     FROM applications apps2 "
+                            + "     INNER JOIN applicationVersions ver2 ON ver2.applicationId=apps2.id"
+                            + "     WHERE apps2.customerid = #{customerId} " + "     AND apps2.pkg=applications.pkg "
+                            + "     AND ver2.version=applicationVersions.version" + "    )" + "ORDER BY name"
     })
     List<Application> getAllApplications(@Param("customerId") int customerId);
 
     @Select({
-        SELECT_BASE + "WHERE (customerId = #{customerId} " + "OR customers.master = TRUE"
-                + "   AND NOT EXISTS"
-                + "    (" + "     SELECT 1 " + "     FROM applications apps2 "
-                + "     INNER JOIN applicationVersions ver2 ON ver2.applicationId=apps2.id"
-                + "     WHERE apps2.customerid = #{customerId} " + "     AND apps2.pkg=applications.pkg "
-                + "     AND ver2.version=applicationVersions.version" + "    )" + ")"
-                + "AND (applications.name ILIKE #{value} OR pkg ILIKE #{value}) "
-                + "ORDER BY applications.name"
+                    SELECT_BASE + "WHERE (customerId = #{customerId} " + "OR customers.master = TRUE"
+                            + "   AND NOT EXISTS"
+                            + "    (" + "     SELECT 1 " + "     FROM applications apps2 "
+                            + "     INNER JOIN applicationVersions ver2 ON ver2.applicationId=apps2.id"
+                            + "     WHERE apps2.customerid = #{customerId} " + "     AND apps2.pkg=applications.pkg "
+                            + "     AND ver2.version=applicationVersions.version" + "    )" + ")"
+                            + "AND (applications.name ILIKE #{value} OR pkg ILIKE #{value}) "
+                            + "ORDER BY applications.name"
     })
     List<Application> getAllApplicationsByValue(@Param("customerId") int customerId, @Param("value") String value);
 
     @Select({
-        SELECT_BASE + "WHERE (customerId = #{customerId})"
-                + "AND (applicationVersions.url=#{url} OR applicationVersions.urlarmeabi=#{url} OR applicationVersions.urlarm64=#{url}) "
-                + "ORDER BY applications.name"
+                    SELECT_BASE + "WHERE (customerId = #{customerId})"
+                            + "AND (applicationVersions.url=#{url} OR applicationVersions.urlarmeabi=#{url} OR applicationVersions.urlarm64=#{url}) "
+                            + "ORDER BY applications.name"
     })
     List<Application> getAllApplicationsByUrl(@Param("customerId") int customerId, @Param("url") String url);
 
     @Insert({
-        "INSERT INTO applications (name, pkg, showIcon, useKiosk, system, customerId, runAfterInstall, runAtBoot, type, iconText, iconId, intent) "
-                + "VALUES (#{name}, #{pkg}, #{showIcon}, #{useKiosk}, #{system}, #{customerId}, #{runAfterInstall}, #{runAtBoot}, #{type}, #{iconText}, #{iconId}, #{intent})"
+                    "INSERT INTO applications (name, pkg, showIcon, useKiosk, system, customerId, runAfterInstall, runAtBoot, type, iconText, iconId, intent) "
+                            + "VALUES (#{name}, #{pkg}, #{showIcon}, #{useKiosk}, #{system}, #{customerId}, #{runAfterInstall}, #{runAtBoot}, #{type}, #{iconText}, #{iconId}, #{intent})"
     })
     @SelectKey(
             statement = "SELECT currval('applications_id_seq')",
@@ -126,8 +117,8 @@ public interface ApplicationMapper {
     void insertApplication(Application application);
 
     @Insert({
-        "INSERT INTO applicationVersions (applicationId, version, versionCode, url, apkHash, split, urlArmeabi, urlArm64) "
-                + "VALUES (#{applicationId}, #{version}, #{versionCode}, #{url}, #{apkHash}, #{split}, #{urlArmeabi}, #{urlArm64})"
+                    "INSERT INTO applicationVersions (applicationId, version, versionCode, url, apkHash, split, urlArmeabi, urlArm64) "
+                            + "VALUES (#{applicationId}, #{version}, #{versionCode}, #{url}, #{apkHash}, #{split}, #{urlArmeabi}, #{urlArm64})"
     })
     @SelectKey(
             statement = "SELECT currval('applicationVersions_id_seq')",
@@ -138,18 +129,18 @@ public interface ApplicationMapper {
     int insertApplicationVersion(ApplicationVersion version);
 
     @Update({
-        "UPDATE applications SET name=#{name}, pkg=#{pkg}, "
-                + "showIcon=#{showIcon}, useKiosk=#{useKiosk}, system=#{system}, customerId=#{customerId}, "
-                + "runAfterInstall = #{runAfterInstall}, runAtBoot = #{runAtBoot}, "
-                + "type = #{type}, iconText = #{iconText}, iconId = #{iconId}, intent = #{intent} "
-                + "WHERE id=#{id}"
+                    "UPDATE applications SET name=#{name}, pkg=#{pkg}, "
+                            + "showIcon=#{showIcon}, useKiosk=#{useKiosk}, system=#{system}, customerId=#{customerId}, "
+                            + "runAfterInstall = #{runAfterInstall}, runAtBoot = #{runAtBoot}, "
+                            + "type = #{type}, iconText = #{iconText}, iconId = #{iconId}, intent = #{intent} "
+                            + "WHERE id=#{id}"
     })
     void updateApplication(Application application);
 
     @Update({
-        "UPDATE applicationVersions SET version = #{version}, versionCode=#{versionCode}, url = #{url}, apkHash = #{apkHash}, "
-                + "split = #{split}, urlArmeabi = #{urlArmeabi}, urlArm64 = #{urlArm64} "
-                + "WHERE id=#{id}"
+                    "UPDATE applicationVersions SET version = #{version}, versionCode=#{versionCode}, url = #{url}, apkHash = #{apkHash}, "
+                            + "split = #{split}, urlArmeabi = #{urlArmeabi}, urlArm64 = #{urlArm64} "
+                            + "WHERE id=#{id}"
     })
     void updateApplicationVersion(ApplicationVersion applicationVersion);
 
@@ -157,29 +148,29 @@ public interface ApplicationMapper {
     void removeApplicationById(@Param("id") Integer id);
 
     @Select({
-        "SELECT configurationApplications.id       AS id, "
-                + "       configurations.id                  AS configurationId, "
-                + "       configurations.name                AS configurationName, "
-                + "       configurations.customerId          AS customerId, "
-                + "       applications.id                    AS applicationId, "
-                + "       applications.name                  AS applicationName, "
-                + "       COALESCE(configurationApplications.showIcon, applications.showIcon) AS showIcon, "
-                + "       applications.useKiosk              AS useKiosk, "
-                + "       configurationApplications.remove   AS remove, "
-                + "       latestAppVersion.version   AS latestVersionText, "
-                + "       currentAppVersion.version   AS currentVersionText, "
-                + "       (configurationApplications.configurationId IS NOT NULL AND applications.latestVersion <> configurationApplications.applicationVersionId) AS outdated, "
-                + "       configurationApplications.action AS action " + "FROM configurations "
-                + "         INNER JOIN users ON users.id = #{userId} "
-                + "         LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
-                + "         LEFT JOIN applications ON applications.id = #{id} "
-                + "         INNER JOIN applicationVersions AS latestAppVersion ON latestAppVersion.applicationId = applications.id AND latestAppVersion.id=applications.latestversion "
-                + "         LEFT JOIN configurationApplications ON configurations.id = configurationApplications.configurationId AND "
-                + "                                                applications.id = configurationApplications.applicationId "
-                + "         LEFT JOIN applicationVersions AS currentAppVersion ON currentAppVersion.applicationId = applications.id AND currentAppVersion.id=configurationApplications.applicationVersionId "
-                + "WHERE configurations.customerId = #{customerId} "
-                + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) "
-                + "ORDER BY LOWER(configurations.name)"
+                    "SELECT configurationApplications.id       AS id, "
+                            + "       configurations.id                  AS configurationId, "
+                            + "       configurations.name                AS configurationName, "
+                            + "       configurations.customerId          AS customerId, "
+                            + "       applications.id                    AS applicationId, "
+                            + "       applications.name                  AS applicationName, "
+                            + "       COALESCE(configurationApplications.showIcon, applications.showIcon) AS showIcon, "
+                            + "       applications.useKiosk              AS useKiosk, "
+                            + "       configurationApplications.remove   AS remove, "
+                            + "       latestAppVersion.version   AS latestVersionText, "
+                            + "       currentAppVersion.version   AS currentVersionText, "
+                            + "       (configurationApplications.configurationId IS NOT NULL AND applications.latestVersion <> configurationApplications.applicationVersionId) AS outdated, "
+                            + "       configurationApplications.action AS action " + "FROM configurations "
+                            + "         INNER JOIN users ON users.id = #{userId} "
+                            + "         LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
+                            + "         LEFT JOIN applications ON applications.id = #{id} "
+                            + "         INNER JOIN applicationVersions AS latestAppVersion ON latestAppVersion.applicationId = applications.id AND latestAppVersion.id=applications.latestversion "
+                            + "         LEFT JOIN configurationApplications ON configurations.id = configurationApplications.configurationId AND "
+                            + "                                                applications.id = configurationApplications.applicationId "
+                            + "         LEFT JOIN applicationVersions AS currentAppVersion ON currentAppVersion.applicationId = applications.id AND currentAppVersion.id=configurationApplications.applicationVersionId "
+                            + "WHERE configurations.customerId = #{customerId} "
+                            + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) "
+                            + "ORDER BY LOWER(configurations.name)"
     })
     List<ApplicationConfigurationLink> getApplicationConfigurations(
             @Param("customerId") Integer customerId,
@@ -187,31 +178,31 @@ public interface ApplicationMapper {
             @Param("id") Integer applicationId);
 
     @Select({
-        "SELECT configurationApplications.id       AS id, "
-                + "       configurations.id                  AS configurationId, "
-                + "       configurations.name                AS configurationName, "
-                + "       configurations.customerId          AS customerId, "
-                + "       applications.id                    AS applicationId, "
-                + "       applications.name                  AS applicationName, "
-                + "       COALESCE(configurationApplications.showIcon, caPrev.showIcon, applications.showIcon) AS showIcon, "
-                + "       applications.useKiosk              AS useKiosk, "
-                + "       COALESCE(configurationApplications.screenOrder, caPrev.screenOrder) AS screenOrder, "
-                + "       COALESCE(configurationApplications.keyCode, caPrev.keyCode) AS keyCode, "
-                + "       COALESCE(configurationApplications.bottom, caPrev.bottom) AS bottom, "
-                + "       COALESCE(configurationApplications.longTap, caPrev.longTap) AS longTap, "
-                + "       applicationVersions.id             AS applicationVersionId, "
-                + "       applicationVersions.id             AS versionText, "
-                + "       configurationApplications.remove   AS remove, "
-                + "       configurationApplications.action   AS action " + "FROM configurations "
-                + "         INNER JOIN users ON users.id = #{userId} "
-                + "         LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
-                + "INNER JOIN applicationVersions ON applicationVersions.id = #{id} "
-                + "INNER JOIN applications ON applications.id = applicationVersions.applicationId "
-                + "LEFT JOIN configurationApplications ON configurations.id = configurationApplications.configurationId AND configurationApplications.applicationVersionId = applicationVersions.id "
-                + "LEFT JOIN configurationApplications caPrev ON configurations.id = caPrev.configurationId AND caPrev.applicationId = #{appId} AND caPrev.action=1 "
-                + "WHERE configurations.customerId = #{customerId} "
-                + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) "
-                + "ORDER BY LOWER(configurations.name)"
+                    "SELECT configurationApplications.id       AS id, "
+                            + "       configurations.id                  AS configurationId, "
+                            + "       configurations.name                AS configurationName, "
+                            + "       configurations.customerId          AS customerId, "
+                            + "       applications.id                    AS applicationId, "
+                            + "       applications.name                  AS applicationName, "
+                            + "       COALESCE(configurationApplications.showIcon, caPrev.showIcon, applications.showIcon) AS showIcon, "
+                            + "       applications.useKiosk              AS useKiosk, "
+                            + "       COALESCE(configurationApplications.screenOrder, caPrev.screenOrder) AS screenOrder, "
+                            + "       COALESCE(configurationApplications.keyCode, caPrev.keyCode) AS keyCode, "
+                            + "       COALESCE(configurationApplications.bottom, caPrev.bottom) AS bottom, "
+                            + "       COALESCE(configurationApplications.longTap, caPrev.longTap) AS longTap, "
+                            + "       applicationVersions.id             AS applicationVersionId, "
+                            + "       applicationVersions.id             AS versionText, "
+                            + "       configurationApplications.remove   AS remove, "
+                            + "       configurationApplications.action   AS action " + "FROM configurations "
+                            + "         INNER JOIN users ON users.id = #{userId} "
+                            + "         LEFT JOIN userConfigurationAccess access ON configurations.id = access.configurationId AND access.userId = users.id "
+                            + "INNER JOIN applicationVersions ON applicationVersions.id = #{id} "
+                            + "INNER JOIN applications ON applications.id = applicationVersions.applicationId "
+                            + "LEFT JOIN configurationApplications ON configurations.id = configurationApplications.configurationId AND configurationApplications.applicationVersionId = applicationVersions.id "
+                            + "LEFT JOIN configurationApplications caPrev ON configurations.id = caPrev.configurationId AND caPrev.applicationId = #{appId} AND caPrev.action=1 "
+                            + "WHERE configurations.customerId = #{customerId} "
+                            + "AND (users.allConfigAvailable = TRUE OR NOT access.id IS NULL) "
+                            + "ORDER BY LOWER(configurations.name)"
     })
     List<ApplicationVersionConfigurationLink> getApplicationVersionConfigurationsWithCandidates(
             @Param("customerId") Integer customerId,
@@ -228,19 +219,19 @@ public interface ApplicationMapper {
     // applicationId);
 
     @Delete({
-        "DELETE FROM configurationApplications " + "WHERE applicationVersionId=#{id} "
-                + "AND configurationId IN (SELECT configurations.id "
-                + "                        FROM configurations "
-                + "                        WHERE configurations.customerId=#{customerId})"
+                    "DELETE FROM configurationApplications " + "WHERE applicationVersionId=#{id} "
+                            + "AND configurationId IN (SELECT configurations.id "
+                            + "                        FROM configurations "
+                            + "                        WHERE configurations.customerId=#{customerId})"
     })
     void removeApplicationVersionConfigurationsById(
             @Param("customerId") int customerId, @Param("id") Integer applicationVersionId);
 
     @Delete({
-        "DELETE FROM configurationApplications " + "WHERE applicationVersionId=#{id} "
-                + "AND configurationId IN (SELECT configurationId "
-                + "                        FROM userConfigurationAccess "
-                + "                        WHERE userId=#{userId})"
+                    "DELETE FROM configurationApplications " + "WHERE applicationVersionId=#{id} "
+                            + "AND configurationId IN (SELECT configurationId "
+                            + "                        FROM userConfigurationAccess "
+                            + "                        WHERE userId=#{userId})"
     })
     void removeApplicationVersionConfigurationsForLimitedUser(
             @Param("userId") int userId, @Param("id") Integer applicationVersionId);
@@ -256,36 +247,36 @@ public interface ApplicationMapper {
             @Param("confs") List<ApplicationVersionConfigurationLink> configurations);
 
     @Select({
-        SELECT_BY_VERSION_BASE + "WHERE (customerId = #{customerId} OR customers.master = TRUE )" + "AND pkg = #{pkg} "
-                + "AND applicationVersions.version=#{version}"
+                    SELECT_BY_VERSION_BASE + "WHERE (customerId = #{customerId} OR customers.master = TRUE )" + "AND pkg = #{pkg} "
+                            + "AND applicationVersions.version=#{version}"
     })
     List<Application> findByPackageIdAndVersion(
             @Param("customerId") int customerId, @Param("pkg") String pkg, @Param("version") String version);
 
     @Select({
-        SELECT_BY_VERSION_BASE + "WHERE (customerId = #{customerId} OR customers.master = TRUE )"
-                + "AND pkg = #{pkg} "
-                + "AND mdm_app_version_comparison_index(applicationVersions.version) > mdm_app_version_comparison_index(#{version})"
+                    SELECT_BY_VERSION_BASE + "WHERE (customerId = #{customerId} OR customers.master = TRUE )"
+                            + "AND pkg = #{pkg} "
+                            + "AND mdm_app_version_comparison_index(applicationVersions.version) > mdm_app_version_comparison_index(#{version})"
     })
     List<Application> findByPackageIdAndNewerVersion(
             @Param("customerId") int customerId, @Param("pkg") String pkg, @Param("version") String version);
 
     @Select({
-        SELECT_BY_VERSION_BASE + "WHERE (customerId = #{customerId} OR customers.master = TRUE )" + "AND pkg = #{pkg}"
+                    SELECT_BY_VERSION_BASE + "WHERE (customerId = #{customerId} OR customers.master = TRUE )" + "AND pkg = #{pkg}"
     })
     List<Application> findByPackageId(@Param("customerId") int customerId, @Param("pkg") String pkg);
 
     @Select({
-        SELECT_BY_VERSION_BASE + "WHERE (customerId = #{customerId} OR customers.master = TRUE )"
-                + "AND applications.name ILIKE #{name}"
+                    SELECT_BY_VERSION_BASE + "WHERE (customerId = #{customerId} OR customers.master = TRUE )"
+                            + "AND applications.name ILIKE #{name}"
     })
     List<Application> findByName(@Param("customerId") int customerId, @Param("name") String name);
 
     @Select({
-        "SELECT COUNT(*) " + "FROM applications "
-                + "INNER JOIN customers ON applications.customerId = customers.id "
-                + "WHERE (applications.customerId = #{customerId} OR customers.master = TRUE)"
-                + "AND applications.pkg = #{pkg}"
+                    "SELECT COUNT(*) " + "FROM applications "
+                            + "INNER JOIN customers ON applications.customerId = customers.id "
+                            + "WHERE (applications.customerId = #{customerId} OR customers.master = TRUE)"
+                            + "AND applications.pkg = #{pkg}"
     })
     Long countByPackageId(@Param("customerId") int customerId, @Param("pkg") String pkg);
 
@@ -299,7 +290,7 @@ public interface ApplicationMapper {
     List<Application> getAllAdminApplications();
 
     @Select({
-        SELECT_BASE + "WHERE (applications.name ILIKE #{value} OR pkg ILIKE #{value}) " + "ORDER BY applications.name"
+                    SELECT_BASE + "WHERE (applications.name ILIKE #{value} OR pkg ILIKE #{value}) " + "ORDER BY applications.name"
     })
     List<Application> getAllAdminApplicationsByValue(String value);
 
@@ -440,8 +431,7 @@ public interface ApplicationMapper {
             + "LIMIT 1")
     Integer getPrecedingVersion(@Param("id") Integer applicationId);
 
-    @Update(
-            "UPDATE configurationApplications SET showIcon = #{showIcon}, remove = #{remove}, action = #{action} WHERE id = #{id}")
+    @Update("UPDATE configurationApplications SET showIcon = #{showIcon}, remove = #{remove}, action = #{action} WHERE id = #{id}")
     void updateApplicationConfigurationLink(ApplicationConfigurationLink link);
 
     @Delete("DELETE FROM configurationApplications WHERE id = #{id}")
@@ -459,7 +449,6 @@ public interface ApplicationMapper {
      *
      * @param customerId an ID of a customer account to resolve applications for.
      * @param appPackages a list of package IDs to resolve.
-     *
      * @return a list of items mapping the package ID (as name) to application ID.
      */
     List<LookupItem> resolveAppsByPackageId(
@@ -492,25 +481,25 @@ public interface ApplicationMapper {
             @Param("applicationId") int applicationId, @Param("configurationId") int configurationId);
 
     @Select({
-        "SELECT COUNT(*) AS cnt " + "FROM applications "
-                + "INNER JOIN customers ON customers.id = applications.customerId "
-                + "INNER JOIN applicationVersions ON applicationVersions.id = applications.latestVersion "
-                + "WHERE (applications.customerId = #{customerId})" + "AND (applicationVersions.url=#{url}) "
+                    "SELECT COUNT(*) AS cnt " + "FROM applications "
+                            + "INNER JOIN customers ON customers.id = applications.customerId "
+                            + "INNER JOIN applicationVersions ON applicationVersions.id = applications.latestVersion "
+                            + "WHERE (applications.customerId = #{customerId})" + "AND (applicationVersions.url=#{url}) "
     })
     long countAllApplicationsByUrl(@Param("customerId") int customerId, @Param("url") String url);
 
     @Select({
-        "SELECT applications.name || ' ' || applicationVersions.version AS name " + "FROM applications "
-                + "INNER JOIN customers ON customers.id = applications.customerId "
-                + "INNER JOIN applicationVersions ON applicationVersions.id = applications.latestVersion "
-                + "WHERE (applications.customerId = #{customerId})" + "AND (applicationVersions.url=#{url}) "
+                    "SELECT applications.name || ' ' || applicationVersions.version AS name " + "FROM applications "
+                            + "INNER JOIN customers ON customers.id = applications.customerId "
+                            + "INNER JOIN applicationVersions ON applicationVersions.id = applications.latestVersion "
+                            + "WHERE (applications.customerId = #{customerId})" + "AND (applicationVersions.url=#{url}) "
     })
     List<String> getUsingApps(@Param("customerId") int customerId, @Param("url") String url);
 
     @Select({
-        "SELECT applicationVersions.id FROM applicationVersions "
-                + "INNER JOIN configurations ON configurations.mainAppId=applicationVersions.id "
-                + "WHERE applicationVersions.url ILIKE #{url} " + "LIMIT 1 "
+                    "SELECT applicationVersions.id FROM applicationVersions "
+                            + "INNER JOIN configurations ON configurations.mainAppId=applicationVersions.id "
+                            + "WHERE applicationVersions.url ILIKE #{url} " + "LIMIT 1 "
     })
     List<Long> getMainAppWithUrl(@Param("url") String url);
 }

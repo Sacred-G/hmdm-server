@@ -1,22 +1,14 @@
 /*
+ * Headwind MDM: Open Source Android MDM Software https://h-mdm.com
  *
- * Headwind MDM: Open Source Android MDM Software
- * https://h-mdm.com
+ * Copyright (C) 2019 Headwind Solutions LLC (https://h-mdm.com)
  *
- * Copyright (C) 2019 Headwind Solutions LLC (http://h-sms.com)
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a
+ * copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 package com.hmdm.util;
@@ -56,7 +48,8 @@ public class HMDMLogger implements Logger {
     }
 
     public void onMethodEntry(String signature) {
-        if (this.logger.isDebugEnabled()) {}
+        if (this.logger.isDebugEnabled()) {
+        }
     }
 
     /**
@@ -94,9 +87,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the TRACE level according to the specified format and argument.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the TRACE level.</p>
+     * Log a message at the TRACE level according to the specified format and argument. This form avoids superfluous object creation when the logger
+     * is disabled for the TRACE level.</p>
      *
      * @param format the format string
      * @param arg the argument
@@ -109,9 +101,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the TRACE level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the TRACE level.</p>
+     * Log a message at the TRACE level according to the specified format and arguments. This form avoids superfluous object creation when the logger
+     * is disabled for the TRACE level.</p>
      *
      * @param format the format string
      * @param arg1 the first argument
@@ -125,12 +116,10 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the TRACE level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous string concatenation when the logger is disabled for the TRACE level. However, this
-     * variant incurs the hidden (and relatively small) cost of creating an <code>Object[]</code> before invoking the
-     * method, even if this logger is disabled for TRACE. The variants taking {@link #trace(String, Object) one} and
-     * {@link #trace(String, Object, Object) two} arguments exist solely in order to avoid this hidden cost.</p>
+     * Log a message at the TRACE level according to the specified format and arguments. This form avoids superfluous string concatenation when the
+     * logger is disabled for the TRACE level. However, this variant incurs the hidden (and relatively small) cost of creating an
+     * <code>Object[]</code> before invoking the method, even if this logger is disabled for TRACE. The variants taking {@link #trace(String, Object)
+     * one} and {@link #trace(String, Object, Object) two} arguments exist solely in order to avoid this hidden cost.</p>
      *
      * @param format the format string
      * @param arguments a list of 3 or more arguments
@@ -183,8 +172,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #trace(String, Object)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #trace(String, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -198,8 +186,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #trace(String, Object, Object)} method except that the marker data is also taken
-     * into consideration.
+     * <p>This method is similar to {@link #trace(String, Object, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -214,8 +201,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #trace(String, Object...)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #trace(String, Object...)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -229,8 +215,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #trace(String, Throwable)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #trace(String, Throwable)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param msg the message accompanying the exception
@@ -244,7 +229,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Is the logger instance enabled for the DEBUG level?
+     * <p>Is the logger instance enabled for the DEBUG level?</p>
      *
      * @return True if this Logger is enabled for the DEBUG level, false otherwise.
      */
@@ -254,7 +239,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the DEBUG level.
+     * <p>Log a message at the DEBUG level.</p>
      *
      * @param msg the message string to be logged
      */
@@ -264,9 +249,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the DEBUG level according to the specified format and argument.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the DEBUG level.</p>
+     * <p>Log a message at the DEBUG level according to the specified format and argument. This form avoids superfluous object creation when the
+     * logger is disabled for the DEBUG level.</p>
      *
      * @param format the format string
      * @param arg the argument
@@ -277,9 +261,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the DEBUG level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the DEBUG level.</p>
+     * <p>Log a message at the DEBUG level according to the specified format and arguments. This form avoids superfluous object creation when the
+     * logger is disabled for the DEBUG level.</p>
      *
      * @param format the format string
      * @param arg1 the first argument
@@ -291,12 +274,10 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the DEBUG level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous string concatenation when the logger is disabled for the DEBUG level. However, this
-     * variant incurs the hidden (and relatively small) cost of creating an <code>Object[]</code> before invoking the
-     * method, even if this logger is disabled for DEBUG. The variants taking {@link #debug(String, Object) one} and
-     * {@link #debug(String, Object, Object) two} arguments exist solely in order to avoid this hidden cost.</p>
+     * <p>Log a message at the DEBUG level according to the specified format and arguments. This form avoids superfluous string concatenation when the
+     * logger is disabled for the DEBUG level. However, this variant incurs the hidden (and relatively small) cost of creating an
+     * <code>Object[]</code> before invoking the method, even if this logger is disabled for DEBUG. The variants taking {@link #debug(String, Object)
+     * one} and {@link #debug(String, Object, Object) two} arguments exist solely in order to avoid this hidden cost.</p>
      *
      * @param format the format string
      * @param arguments a list of 3 or more arguments
@@ -307,7 +288,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log an exception (throwable) at the DEBUG level with an accompanying message.
+     * <p>Log an exception (throwable) at the DEBUG level with an accompanying message.</p>
      *
      * @param msg the message accompanying the exception
      * @param t the exception (throwable) to log
@@ -318,7 +299,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Similar to {@link #isDebugEnabled()} method except that the marker data is also taken into account.
+     * <p>Similar to {@link #isDebugEnabled()} method except that the marker data is also taken into account.</p>
      *
      * @param marker The marker data to take into consideration
      *
@@ -330,7 +311,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message with the specific Marker at the DEBUG level.
+     * <p>Log a message with the specific Marker at the DEBUG level.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param msg the message string to be logged
@@ -341,8 +322,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #debug(String, Object)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #debug(String, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -354,8 +334,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #debug(String, Object, Object)} method except that the marker data is also taken
-     * into consideration.
+     * <p>This method is similar to {@link #debug(String, Object, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -368,8 +347,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #debug(String, Object...)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #debug(String, Object...)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -381,8 +359,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #debug(String, Throwable)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #debug(String, Throwable)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param msg the message accompanying the exception
@@ -404,7 +381,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the INFO level.
+     * <p>Log a message at the INFO level.</p>
      *
      * @param msg the message string to be logged
      */
@@ -414,9 +391,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the INFO level according to the specified format and argument.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the INFO level.</p>
+     * <p>Log a message at the INFO level according to the specified format and argument. This form avoids superfluous object creation when the logger
+     * is disabled for the INFO level.</p>
      *
      * @param format the format string
      * @param arg the argument
@@ -427,9 +403,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the INFO level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the INFO level.</p>
+     * <p>Log a message at the INFO level according to the specified format and arguments. This form avoids superfluous object creation when the
+     * logger is disabled for the INFO level.</p>
      *
      * @param format the format string
      * @param arg1 the first argument
@@ -441,11 +416,9 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the INFO level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous string concatenation when the logger is disabled for the INFO level. However, this
-     * variant incurs the hidden (and relatively small) cost of creating an <code>Object[]</code> before invoking the
-     * method, even if this logger is disabled for INFO. The variants taking {@link #info(String, Object) one} and
+     * <p>Log a message at the INFO level according to the specified format and arguments. This form avoids superfluous string concatenation when the
+     * logger is disabled for the INFO level. However, this variant incurs the hidden (and relatively small) cost of creating an <code>Object[]</code>
+     * before invoking the method, even if this logger is disabled for INFO. The variants taking {@link #info(String, Object) one} and
      * {@link #info(String, Object, Object) two} arguments exist solely in order to avoid this hidden cost.</p>
      *
      * @param format the format string
@@ -457,7 +430,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log an exception (throwable) at the INFO level with an accompanying message.
+     * <p>Log an exception (throwable) at the INFO level with an accompanying message.</p>
      *
      * @param msg the message accompanying the exception
      * @param t the exception (throwable) to log
@@ -468,7 +441,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Similar to {@link #isInfoEnabled()} method except that the marker data is also taken into consideration.
+     * <p>Similar to {@link #isInfoEnabled()} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker The marker data to take into consideration
      *
@@ -480,7 +453,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message with the specific Marker at the INFO level.
+     * <p>Log a message with the specific Marker at the INFO level.</p>
      *
      * @param marker The marker specific to this log statement
      * @param msg the message string to be logged
@@ -491,8 +464,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #info(String, Object)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #info(String, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -504,8 +476,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #info(String, Object, Object)} method except that the marker data is also taken
-     * into consideration.
+     * <p>This method is similar to {@link #info(String, Object, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -518,8 +489,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #info(String, Object...)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #info(String, Object...)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -531,8 +501,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #info(String, Throwable)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #info(String, Throwable)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data for this log statement
      * @param msg the message accompanying the exception
@@ -544,7 +513,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Is the logger instance enabled for the WARN level?
+     * <p>Is the logger instance enabled for the WARN level?</p>
      *
      * @return True if this Logger is enabled for the WARN level, false otherwise.
      */
@@ -554,7 +523,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the WARN level.
+     * <p>Log a message at the WARN level.</p>
      *
      * @param msg the message string to be logged
      */
@@ -564,9 +533,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the WARN level according to the specified format and argument.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the WARN level.</p>
+     * <p>Log a message at the WARN level according to the specified format and argument. This form avoids superfluous object creation when the logger
+     * is disabled for the WARN level.</p>
      *
      * @param format the format string
      * @param arg the argument
@@ -577,11 +545,9 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the WARN level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous string concatenation when the logger is disabled for the WARN level. However, this
-     * variant incurs the hidden (and relatively small) cost of creating an <code>Object[]</code> before invoking the
-     * method, even if this logger is disabled for WARN. The variants taking {@link #warn(String, Object) one} and
+     * <p>Log a message at the WARN level according to the specified format and arguments. This form avoids superfluous string concatenation when the
+     * logger is disabled for the WARN level. However, this variant incurs the hidden (and relatively small) cost of creating an <code>Object[]</code>
+     * before invoking the method, even if this logger is disabled for WARN. The variants taking {@link #warn(String, Object) one} and
      * {@link #warn(String, Object, Object) two} arguments exist solely in order to avoid this hidden cost.</p>
      *
      * @param format the format string
@@ -593,9 +559,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the WARN level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the WARN level.</p>
+     * <p>Log a message at the WARN level according to the specified format and arguments. This form avoids superfluous object creation when the
+     * logger is disabled for the WARN level.</p>
      *
      * @param format the format string
      * @param arg1 the first argument
@@ -607,7 +572,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log an exception (throwable) at the WARN level with an accompanying message.
+     * <p>Log an exception (throwable) at the WARN level with an accompanying message.</p>
      *
      * @param msg the message accompanying the exception
      * @param t the exception (throwable) to log
@@ -618,7 +583,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Similar to {@link #isWarnEnabled()} method except that the marker data is also taken into consideration.
+     * <p>Similar to {@link #isWarnEnabled()} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker The marker data to take into consideration
      * @return True if this Logger is enabled for the WARN level, false otherwise.
@@ -629,7 +594,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message with the specific Marker at the WARN level.
+     * <p>Log a message with the specific Marker at the WARN level.</p>
      *
      * @param marker The marker specific to this log statement
      * @param msg the message string to be logged
@@ -640,8 +605,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #warn(String, Object)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #warn(String, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -653,8 +617,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #warn(String, Object, Object)} method except that the marker data is also taken
-     * into consideration.
+     * <p>This method is similar to {@link #warn(String, Object, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -667,8 +630,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #warn(String, Object...)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #warn(String, Object...)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -680,8 +642,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #warn(String, Throwable)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #warn(String, Throwable)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data for this log statement
      * @param msg the message accompanying the exception
@@ -693,7 +654,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Is the logger instance enabled for the ERROR level?
+     * <p>Is the logger instance enabled for the ERROR level?</p>
      *
      * @return True if this Logger is enabled for the ERROR level, false otherwise.
      */
@@ -703,7 +664,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the ERROR level.
+     * <p>Log a message at the ERROR level.</p>
      *
      * @param msg the message string to be logged
      */
@@ -713,9 +674,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the ERROR level according to the specified format and argument.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the ERROR level.</p>
+     * <p>Log a message at the ERROR level according to the specified format and argument. This form avoids superfluous object creation when the
+     * logger is disabled for the ERROR level.</p>
      *
      * @param format the format string
      * @param arg the argument
@@ -726,9 +686,8 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the ERROR level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous object creation when the logger is disabled for the ERROR level.</p>
+     * <p>Log a message at the ERROR level according to the specified format and arguments. This form avoids superfluous object creation when the
+     * logger is disabled for the ERROR level.</p>
      *
      * @param format the format string
      * @param arg1 the first argument
@@ -740,12 +699,10 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message at the ERROR level according to the specified format and arguments.
-     * <p/>
-     * <p>This form avoids superfluous string concatenation when the logger is disabled for the ERROR level. However, this
-     * variant incurs the hidden (and relatively small) cost of creating an <code>Object[]</code> before invoking the
-     * method, even if this logger is disabled for ERROR. The variants taking {@link #error(String, Object) one} and
-     * {@link #error(String, Object, Object) two} arguments exist solely in order to avoid this hidden cost.</p>
+     * <p>Log a message at the ERROR level according to the specified format and arguments. This form avoids superfluous string concatenation when the
+     * logger is disabled for the ERROR level. However, this variant incurs the hidden (and relatively small) cost of creating an
+     * <code>Object[]</code> before invoking the method, even if this logger is disabled for ERROR. The variants taking {@link #error(String, Object)
+     * one} and {@link #error(String, Object, Object) two} arguments exist solely in order to avoid this hidden cost.</p>
      *
      * @param format the format string
      * @param arguments a list of 3 or more arguments
@@ -756,7 +713,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log an exception (throwable) at the ERROR level with an accompanying message.
+     * <p>Log an exception (throwable) at the ERROR level with an accompanying message.</p>
      *
      * @param msg the message accompanying the exception
      * @param t the exception (throwable) to log
@@ -767,7 +724,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Similar to {@link #isErrorEnabled()} method except that the marker data is also taken into consideration.
+     * <p>Similar to {@link #isErrorEnabled()} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker The marker data to take into consideration
      * @return True if this Logger is enabled for the ERROR level, false otherwise.
@@ -778,7 +735,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * Log a message with the specific Marker at the ERROR level.
+     * <p>Log a message with the specific Marker at the ERROR level.</p>
      *
      * @param marker The marker specific to this log statement
      * @param msg the message string to be logged
@@ -789,8 +746,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #error(String, Object)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #error(String, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -802,8 +758,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #error(String, Object, Object)} method except that the marker data is also taken
-     * into consideration.
+     * <p>This method is similar to {@link #error(String, Object, Object)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -816,8 +771,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #error(String, Object...)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #error(String, Object...)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param format the format string
@@ -829,8 +783,7 @@ public class HMDMLogger implements Logger {
     }
 
     /**
-     * This method is similar to {@link #error(String, Throwable)} method except that the marker data is also taken into
-     * consideration.
+     * <p>This method is similar to {@link #error(String, Throwable)} method except that the marker data is also taken into consideration.</p>
      *
      * @param marker the marker data specific to this log statement
      * @param msg the message accompanying the exception

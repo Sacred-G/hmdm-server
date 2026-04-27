@@ -1,6 +1,6 @@
-if (! document.localization) document.localization = [];
+if (!document.localization) document.localization = [];
 
-document.localization ['ja_JP'] = {
+document.localization['ja_JP'] = {
     'login.username': 'ユーザー名',
     'login.username.placeholder': 'ユーザー名を入力',
     'login.password': 'パスワード:',
@@ -414,8 +414,8 @@ document.localization ['ja_JP'] = {
     'form.configuration.settings.push.options.mqtt.worker': 'MQTT プロトコル (バッテリー節約)',
     'form.configuration.settings.push.options.mqtt.alarm': 'MQTTプロトコル',
     'form.configuration.settings.push.options.polling': 'HTTP ポーリング',
-    'form.configuration.settings.push.options.mqtt.worker.hint' : 'デバイスがアクティブになると即座にプッシュ メッセージを配信します。 ただし、スリープ モードではメッセージが最大数時間遅れる場合があります。 このオプションは、スタンドアロン デバイスでは使用しないでください。 MQTT は TCP ポート 31000 を使用します。ファイアウォールで有効にしてください。',
-    'form.configuration.settings.push.options.mqtt.alarm.hint' : 'MQTT は、最小限のリソースしか消費しない軽量プロトコルです。MQTT は TCP ポート 31000 を使用するので、ファイアウォールで有効にしてください。',
+    'form.configuration.settings.push.options.mqtt.worker.hint': 'デバイスがアクティブになると即座にプッシュ メッセージを配信します。 ただし、スリープ モードではメッセージが最大数時間遅れる場合があります。 このオプションは、スタンドアロン デバイスでは使用しないでください。 MQTT は TCP ポート 31000 を使用します。ファイアウォールで有効にしてください。',
+    'form.configuration.settings.push.options.mqtt.alarm.hint': 'MQTT は、最小限のリソースしか消費しない軽量プロトコルです。MQTT は TCP ポート 31000 を使用するので、ファイアウォールで有効にしてください。',
     'form.configuration.settings.push.options.polling.hint': '長いポーリングでは HTTP 接続が持続し、サーバー リソースをさらに消費する可能性があります。HTTP(S) 以外の TCP ポートは必要ありません。',
     'form.configuration.settings.push.options.keepalive': 'キープアライブ時間',
     'form.configuration.settings.minute.1': '1 分',
@@ -444,12 +444,15 @@ document.localization ['ja_JP'] = {
     'form.configuration.files.action.remove': '削除',
     'form.configuration.files.variables': '変数の内容',
     'form.configuration.files.variables.hint': '文字列DEVICE_NUMBER、IMEI、CUSTOM*はそれらの値に置き換えられます',
+    'form.application.setting.variables.hint': '文字列%NUMBER%、%IMEI%、%PHONE%、%DESCRIPTION%、%CUSTOM1%、%CUSTOM2%、%CUSTOM3%はそれらの値に置き換えられます',
 
     'form.configuration.file.name': 'ファイル名',
     'form.configuration.file.select': 'ファイルを選択',
     'form.configuration.file.create': '(新しいファイルを作成)',
     'form.configuration.file.description': 'ファイルの説明',
     'form.configuration.file.description.placeholder': '便利なオプションです',
+    'form.configuration.file.override.path': 'パスを上書きします',
+    'form.configuration.file.override.path.title': 'この設定のみのデバイスパスを指定します',
     'form.configuration.file.path': 'デバイス上のパス',
     'form.configuration.file.path.placeholder': 'ドライブへのパスを除外します。 /my-app/image.jpg',
     'form.configuration.file.url': 'URL',
@@ -905,17 +908,17 @@ document.localization ['ja_JP'] = {
     'table.heading.common.apps.actions': 'アクション',
 
     'notfound.devices': '表示するデバイスがありません.',
-    'notfound.files':' ファイル リストが空です。',
+    'notfound.files': ' ファイル リストが空です。',
     'notfound.configurations': '設定が見つかりませんでした.',
     'notfound.customers': '組織が見つかりません。',
     'notfound.common.apps': '表示するアプリケーションがありません。',
     'notfound.applications': 'アプリケーションが見つかりません',
-    'notfound.groups':' グループが見つかりません。 別のクエリを試してください。',
-    'notfound.users':' ユーザーが見つかりません。 別のクエリを試してください。',
+    'notfound.groups': ' グループが見つかりません。 別のクエリを試してください。',
+    'notfound.users': ' ユーザーが見つかりません。 別のクエリを試してください。',
     'notfound.apps.for.display': '表示するアプリケーションがありません。',
     'notfound.app.versions.for.display': '表示するバージョンがありません。',
-    'notfound.roles':'役割リストが空です。',
-    'notfound.icons':'アイコンリストが空です。',
+    'notfound.roles': '役割リストが空です。',
+    'notfound.icons': 'アイコンリストが空です。',
 
     'format.date.header': 'HH:mm dd/MM/yyyy',
 
@@ -948,9 +951,9 @@ document.localization ['ja_JP'] = {
     'breadcrumb.application.versions': 'バージョン',
 
     'app.name': 'Headwind MDM',
-    'app.vendor.name':"h-mdm.com",
-    'app.vendor.link':"https://h-mdm.com",
-    'app.description': 'is the open source mobile device management system',
+    'app.vendor.name': "h-mdm.com",
+    'app.vendor.link': "https://h-mdm.com",
+    'app.description': 'オープンソースのデバイス管理システム',
     'app.title': '${appName} Web パネル',
 
     'box.show.my.apps.only': '自分のアプリケーションのみを表示',
@@ -1110,6 +1113,6 @@ document.localization ['ja_JP'] = {
     'permission.files': 'ファイルの表示',
     'permission.edit_files': 'ファイルの管理',
 
-    'yes':'はい',
+    'yes': 'はい',
     'no': 'いいえ'
 };
